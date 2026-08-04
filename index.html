@@ -782,6 +782,27 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
   border-color: var(--border-strong) !important;
 }
 
+/* ==== Usage Guide ==== */
+.guide-overlay { position: fixed; inset: 0; z-index: 9998; display: none; align-items: center; justify-content: center; background: rgba(8,10,16,0.72); padding: 20px; }
+.guide-overlay.show { display: flex; }
+.guide-box { width: min(92vw, 580px); max-height: 88vh; overflow-y: auto; box-sizing: border-box; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 12px; box-shadow: var(--shadow); padding: 28px 28px 18px; text-align: center; }
+.guide-icon { font-size: 46px; margin-bottom: 8px; }
+.guide-box h2 { margin: 0 0 6px; font-size: 21px; color: var(--text); }
+.guide-sub { margin: 0 0 16px; font-size: 13px; color: var(--text-muted); }
+.guide-features { text-align: left; margin: 0 0 18px; padding: 0; list-style: none; }
+.guide-features li { position: relative; padding: 7px 0 7px 22px; font-size: 13px; line-height: 1.7; color: var(--text-secondary); }
+.guide-features li::before { content: "▸"; position: absolute; left: 2px; color: var(--primary); font-weight: 700; }
+.guide-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.guide-nav .g-btn { padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); transition: all 0.2s; }
+.guide-nav .g-btn:hover { border-color: var(--primary); color: var(--primary); }
+.guide-nav .g-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.guide-nav .g-btn.primary:hover { background: var(--primary-dark); color: #fff; }
+.guide-dots { display: flex; gap: 6px; align-items: center; }
+.guide-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); transition: background 0.2s; }
+.guide-dot.active { background: var(--primary); }
+.guide-skip { margin-top: 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; text-decoration: underline; }
+.guide-skip:hover { color: var(--primary); }
+
 </style>
 </head>
 <body>
@@ -806,6 +827,22 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
     </div>
     <div class="login-msg" id="loginMsg"></div>
     <div class="login-tip">体验账号：<strong>student</strong>　密码：<strong>123456</strong><br>注册的账号仅保存在本机浏览器中</div>
+  </div>
+</div>
+
+<!-- Usage Guide -->
+<div class="guide-overlay" id="guideOverlay">
+  <div class="guide-box">
+    <div class="guide-icon" id="guideIcon">👋</div>
+    <h2 id="guideTitle">欢迎使用 Python 暑假课</h2>
+    <p class="guide-sub" id="guideSub">先花一分钟认识每个栏目，再开始学习</p>
+    <ul class="guide-features" id="guideFeatures"></ul>
+    <div class="guide-nav">
+      <button class="g-btn" id="guidePrev" onclick="prevGuide()">← 上一步</button>
+      <div class="guide-dots" id="guideDots"></div>
+      <button class="g-btn primary" id="guideNext" onclick="nextGuide()">下一步 →</button>
+    </div>
+    <div class="guide-skip" onclick="finishGuide()">跳过使用说明，直接开始学习</div>
   </div>
 </div>
 
@@ -839,6 +876,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
   <button onclick="showShortcutHint()">⌨ 快捷键</button>
   <button onclick="exportProgress()" class="export-btn">📥 导出</button>
   <button onclick="resetProgress()" class="reset-btn">↺ 重置进度</button>
+  <button onclick="openGuide()">❓ 帮助</button>
   <button onclick="toggleBadges()" id="btnBadges">🏆 徽章</button>
 </div>
 <div class="content-header">
@@ -2389,6 +2427,7 @@ function init() {
     document.getElementById('userNameLabel').textContent = '👤 ' + user;
     document.getElementById('userRow').style.display = 'flex';
     setTimeout(function(){ screen.style.display = 'none'; }, 420);
+    setTimeout(function(){ if (!guideDoneFor(user)) openGuide(); }, 800);
   }
   function logout() {
     localStorage.removeItem('python_course_user');
@@ -2405,6 +2444,7 @@ function init() {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('userNameLabel').textContent = '👤 ' + user;
       document.getElementById('userRow').style.display = 'flex';
+      setTimeout(function(){ if (!guideDoneFor(user)) openGuide(); }, 500);
     }
   }
 
@@ -2458,6 +2498,59 @@ function init() {
     ['oldPass','newPass','confirmPass'].forEach(function(id){
       document.getElementById(id).value = '';
     });
+  }
+
+  // ===== Usage Guide =====
+  var GUIDE_STEPS = [
+    { icon: '👋', title: '欢迎使用 Python 暑假课', sub: '先花一分钟认识每个栏目，再开始学习', feats: ['左侧是 18 节课的课程列表', '中间是每节课的学习内容', '右下角 🐍 是 Python 实时运行控制台'] },
+    { icon: '📚', title: '课程与进度', sub: '侧边栏就是你的课程地图', feats: ['点击课程即可进入学习', '绿色圆点：已完成', '橙色圆点：正在学', '灰色圆点：还没开始'] },
+    { icon: '🎯', title: '难度选择', sub: '每节课都有三档难度', feats: ['🌱 基础：概念 + 入门示例', '🌿 进阶：更多讲解和示例', '🌳 挑战：原理、易错点和综合练习', '切换难度后，学习内容会自动变化'] },
+    { icon: '📖', title: '一节课怎么学', sub: '每节课分四个步骤，用顶部标签切换', feats: ['🔥 本节主题：新词预习和目标', '📖 核心内容：定义、代码和逐行解析', '✏️ 练习题：限时编程练习', '✅ 小结：本节知识总结'] },
+    { icon: '🧰', title: '顶部工具栏', sub: '学习时的常用工具都在这里', feats: ['📊 总览：查看 18 节课完成情况', '🎴 词卡：复习新词和意思', '⏱ 番茄钟：25 分钟专注学习', '🏆 徽章：完成课程获得成就', '📥 导出：把学习记录导出成 Word', '↺ 重置进度：清空所有进度', '🌑 暗色：切换深浅色界面'] },
+    { icon: '🐍', title: 'Python 控制台', sub: '写代码的地方，不用另外打开软件', feats: ['点右下角 🐍 按钮打开或关闭', '在上方写代码，点 ▶ 运行', '可以打开“实时运行”，边写边出结果', '按 Tab 自动缩进，Ctrl+Enter 快速运行'] },
+    { icon: '👤', title: '账号与数据', sub: '你的学习数据存在本机浏览器里', feats: ['左侧 ⚙️ 设置：退出、切换账号、改密码', '学习进度会自动保存，下次继续', '换了电脑或浏览器，数据不会同步'] }
+  ];
+  var guideIndex = 0;
+  function getCurrentUserName() {
+    return localStorage.getItem('python_course_user') || '';
+  }
+  function guideDoneFor(user) {
+    return !!user && localStorage.getItem('python_course_guide_done_' + user) === '1';
+  }
+  function markGuideDone() {
+    var user = getCurrentUserName();
+    if (user) localStorage.setItem('python_course_guide_done_' + user, '1');
+  }
+  function openGuide() {
+    guideIndex = 0;
+    renderGuide();
+    document.getElementById('guideOverlay').classList.add('show');
+  }
+  function closeGuide() {
+    document.getElementById('guideOverlay').classList.remove('show');
+  }
+  function renderGuide() {
+    var s = GUIDE_STEPS[guideIndex];
+    document.getElementById('guideIcon').textContent = s.icon;
+    document.getElementById('guideTitle').textContent = s.title;
+    document.getElementById('guideSub').textContent = s.sub;
+    document.getElementById('guideFeatures').innerHTML = s.feats.map(function(f){ return '<li>' + f + '</li>'; }).join('');
+    document.getElementById('guidePrev').style.visibility = guideIndex === 0 ? 'hidden' : 'visible';
+    document.getElementById('guideNext').textContent = guideIndex === GUIDE_STEPS.length - 1 ? '开始学习 →' : '下一步 →';
+    var dots = '';
+    for (var i = 0; i < GUIDE_STEPS.length; i++) dots += '<span class="guide-dot' + (i === guideIndex ? ' active' : '') + '"></span>';
+    document.getElementById('guideDots').innerHTML = dots;
+  }
+  function nextGuide() {
+    if (guideIndex < GUIDE_STEPS.length - 1) { guideIndex++; renderGuide(); }
+    else { finishGuide(); }
+  }
+  function prevGuide() {
+    if (guideIndex > 0) { guideIndex--; renderGuide(); }
+  }
+  function finishGuide() {
+    markGuideDone();
+    closeGuide();
   }
 
   authInit();
