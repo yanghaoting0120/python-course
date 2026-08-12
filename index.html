@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Python 暑假课程 - 交互式教学</title>
+<title>蛙课堂程 - 交互式教学</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #1a1a2e; display: flex; height: 100vh; overflow: hidden; }
@@ -845,8 +845,8 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
 <!-- Login Screen -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">🐍</div>
-    <h1>Python 暑假课</h1>
+    <div class="login-logo">🐸</div>
+    <h1>蛙课堂</h1>
     <p class="login-sub">交互式编程教学 · 登录后开始学习</p>
     <div class="login-field">
       <label for="loginUser">账号</label>
@@ -869,7 +869,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
 <div class="guide-overlay" id="guideOverlay">
   <div class="guide-box">
     <div class="guide-icon" id="guideIcon">👋</div>
-    <h2 id="guideTitle">欢迎使用 Python 暑假课</h2>
+    <h2 id="guideTitle">欢迎使用 蛙课堂</h2>
     <p class="guide-sub" id="guideSub">先花一分钟认识每个栏目，再开始学习</p>
     <ul class="guide-features" id="guideFeatures"></ul>
     <div class="guide-nav">
@@ -886,7 +886,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <h1>🐍 Python 暑假课</h1>
+    <h1>🐸 蛙课堂</h1>
     <p>交互式编程教学</p>
     <div class="stats">
       <span id="progressStats">0 / 0 节</span>
@@ -1014,7 +1014,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
     "content": {
      "basic": "<div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">Python 用缩进表示什么？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 代码层级</button><button onclick=\"checkQuiz(this, 'b')\">B. 注释内容</button><button onclick=\"checkQuiz(this, 'c')\">C. 变量类型</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 缩进决定代码属于哪一层。</p></div><div class=\"quiz\" data-answer=\"b\"><p class=\"quiz-question\">推荐使用几个空格做缩进？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 2 个</button><button onclick=\"checkQuiz(this, 'b')\">B. 4 个</button><button onclick=\"checkQuiz(this, 'c')\">C. 8 个</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ PEP8 推荐 4 个空格。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">input() 返回的是什么？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 字符串</button><button onclick=\"checkQuiz(this, 'b')\">B. 数字</button><button onclick=\"checkQuiz(this, 'c')\">C. 程序代码</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ input 返回的是一段文本，也就是字符串。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">单行注释使用哪个符号？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. #</button><button onclick=\"checkQuiz(this, 'b')\">B. //</button><button onclick=\"checkQuiz(this, 'c')\">C. /*</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ # 后面的内容是注释。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">把两个字符串拼起来用哪个运算符？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. +</button><button onclick=\"checkQuiz(this, 'b')\">B. -</button><button onclick=\"checkQuiz(this, 'c')\">C. *</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 字符串用 + 拼接。</p></div><div class=\"coding-exercise\" id=\"ex-2-basic\">\n<div class=\"ex-header\"><span class=\"ex-title\">📝 🌱 基础 应用题</span><span class=\"ex-timer\" data-time=\"3\" id=\"t-ex-2-basic\">3:00</span></div>\n<div class=\"ex-body\"><div class=\"ex-desc\">用 input 接收名字并打招呼</div>\n<textarea placeholder=\"# 写代码...\" disabled></textarea>\n<div class=\"ex-actions\">\n<button class=\"btn-start\" onclick=\"startExercise(this)\">▶ 开始</button>\n<button class=\"btn-reveal\" onclick=\"revealSolution(this)\">🔍 答案</button>\n</div>\n<div class=\"ex-solution\"><div class=\"sol-header\">✅ 参考解答</div>\n<pre><code>name = input('你的名字：')\nprint('你好，' + name + '！')</code></pre></div>\n</div>\n<div class=\"ex-status\">💡 点击开始</div>\n</div>",
      "standard": "<div class=\"quiz\" data-answer=\"b\"><p class=\"quiz-question\">关键字能不能当变量名？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 能</button><button onclick=\"checkQuiz(this, 'b')\">B. 不能</button><button onclick=\"checkQuiz(this, 'c')\">C. 有时能</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 关键字是保留词，不能当变量名。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">int(\"12\") 的结果是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 12</button><button onclick=\"checkQuiz(this, 'b')\">B. \"12\"</button><button onclick=\"checkQuiz(this, 'c')\">C. 报错</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ int() 把字符串转成整数 12。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">f\"我叫{name}\" 的作用是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 把变量嵌入字符串</button><button onclick=\"checkQuiz(this, 'b')\">B. 删除变量</button><button onclick=\"checkQuiz(this, 'c')\">C. 把字符串转数字</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ {} 里放变量，输出时替换成值。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">下面哪个是合法标识符？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. student_name</button><button onclick=\"checkQuiz(this, 'b')\">B. 1name</button><button onclick=\"checkQuiz(this, 'c')\">C. my-name</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ student_name 合法；数字开头或带连字符都不合法。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">输入内容后想转成整数，应使用哪个函数？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. int()</button><button onclick=\"checkQuiz(this, 'b')\">B. print()</button><button onclick=\"checkQuiz(this, 'c')\">C. input()</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ input 后套 int() 做整数转换。</p></div><div class=\"coding-exercise\" id=\"ex-2-standard\">\n<div class=\"ex-header\"><span class=\"ex-title\">📝 🌿 进阶 应用题</span><span class=\"ex-timer\" data-time=\"4\" id=\"t-ex-2-standard\">4:00</span></div>\n<div class=\"ex-body\"><div class=\"ex-desc\">输入两个整数，输出它们的和</div>\n<textarea placeholder=\"# 写代码...\" disabled></textarea>\n<div class=\"ex-actions\">\n<button class=\"btn-start\" onclick=\"startExercise(this)\">▶ 开始</button>\n<button class=\"btn-reveal\" onclick=\"revealSolution(this)\">🔍 答案</button>\n</div>\n<div class=\"ex-solution\"><div class=\"sol-header\">✅ 参考解答</div>\n<pre><code>a = int(input())\nb = int(input())\nprint(a + b)</code></pre></div>\n</div>\n<div class=\"ex-status\">💡 点击开始</div>\n</div>",
-     "advanced": "<div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">混用 Tab 和空格通常会报什么错？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. IndentationError</button><button onclick=\"checkQuiz(this, 'b')\">B. ValueError</button><button onclick=\"checkQuiz(this, 'c')\">C. 语法错误</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 缩进错误会报 IndentationError。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">下面哪一行是注释？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. # 年龄</button><button onclick=\"checkQuiz(this, 'b')\">B. age = 20</button><button onclick=\"checkQuiz(this, 'c')\">C. print(age)</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ # 开头的是注释。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">给变量命名的最好习惯是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 见名知义</button><button onclick=\"checkQuiz(this, 'b')\">B. 随便写</button><button onclick=\"checkQuiz(this, 'c')\">C. 用关键字</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 好名字能让代码容易读懂。</p></div><div class=\"quiz\" data-answer=\"b\"><p class=\"quiz-question\">表达式 (score1 + score2) / 2 中 / 表示？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 乘法</button><button onclick=\"checkQuiz(this, 'b')\">B. 除法</button><button onclick=\"checkQuiz(this, 'c')\">C. 取整</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ / 是除法。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">注释的作用是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 给程序员看</button><button onclick=\"checkQuiz(this, 'b')\">B. 给电脑执行</button><button onclick=\"checkQuiz(this, 'c')\">C. 删除代码</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ Python 会忽略注释。</p></div><div class=\"coding-exercise\" id=\"ex-2-advanced\">\n<div class=\"ex-header\"><span class=\"ex-title\">📝 🌳 挑战 应用题</span><span class=\"ex-timer\" data-time=\"5\" id=\"t-ex-2-advanced\">5:00</span></div>\n<div class=\"ex-body\"><div class=\"ex-desc\">输入姓名和年龄，用 f-string 输出个人信息</div>\n<textarea placeholder=\"# 写代码...\" disabled></textarea>\n<div class=\"ex-actions\">\n<button class=\"btn-start\" onclick=\"startExercise(this)\">▶ 开始</button>\n<button class=\"btn-reveal\" onclick=\"revealSolution(this)\">🔍 答案</button>\n</div>\n<div class=\"ex-solution\"><div class=\"sol-header\">✅ 参考解答</div>\n<pre><code>name = input('名字：')\nage = int(input('年龄：'))\nprint(f'我叫{name}，{age}岁')</code></pre></div>\n</div>\n<div class=\"ex-status\">💡 点击开始</div>\n</div>"
+     "advanced": "<div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">Python 中同一层级的代码，缩进应该怎样？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 完全一致</button><button onclick=\"checkQuiz(this, 'b')\">B. 每行不同</button><button onclick=\"checkQuiz(this, 'c')\">C. 无所谓</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 同一层级的缩进必须完全一致，否则会报缩进错误。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">下面哪一行是注释？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. # 年龄</button><button onclick=\"checkQuiz(this, 'b')\">B. age = 20</button><button onclick=\"checkQuiz(this, 'c')\">C. print(age)</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ # 开头的是注释。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">给变量命名的最好习惯是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 见名知义</button><button onclick=\"checkQuiz(this, 'b')\">B. 随便写</button><button onclick=\"checkQuiz(this, 'c')\">C. 用关键字</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ 好名字能让代码容易读懂。</p></div><div class=\"quiz\" data-answer=\"b\"><p class=\"quiz-question\">表达式 (score1 + score2) / 2 中 / 表示？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 乘法</button><button onclick=\"checkQuiz(this, 'b')\">B. 除法</button><button onclick=\"checkQuiz(this, 'c')\">C. 取整</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ / 是除法。</p></div><div class=\"quiz\" data-answer=\"a\"><p class=\"quiz-question\">注释的作用是？</p><div class=\"quiz-actions\"><button onclick=\"checkQuiz(this, 'a')\">A. 给程序员看</button><button onclick=\"checkQuiz(this, 'b')\">B. 给电脑执行</button><button onclick=\"checkQuiz(this, 'c')\">C. 删除代码</button></div><p class=\"quiz-result\"></p><p class=\"quiz-explanation\">✅ Python 会忽略注释。</p></div><div class=\"coding-exercise\" id=\"ex-2-advanced\">\n<div class=\"ex-header\"><span class=\"ex-title\">📝 🌳 挑战 应用题</span><span class=\"ex-timer\" data-time=\"5\" id=\"t-ex-2-advanced\">5:00</span></div>\n<div class=\"ex-body\"><div class=\"ex-desc\">输入姓名和年龄，用 f-string 输出个人信息</div>\n<textarea placeholder=\"# 写代码...\" disabled></textarea>\n<div class=\"ex-actions\">\n<button class=\"btn-start\" onclick=\"startExercise(this)\">▶ 开始</button>\n<button class=\"btn-reveal\" onclick=\"revealSolution(this)\">🔍 答案</button>\n</div>\n<div class=\"ex-solution\"><div class=\"sol-header\">✅ 参考解答</div>\n<pre><code>name = input('名字：')\nage = int(input('年龄：'))\nprint(f'我叫{name}，{age}岁')</code></pre></div>\n</div>\n<div class=\"ex-status\">💡 点击开始</div>\n</div>"
     }
    },
    {
@@ -1757,7 +1757,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
     "type": "concept",
     "title": "📖 核心内容",
     "content": {
-     "basic": "<div class=\"concept-card\"><div class=\"card-header\">📖 结课回顾：知识全景</div><div class=\"card-body\">这门课从“第一行代码”走到了“CSV 和 Excel 文件处理”，下面是完整知识地图。</div></div>\n<div class=\"checklist\"><ul><li>✅ 基础：print / input / 变量 / 注释 / 缩进</li><li>✅ 类型：int / float / bool / str / 类型转换</li><li>✅ 流程：if / elif / else / for / while / break / continue</li><li>✅ 容器：字符串 / 列表 / 元组 / 集合 / 字典</li><li>✅ 函数：def / return / 默认参数 / lambda / map / filter</li><li>✅ 文件：yield / with / CSV / openpyxl</li></ul></div>\n<div class=\"code-block-wrapper\"><pre><code>print('Python 暑假课完成！')</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">📋 复制</button></div>",
+     "basic": "<div class=\"concept-card\"><div class=\"card-header\">📖 结课回顾：知识全景</div><div class=\"card-body\">这门课从“第一行代码”走到了“CSV 和 Excel 文件处理”，下面是完整知识地图。</div></div>\n<div class=\"checklist\"><ul><li>✅ 基础：print / input / 变量 / 注释 / 缩进</li><li>✅ 类型：int / float / bool / str / 类型转换</li><li>✅ 流程：if / elif / else / for / while / break / continue</li><li>✅ 容器：字符串 / 列表 / 元组 / 集合 / 字典</li><li>✅ 函数：def / return / 默认参数 / lambda / map / filter</li><li>✅ 文件：yield / with / CSV / openpyxl</li></ul></div>\n<div class=\"code-block-wrapper\"><pre><code>print('蛙课堂完成！')</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">📋 复制</button></div>",
      "standard": "<div class=\"concept-card\"><div class=\"card-header\">📖 综合项目：成绩统计</div><div class=\"card-body\">用循环、字典、内置函数做一个成绩统计程序，练一遍最常用的组合。</div></div>\n<div class=\"code-block-wrapper\"><pre><code>scores = {}\nfor i in range(3):\n    name = input('姓名：')\n    s = int(input('分数：'))\n    scores[name] = s\nprint('最高分：', max(scores.values()))\nprint('平均分：', sum(scores.values()) / len(scores))</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">📋 复制</button></div>\n<div class=\"concept-card\"><div class=\"card-header\">🔍 逐行解析</div><div class=\"card-body\"><b>scores.values()</b> 取出所有分数。<b>max()</b> 求最高，<b>sum()/len()</b> 求平均。</div></div>\n<div class=\"tip-box\">💡 扩展：把结果按分数从高到低输出姓名和分数。</div>\n<div class=\"output-demo\"><div class=\"output-header\">💡 运行结果</div><pre class=\"output-content\">（输入 Alice/90、Bob/80、Cindy/95）\n最高分： 95\n平均分： 88.33333333333333</pre></div>",
      "advanced": "<div class=\"concept-card\"><div class=\"card-header\">📖 下一步学习规划</div><div class=\"card-body\">结课不是终点。建议先复盘这 18 节的小结，再挑一个完整项目练手，最后按需深入。</div></div>\n<div class=\"checklist\"><ul><li>✅ 面向对象：类、对象、继承</li><li>✅ 异常处理：try / except</li><li>✅ 第三方库：requests、pandas、matplotlib</li><li>✅ 方向一：数据分析</li><li>✅ 方向二：Web 开发（Flask）</li><li>✅ 方向三：自动化脚本</li></ul></div>\n<div class=\"warning-box\">⚠️ 学习建议：不要急着刷题库，先把一个“能解决自己问题”的小项目写完，收获最大。</div>\n<div class=\"keywords-grid\"><span class=\"keyword-chip\">项目</span><span class=\"keyword-chip\">复盘</span><span class=\"keyword-chip\">数据分析</span><span class=\"keyword-chip\">Web</span><span class=\"keyword-chip\">自动化</span></div>\n<div class=\"code-block-wrapper\"><pre><code>print('下一站，由你决定')</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">📋 复制</button></div>"
     }
@@ -1934,10 +1934,12 @@ function init() {
       { t: 'print() 输出函数', d: '把括号里的内容显示到屏幕上的函数。', u: "print('你好') → 你好", n: '引号里的文本原样输出。' },
       { t: '字符串', d: '一对引号括起来的文本，例如 "Python"。', u: "name = '小明'", n: '单引号双引号都可以，要成对。' },
       { t: 'import 导入模块', d: '把模块里的功能引入当前程序。', u: 'import math', n: '之后用 math.函数名 调用。' },
-      { t: '变量', d: '给数据起个名字，方便后面使用。', u: 'x = 5', n: '变量名不能以数字开头。' }
+      { t: '变量', d: '给数据起个名字，方便后面使用。', u: 'x = 5', n: '变量名只能由字母、数字、下划线组成，不能以数字开头，也不能包含连字符等特殊符号。' }
     ],
     2: [
       { t: '缩进', d: '行首的空白，表示代码的层级。', u: 'if 条件: 下面缩进4格', n: '同一层级缩进必须一致。' },
+      { t: '关键字', d: 'Python 预留的词，例如 if、for、while，不能拿来当变量名。', u: 'for = 5 会报错', n: '关键字只能按它的本意使用。' },
+      { t: '标识符', d: '程序员自己起的名字（变量名、函数名等），只能由字母、数字、下划线组成。', u: 'student_name = 90', n: '不能以数字开头，也不能包含连字符等特殊符号。' },
       { t: 'input() 输入函数', d: '等待用户输入，返回字符串。', u: "name = input('名字：')", n: '返回的一定是字符串。' },
       { t: 'int() 整数转换', d: '把字符串或小数转成整数。', u: 'age = int("20") → 20', n: 'int("abc") 会报错。' },
       { t: 'f-string 格式化字符串', d: '在字符串前面加 f，用 {} 把变量或表达式放进去，运行时替换成值。', u: "name = '小明'; print(f'你好，{name}！') → 你好，小明！", n: '字符串前必须有 f 或 F；{} 里放变量名或表达式。' },
@@ -1988,7 +1990,7 @@ function init() {
     ],
     9: [
       { t: 'copy()', d: '创建列表的独立副本。', u: 'b = a.copy()', n: '改 b 不影响 a。' },
-      { t: 'sort / sorted', d: 'sort 原地排序，sorted 返回新列表。', u: 'nums.sort(); new = sorted(nums)', n: '想保留原列表用 sorted。' },
+      { t: 'sort / sorted', d: 'sort 原地排序且返回 None，sorted 返回新列表。', u: 'nums.sort(); new = sorted(nums)', n: '想保留原列表用 sorted。' },
       { t: 'lambda', d: '匿名函数，一行写出简单函数。', u: 'f = lambda x: x * 2', n: '表达式结果就是返回值。' },
       { t: 'key 排序依据', d: '指定按哪个字段排序。', u: 's.sort(key=lambda x: x[1])', n: 'key 只取比较依据，不改元素。' }
     ],
@@ -2575,7 +2577,7 @@ function init() {
     var html =
       '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
       '<head><meta charset="utf-8"><title>Python学习记录</title></head><body>' +
-      '<h1 style="text-align:center;">Python 暑假课学习记录</h1>' +
+      '<h1 style="text-align:center;">蛙课堂学习记录</h1>' +
       '<p style="font-size:12px;">账号：' + user + '　导出时间：' + timeStr + '　当前难度：' + diffName + '　完成：' + doneCount + ' / ' + COURSE_DATA.length + ' 节</p>' +
       '<table style="border-collapse:collapse;width:100%;font-size:12px;">' +
       '<tr style="background:#e8f1fb;">' +
@@ -2585,7 +2587,7 @@ function init() {
       '<th style="border:1px solid #999;padding:6px 8px;">完成状态</th>' +
       '<th style="border:1px solid #999;padding:6px 8px;">学习进度</th>' +
       '</tr>' + rows + '</table>' +
-      '<p style="font-size:10px;color:#888;">本文件由 Python 暑假课网页导出，可在 Word 或 WPS 中打开。</p>' +
+      '<p style="font-size:10px;color:#888;">本文件由 蛙课堂网页导出，可在 Word 或 WPS 中打开。</p>' +
       '</body></html>';
     var blob = new Blob(['\ufeff' + html], {type: 'application/msword'});
     var url = URL.createObjectURL(blob);
@@ -2731,12 +2733,12 @@ function init() {
 
   // ===== Usage Guide =====
   var GUIDE_STEPS = [
-    { icon: '👋', title: '欢迎使用 Python 暑假课', sub: '先花一分钟认识每个栏目，再开始学习', feats: ['左侧是 18 节课的课程列表', '中间是每节课的学习内容', '右下角 🐍 是 Python 实时运行控制台'] },
+    { icon: '👋', title: '欢迎使用 蛙课堂', sub: '先花一分钟认识每个栏目，再开始学习', feats: ['左侧是 18 节课的课程列表', '中间是每节课的学习内容', '右下角 🐸 是 Python 实时运行控制台'] },
     { icon: '📚', title: '课程与进度', sub: '侧边栏就是你的课程地图', feats: ['点击课程即可进入学习', '绿色圆点：已完成', '橙色圆点：正在学', '灰色圆点：还没开始'] },
     { icon: '🎯', title: '难度选择', sub: '每节课都有三档难度', feats: ['🌱 基础：概念 + 入门示例', '🌿 进阶：更多讲解和示例', '🌳 挑战：原理、易错点和综合练习', '切换难度后，学习内容会自动变化'] },
     { icon: '📖', title: '一节课怎么学', sub: '每节课分四个步骤，用顶部标签切换', feats: ['🔥 本节主题：新词预习和目标', '📖 核心内容：定义、代码和逐行解析', '✏️ 练习题：限时编程练习', '✅ 小结：本节知识总结'] },
     { icon: '🧰', title: '顶部工具栏', sub: '学习时的常用工具都在这里', feats: ['📊 总览：查看 18 节课完成情况', '🎴 词卡：复习新词和意思', '⏱ 番茄钟：25 分钟专注学习', '🏆 徽章：完成课程获得成就', '📥 导出：把学习记录导出成 Word', '↺ 重置进度：清空所有进度', '🌑 暗色：切换深浅色界面'] },
-    { icon: '🐍', title: 'Python 控制台', sub: '写代码的地方，不用另外打开软件', feats: ['点右下角 🐍 按钮打开或关闭', '在上方写代码，点 ▶ 运行', '可以打开“实时运行”，边写边出结果', '按 Tab 自动缩进，Ctrl+Enter 快速运行'] },
+    { icon: '🐸', title: 'Python 控制台', sub: '写代码的地方，不用另外打开软件', feats: ['点右下角 🐸 按钮打开或关闭', '在上方写代码，点 ▶ 运行', '可以打开“实时运行”，边写边出结果', '按 Tab 自动缩进，Ctrl+Enter 快速运行'] },
     { icon: '👤', title: '账号与数据', sub: '你的学习数据存在本机浏览器里', feats: ['左侧 ⚙️ 设置：退出、切换账号、改密码', '学习进度会自动保存，下次继续', '换了电脑或浏览器，数据不会同步'] }
   ];
   var guideIndex = 0;
@@ -2946,8 +2948,8 @@ function init() {
   authInit();
   init();
 </script>
-<div class="py-console" id="pyConsole"><div class="py-header"><span>🐍 Python即时运行</span><span class="py-status" id="pyStatus">⏳</span></div><div class="py-body"><textarea id="pyCode" placeholder="# 写代码，Ctrl+Enter运行"></textarea><div class="py-toolbar"><button class="auto-run-toggle on" id="autoRunBtn" onclick="toggleAutoRun(this)">⏳ 实时运行</button><span class="live-indicator"><span class="dot"></span>实时运行中</span><button class="run-btn" id="pyRunBtn" onclick="runPython()">▶ 运行</button><button class="clear-btn" onclick="document.getElementById('pyOutput').textContent=''">🗑 清空</button></div><div class="py-output" id="pyOutput"><span class="prompt"># 点▶运行Python代码</span></div></div></div>
-<button class="py-toggle" id="pyToggle" onclick="toggleConsole()">🐍</button>
+<div class="py-console" id="pyConsole"><div class="py-header"><span>🐸 Python即时运行</span><span class="py-status" id="pyStatus">⏳</span></div><div class="py-body"><textarea id="pyCode" placeholder="# 写代码，Ctrl+Enter运行"></textarea><div class="py-toolbar"><button class="auto-run-toggle on" id="autoRunBtn" onclick="toggleAutoRun(this)">⏳ 实时运行</button><span class="live-indicator"><span class="dot"></span>实时运行中</span><button class="run-btn" id="pyRunBtn" onclick="runPython()">▶ 运行</button><button class="clear-btn" onclick="document.getElementById('pyOutput').textContent=''">🗑 清空</button></div><div class="py-output" id="pyOutput"><span class="prompt"># 点▶运行Python代码</span></div></div></div>
+<button class="py-toggle" id="pyToggle" onclick="toggleConsole()">🐸</button>
 
 <!-- Overview Panel -->
 <div id="overviewPanel" style="display:none; padding: 16px;">
