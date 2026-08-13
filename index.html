@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蛙课堂程 - 交互式教学</title>
+<title>蛙课堂 - 交互式教学</title>
+<meta name="description" content="蛙课堂：18 节 Python 交互式课程，分基础、进阶、挑战三档难度，含练习、打卡与错题复习。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐸%3C/text%3E%3C/svg%3E">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #1a1a2e; display: flex; height: 100vh; overflow: hidden; }
@@ -126,7 +128,34 @@
     .step-tab { padding: 12px 10px; font-size: 12px; }
     .content-area { padding: 16px; }
   }
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.step-content{animation:fadeInUp .4s ease}.lesson-item{transition:all .2s ease}.lesson-item:hover{transform:translateX(5px)}.diff-btn{transition:all .3s ease}.diff-btn:hover{transform:translateY(-2px)}.coding-exercise{background:#fff;border:2px solid #1565c0;border-radius:12px;margin:16px 0;overflow:hidden}.coding-exercise .ex-header{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:12px 16px;display:flex;justify-content:space-between}.coding-exercise .ex-header .ex-timer{font-size:18px;font-family:monospace;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:6px}.coding-exercise .ex-body{padding:16px}.coding-exercise textarea{width:100%;min-height:120px;border:2px solid #ddd;border-radius:8px;padding:12px;font-family:Consolas,monospace;font-size:13px;resize:vertical;outline:none;box-sizing:border-box;background:#fafafa}.coding-exercise .ex-actions{display:flex;gap:8px;margin-top:12px}.coding-exercise .ex-actions button{padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}.coding-exercise .ex-actions .btn-start{background:#1565c0;color:#fff}.coding-exercise .ex-actions .btn-reveal{background:#e8f5e9;color:#2e7d32;border:2px solid #2e7d32}.coding-exercise .ex-solution{display:none;margin-top:12px;border:2px solid #2e7d32;border-radius:8px;overflow:hidden}.coding-exercise .ex-solution.show{display:block}.coding-exercise .ex-solution .sol-header{background:#e8f5e9;padding:8px 12px;font-weight:600;font-size:13px;color:#1b5e20}.coding-exercise .ex-solution pre{margin:0;padding:12px;background:#fafafa}.coding-exercise .ex-solution code{font-family:Consolas,monospace;font-size:13px;white-space:pre}.coding-exercise .ex-status{font-size:13px;color:#888;padding:8px;background:#fafafa;text-align:center}.sum-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin:8px 0;overflow:hidden}.sum-card .sum-header{background:#e8f5e9;padding:10px 16px;font-weight:600;font-size:14px;color:#1b5e20}.sum-card .sum-body{padding:12px 16px}.sum-card .sum-body ul{margin:0;padding-left:20px}.sum-card .sum-body li{font-size:13px;line-height:1.8;color:#333}.py-toggle{position:fixed;bottom:20px;right:20px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#1565c0;color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(21,101,192,.4)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}}
+.step-content{animation:fadeInUp .4s ease}
+.lesson-item{transition:all .2s ease}
+.lesson-item:hover{transform:translateX(5px)}
+.diff-btn{transition:all .3s ease}
+.diff-btn:hover{transform:translateY(-2px)}
+.coding-exercise{background:#fff;border:2px solid #1565c0;border-radius:12px;margin:16px 0;overflow:hidden}
+.coding-exercise .ex-header{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:12px 16px;display:flex;justify-content:space-between}
+.coding-exercise .ex-header .ex-timer{font-size:18px;font-family:monospace;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:6px}
+.coding-exercise .ex-body{padding:16px}
+.coding-exercise textarea{width:100%;min-height:120px;border:2px solid #ddd;border-radius:8px;padding:12px;font-family:Consolas,monospace;font-size:13px;resize:vertical;outline:none;box-sizing:border-box;background:#fafafa}
+.coding-exercise .ex-actions{display:flex;gap:8px;margin-top:12px}
+.coding-exercise .ex-actions button{padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}
+.coding-exercise .ex-actions .btn-start{background:#1565c0;color:#fff}
+.coding-exercise .ex-actions .btn-reveal{background:#e8f5e9;color:#2e7d32;border:2px solid #2e7d32}
+.coding-exercise .ex-solution{display:none;margin-top:12px;border:2px solid #2e7d32;border-radius:8px;overflow:hidden}
+.coding-exercise .ex-solution.show{display:block}
+.coding-exercise .ex-solution .sol-header{background:#e8f5e9;padding:8px 12px;font-weight:600;font-size:13px;color:#1b5e20}
+.coding-exercise .ex-solution pre{margin:0;padding:12px;background:#fafafa}
+.coding-exercise .ex-solution code{font-family:Consolas,monospace;font-size:13px;white-space:pre}
+.coding-exercise .ex-status{font-size:13px;color:#888;padding:8px;background:#fafafa;text-align:center}
+.sum-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin:8px 0;overflow:hidden}
+.sum-card .sum-header{background:#e8f5e9;padding:10px 16px;font-weight:600;font-size:14px;color:#1b5e20}
+.sum-card .sum-body{padding:12px 16px}
+.sum-card .sum-body ul{margin:0;padding-left:20px}
+.sum-card .sum-body li{font-size:13px;line-height:1.8;color:#333}
+.py-toggle{position:fixed;bottom:20px;right:20px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#1565c0;color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(21,101,192,.4)}
 :root {
   --primary: #1565c0;
   --primary-light: #e3f2fd;
@@ -323,12 +352,6 @@ button:focus-visible, .lesson-item:focus-visible, .step-tab:focus-visible {
 .warmup-quiz .q-item .q-options button.correct { border-color: #2e7d32; background: #e8f5e9; }
 .warmup-quiz .q-item .q-options button.wrong { border-color: #c62828; background: #ffebee; }
 
-/* ==== Flashcards ==== */
-.flashcard-section { padding: 12px; }
-.flashcard { background: #2a2a4e; border-radius: 10px; padding: 20px; text-align: center; min-height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; margin-bottom: 10px; }
-.flashcard:hover { background: #3a3a5e; }
-.flashcard .term { font-size: 22px; font-weight: 700; color: #fff; }
-.flashcard .definition { font-size: 14px; color: #aabbdd; }
 
 /* ==== Badges ==== */
 .badges-panel { padding: 12px; }
@@ -362,10 +385,6 @@ body.dark-mode .code-header { background: #1e1e1e; }
 .quick-toolbar button.active { background: #1565c0; color: #fff; border-color: #1565c0; }
 body.dark-mode .quick-toolbar { background: #1e1e1e; border-bottom-color: #333; }
 
-/* ==== Shortcut hints ==== */
-.shortcut-hint { position: fixed; bottom: 20px; left: 20px; z-index: 999; background: rgba(21,101,192,0.9); color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 11px; display: none; }
-.shortcut-hint.show { display: block; animation: fadeInUp 0.3s ease; }
-.shortcut-hint kbd { background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 3px; margin: 0 2px; }
 
 /* ==== Export / Save ==== */
 .export-btn { background: #2e7d32 !important; color: #fff !important; }
@@ -616,7 +635,7 @@ kbd { background: var(--bg-soft); border-color: var(--border-strong); color: var
 .export-btn { background: var(--success) !important; color: #fff !important; }
 .reset-btn { background: var(--warning) !important; color: #fff !important; }
 
-/* ---- Panels: overview / flashcards / pomodoro / badges / account ---- */
+/* ---- Panels: overview / pomodoro / badges / account ---- */
 .panel-back-btn { border-color: var(--primary); background: var(--bg-card); color: var(--primary); }
 .panel-back-btn:hover { background: var(--primary); color: #fff; }
 .overview-item { width: 120px; padding: 10px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); text-align: center; transition: border-color 0.2s, transform 0.2s; }
@@ -627,11 +646,6 @@ kbd { background: var(--bg-soft); border-color: var(--border-strong); color: var
 .overview-stats .stat { background: var(--primary-soft); }
 .overview-stats .stat .num { color: var(--primary); }
 .overview-stats .stat .lbl { color: var(--text-muted); }
-.flashcard { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); box-shadow: var(--shadow); }
-.flashcard { flex-direction: column; gap: 8px; }
-.flashcard:hover { border-color: var(--primary); background: var(--primary-soft); }
-.flashcard .term { color: var(--primary); }
-.flashcard .definition { color: var(--text-secondary); }
 .badge-item { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); }
 .badge-item .badge-name { color: var(--text-muted); }
 .pomodoro-timer { color: var(--primary); }
@@ -691,7 +705,7 @@ body.dark-mode .account-action-btn.danger:hover { background: var(--danger-soft)
 body.dark-mode .account-avatar { background: var(--primary-soft); }
 body.dark-mode .login-screen { background: linear-gradient(160deg, #050608 0%, #0b0d10 55%, #101318 100%); }
 body.dark-mode .login-field input { background: var(--bg-inset); border-color: var(--border-strong); color: var(--text); }
-body.dark-mode .quiz, body.dark-mode .warmup-quiz, body.dark-mode .task-card, body.dark-mode .struct-item, body.dark-mode .flashcard, body.dark-mode .badge-item { background: var(--bg-card); border-color: var(--border-strong); }
+body.dark-mode .quiz, body.dark-mode .warmup-quiz, body.dark-mode .task-card, body.dark-mode .struct-item, body.dark-mode .badge-item { background: var(--bg-card); border-color: var(--border-strong); }
 body.dark-mode .quiz-actions button, body.dark-mode .warmup-quiz .q-item .q-options button { background: var(--bg-card); border-color: var(--border-strong); color: var(--text); }
 body.dark-mode .output-demo { background: var(--success-soft); border-color: var(--success); }
 body.dark-mode .content-area::-webkit-scrollbar-thumb { background: var(--border-strong); }
@@ -792,6 +806,30 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
 .wrong-del { margin-top: 6px; padding: 3px 10px; border: 1px solid var(--danger); border-radius: 5px; background: transparent; color: var(--danger); font-size: 11px; cursor: pointer; }
 .wrong-empty, .data-empty { padding: 8px 0; font-size: 13px; color: var(--text-muted); }
 
+.cal-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 4px; }
+.cal-nav-btn { padding: 5px 10px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--bg-card); color: var(--text-secondary); font-size: 12px; cursor: pointer; }
+.cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+.cal-title { min-width: 92px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text); }
+.data-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }
+.data-actions .checkin-btn { margin: 0; }
+.wrongbook-sub { margin: 0 0 10px; font-size: 12px; color: var(--text-muted); }
+.wb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.wb-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.wb-card:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 4px 14px rgba(21,101,192,.14); }
+.wb-card .wb-card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.wb-card .wb-card-count { margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+.wb-back-btn { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 7px 14px; border: 1px solid var(--primary); border-radius: 6px; background: var(--bg-card); color: var(--primary); font-size: 13px; font-weight: 600; cursor: pointer; }
+.wb-back-btn:hover { background: var(--primary); color: #fff; }
+.confirm-overlay { position: fixed; inset: 0; z-index: 2500; display: none; align-items: center; justify-content: center; background: rgba(8,10,16,.6); padding: 20px; }
+.confirm-overlay.show { display: flex; }
+.confirm-box { width: min(92vw, 420px); background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 10px; padding: 20px; box-shadow: var(--shadow); }
+.confirm-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.confirm-msg { font-size: 13px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 16px; }
+.confirm-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.confirm-actions .g-btn { padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); }
+.confirm-actions .g-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+
 /* ==== Exercise sections ==== */
 .exercise-section { margin: 14px 0; padding: 14px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--bg-soft); }
 .exercise-section h3 { margin: 0 0 6px; font-size: 15px; color: var(--text); }
@@ -834,7 +872,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
   .toast.success { background: #2e7d32; }
   .toast.warn { background: #e65100; }
   body, .app, .sidebar, .main-content, .topbar, .login-box, .panel { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
-  #overviewPanel, #flashcardPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #thonnyPanel {
+  #overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel {
     position: fixed;
     top: 0;
     right: 0;
@@ -847,7 +885,7 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
     color: var(--text);
   }
   @media (max-width: 768px) {
-    #overviewPanel, #flashcardPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #thonnyPanel {
+    #overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel {
       left: 48px;
     }
   }
@@ -918,15 +956,14 @@ body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] {
 <div class="main">
   <div class="quick-toolbar" id="quickToolbar">
   <button onclick="toggleOverview()" id="btnOverview">📊 总览</button>
-  <button onclick="toggleFlashcards()" id="btnFlashcards">🎴 词卡</button>
   <button onclick="togglePomodoro()" id="btnPomodoro">⏱ 番茄钟</button>
   <button onclick="toggleDarkMode()" id="btnDarkMode">🌑 暗色</button>
-  <button onclick="showShortcutHint()">⌨ 快捷键</button>
   <button onclick="exportProgress()" class="export-btn">📥 导出</button>
   <button onclick="resetProgress()" class="reset-btn">↺ 重置进度</button>
   <button onclick="openGuide()">❓ 帮助</button>
   <button onclick="toggleNotes()">📝 笔记</button>
   <button onclick="toggleDataPanel()">📊 数据</button>
+  <button onclick="toggleWrongBook()" id="btnWrongBook">📕 错题本</button>
   <button onclick="toggleBadges()" id="btnBadges">🏆 徽章</button>
 </div>
 <div class="content-header">
@@ -2378,7 +2415,7 @@ function init() {
     if(!isShow){ p.style.display='block'; renderOverview(); }
   }
   function hideAllPanels() {
-    ['overviewPanel','flashcardPanel','pomodoroPanel','badgesPanel','accountPanel','notesPanel','dataPanel','thonnyPanel'].forEach(function(id){
+    ['overviewPanel','pomodoroPanel','badgesPanel','accountPanel','notesPanel','dataPanel','wrongBookPanel','thonnyPanel'].forEach(function(id){
       var el = document.getElementById(id);
       if(el) el.style.display = 'none';
     });
@@ -2405,64 +2442,6 @@ function init() {
     if(stats) stats.innerHTML = '<div class="stat"><div class="num">' + done + '/' + COURSE_DATA.length + '</div><div class="lbl">已完成</div></div>';
   }
 
-  // ===== Flashcards =====
-  var flashIndex = 0;
-  var flashFront = true;
-  function toggleFlashcards() {
-    var p = document.getElementById('flashcardPanel');
-    var isShow = p.style.display !== 'none';
-    hideAllPanels();
-    if(!isShow){ p.style.display='block'; flashIndex=0; flashFront=true; renderFlashcard(); }
-  }
-  function getLessonFlashcards(lesson) {
-    var cards = [];
-    if (lesson && lesson.steps) {
-      var warm = '';
-      for (var i = 0; i < lesson.steps.length; i++) {
-        if (lesson.steps[i].type === 'warmup' && lesson.steps[i].content && lesson.steps[i].content.basic) {
-          warm = lesson.steps[i].content.basic;
-          break;
-        }
-      }
-      if (warm.indexOf('<table') !== -1) {
-        var holder = document.createElement('div');
-        holder.innerHTML = warm;
-        var tds = holder.querySelectorAll('table td');
-        for (var j = 0; j + 1 < tds.length; j += 2) {
-          var t = tds[j].textContent.replace(/\s+/g, ' ').trim();
-          var d = tds[j+1].textContent.replace(/\s+/g, ' ').trim();
-          if (t && d) cards.push({ term: t, def: d });
-        }
-      }
-    }
-    if (cards.length === 0) {
-      cards = [
-        { term: 'print()', def: '输出函数，把内容显示到屏幕' },
-        { term: 'input()', def: '输入函数，等待用户输入' },
-        { term: '变量', def: '存放数据的名字' },
-        { term: '循环', def: '重复执行一段代码' },
-        { term: '函数', def: '封装好的代码块，可重复调用' }
-      ];
-    }
-    return cards;
-  }
-  function renderFlashcard() {
-    var lesson = COURSE_DATA[state.currentLesson];
-    if(!lesson) return;
-    var cards = getLessonFlashcards(lesson);
-    if (cards.length === 0) return;
-    flashIndex = ((flashIndex % cards.length) + cards.length) % cards.length;
-    var cur = cards[flashIndex];
-    var card = document.getElementById('flashcardContent');
-    card.innerHTML = '<div class="flashcard"><div class="term">' + cur.term + '</div><div class="definition">' + cur.def + '</div></div>' +
-      '<div style="text-align:center; font-size:12px; color:#8899bb; margin:6px 0;">' + (flashIndex + 1) + ' / ' + cards.length + '</div>' +
-      '<div style="text-align:center; margin-top:8px;">' +
-      '<button onclick="prevFlash()" style="margin-right:8px; padding:6px 14px; border-radius:6px; cursor:pointer;">← 上一张</button>' +
-      '<button onclick="nextFlash()" style="padding:6px 14px; border-radius:6px; cursor:pointer;">下一张 →</button></div>';
-  }
-  function prevFlash() { flashIndex--; renderFlashcard(); }
-  function nextFlash() { flashIndex++; renderFlashcard(); }
-
   // ===== Pomodoro =====
   var pomoTimer = null, pomoLeft = 1500, pomoRunning = false;
   function togglePomodoro() {
@@ -2479,7 +2458,7 @@ function init() {
     if(pomoRunning) return;
     pomoRunning = true;
     pomoTimer = setInterval(function(){
-      if(pomoLeft <= 0){ clearInterval(pomoTimer); pomoRunning=false; alert('番茄钟完成！休息一下吧'); return; }
+      if(pomoLeft <= 0){ clearInterval(pomoTimer); pomoRunning=false; showToast('⏱ 番茄钟完成！休息一下吧', 'success'); return; }
       pomoLeft--;
       updatePomodoroDisplay();
     }, 1000);
@@ -2516,15 +2495,6 @@ function init() {
       html += '<div class="badge-item' + (b.unlocked?'':' locked') + '"><div class="badge-icon">' + b.icon + '</div><div class="badge-name">' + b.name + '</div></div>';
     });
     document.getElementById('badgesContent').innerHTML = html;
-  }
-
-  // ===== Shortcut Hint =====
-  var hintTimeout = null;
-  function showShortcutHint() {
-    var h = document.getElementById('shortcutHint');
-    h.classList.add('show');
-    clearTimeout(hintTimeout);
-    hintTimeout = setTimeout(function(){ h.classList.remove('show'); }, 3000);
   }
 
   // ===== Export =====
@@ -2568,7 +2538,48 @@ function init() {
     a.download = 'Python学习记录.doc';
     a.click();
     URL.revokeObjectURL(url);
-    alert('📥 学习记录已导出为 Word 文档');
+    showToast('📥 学习记录已导出为 Word 文档', 'success');
+  }
+
+  function exportDataJson() {
+    var user = uid();
+    var data = {};
+    ['python_course_progress','python_course_active'].forEach(function(k){
+      if (localStorage.getItem(k) !== null) data[k] = localStorage.getItem(k);
+    });
+    ['notes','wrong','checkin','stats','guide_done'].forEach(function(p){
+      var k = 'python_course_' + p + '_' + user;
+      if (localStorage.getItem(k) !== null) data[k] = localStorage.getItem(k);
+    });
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = '蛙课堂学习数据_' + user + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('📤 学习数据已导出', 'success');
+  }
+  function importDataJson(event) {
+    var file = event.target.files && event.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function() {
+      try {
+        var data = JSON.parse(reader.result);
+        var count = 0;
+        Object.keys(data).forEach(function(k){
+          if (String(k).indexOf('python_course_') === 0) { localStorage.setItem(k, data[k]); count++; }
+        });
+        showToast('📥 已导入 ' + count + ' 项学习数据', 'success');
+        renderDataPanel();
+        if (document.getElementById('wrongBookPanel').style.display !== 'none') renderWrongBookList();
+      } catch (e) {
+        showToast('❌ 导入失败：文件格式不正确', 'warn');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
   }
 
   // ===== Auto-indent for code textareas =====
@@ -2653,13 +2664,13 @@ function init() {
 
   // ===== Reset Progress =====
   function resetProgress() {
-    var ok = confirm('确定要重置所有学习进度吗？\n已完成的课程和当前课程位置都会被清空，且无法恢复。');
-    if (!ok) return;
-    localStorage.removeItem('python_course_progress');
-    localStorage.removeItem('python_course_active');
-    state.progress = {};
-    selectLesson(0);
-    alert('✅ 学习进度已重置，从第 1 节重新开始');
+    showConfirm('确定要重置所有学习进度吗？已完成的课程和当前课程位置都会被清空，且无法恢复。', function(){
+      localStorage.removeItem('python_course_progress');
+      localStorage.removeItem('python_course_active');
+      state.progress = {};
+      selectLesson(0);
+      showToast('✅ 学习进度已重置，从第 1 节重新开始', 'success');
+    });
   }
 
   // ===== Account Settings =====
@@ -2709,8 +2720,9 @@ function init() {
     { icon: '📚', title: '课程与进度', sub: '侧边栏就是你的课程地图', feats: ['点击课程即可进入学习', '绿色圆点：已完成', '橙色圆点：正在学', '灰色圆点：还没开始'] },
     { icon: '🎯', title: '难度选择', sub: '每节课都有三档难度', feats: ['🌱 基础：概念 + 入门示例', '🌿 进阶：更多讲解和示例', '🌳 挑战：原理、易错点和综合练习', '切换难度后，学习内容会自动变化'] },
     { icon: '📖', title: '一节课怎么学', sub: '每节课分四个步骤，用顶部标签切换', feats: ['🔥 本节主题：新词预习和目标', '📖 核心内容：定义、代码和逐行解析', '✏️ 练习题：限时编程练习', '✅ 小结：本节知识总结'] },
-    { icon: '🧰', title: '顶部工具栏', sub: '学习时的常用工具都在这里', feats: ['📊 总览：查看 18 节课完成情况', '🎴 词卡：复习新词和意思', '⏱ 番茄钟：25 分钟专注学习', '🏆 徽章：完成课程获得成就', '📥 导出：把学习记录导出成 Word', '↺ 重置进度：清空所有进度', '🌑 暗色：切换深浅色界面'] },
+    { icon: '🧰', title: '顶部工具栏', sub: '学习时的常用工具都在这里', feats: ['📊 总览：查看 18 节课完成情况', '⏱ 番茄钟：25 分钟专注学习', '🏆 徽章：完成课程获得成就', '📥 导出：把学习记录导出成 Word', '↺ 重置进度：清空所有进度', '🌑 暗色：切换深浅色界面'] },
     { icon: '🐸', title: '写代码的方式', sub: '推荐用本机 Thonny 写代码', feats: ['点右下角 🐸：打开 Thonny 启动引导', '已装 Thonny：按 Win 键搜 Thonny 打开', '没安装：按引导下载或用老师的安装包', '打开 Thonny 后即可正常写代码'] },
+    { icon: '📕', title: '错题本与打卡', sub: '学习数据按月份查看，错题单独复习', feats: ['📊 数据：打卡可按月、按年切换查看', '📕 错题本：按课程分类整理错题', '点开某一课即可复习那课的错题', '💾 数据备份：可导出和导入学习数据'] },
     { icon: '👤', title: '账号与数据', sub: '你的学习数据存在本机浏览器里', feats: ['左侧 ⚙️ 设置：退出、切换账号、改密码', '学习进度会自动保存，下次继续', '换了电脑或浏览器，数据不会同步'] }
   ];
   var guideIndex = 0;
@@ -2826,12 +2838,77 @@ function init() {
     if (idx >= 0) list[idx] = item; else list.unshift(item);
     setJson('python_course_wrong_' + uid(), list);
   }
-  function deleteWrong(i) {
+  function getWrongList() {
     var list = getJson('python_course_wrong_' + uid());
     if (!Array.isArray(list)) list = [];
+    return list;
+  }
+  function deleteWrong(i) {
+    var list = getWrongList();
     list.splice(i, 1);
     setJson('python_course_wrong_' + uid(), list);
-    renderDataPanel();
+    if (wrongBookLesson !== null) renderWrongLesson(wrongBookLesson); else renderWrongBookList();
+    showToast('🗑 错题已删除');
+  }
+  var wrongBookLesson = null;
+  function toggleWrongBook() {
+    hideAllPanels();
+    document.getElementById('wrongBookPanel').style.display = 'block';
+    renderWrongBookList();
+  }
+  function renderWrongBookList() {
+    wrongBookLesson = null;
+    var list = getWrongList();
+    var content = document.getElementById('wrongBookContent');
+    if (list.length === 0) {
+      content.innerHTML = '<div class="wrong-empty">🎉 还没有错题，继续保持！</div>';
+      return;
+    }
+    var groups = {};
+    list.forEach(function(w, i) {
+      var id = w.lessonId !== undefined ? w.lessonId : 0;
+      if (!groups[id]) groups[id] = { title: w.lessonTitle || '未分类', items: [], indices: [] };
+      groups[id].items.push(w);
+      groups[id].indices.push(i);
+    });
+    var ids = Object.keys(groups).map(Number);
+    ids.sort(function(a, b){ return a - b; });
+    var html = '<div class="wrongbook-sub">共 ' + list.length + ' 道错题，分布在 ' + ids.length + ' 节课，点击课程进入复习。</div><div class="wb-grid">';
+    ids.forEach(function(id) {
+      var g = groups[id];
+      html += '<div class="wb-card" onclick="renderWrongLesson(' + id + ')">' +
+        '<div class="wb-card-title">📖 ' + g.title + '</div>' +
+        '<div class="wb-card-count">' + g.items.length + ' 道错题</div></div>';
+    });
+    html += '</div>';
+    content.innerHTML = html;
+  }
+  function renderWrongLesson(lessonId) {
+    wrongBookLesson = lessonId;
+    var list = getWrongList();
+    var items = [];
+    list.forEach(function(w, i) {
+      var id = w.lessonId !== undefined ? w.lessonId : 0;
+      if (id === lessonId) items.push({ w: w, i: i });
+    });
+    var lesson = COURSE_DATA[lessonId - 1] || null;
+    var title = lesson ? '第' + lesson.id + '节 ' + lesson.title : (items[0] ? items[0].w.lessonTitle : '课程');
+    var html = '<button class="wb-back-btn" onclick="renderWrongBookList()">← 返回课程列表</button>' +
+      '<div class="wrongbook-sub">📖 ' + title + '　共 ' + items.length + ' 道错题</div>';
+    if (items.length === 0) {
+      html += '<div class="wrong-empty">🎉 这节课没有错题了！</div>';
+    } else {
+      html += '<ul class="wrong-list">';
+      items.forEach(function(it) {
+        var w = it.w;
+        html += '<li class="wrong-item"><div class="w-q">' + w.question + '</div>' +
+          '<div class="w-meta">你的答案：' + (w.userAnswer || '未记录') + '</div>' +
+          '<div class="w-expl">✅ 解析：' + (w.explanation || '暂无') + '</div>' +
+          '<button class="wrong-del" onclick="deleteWrong(' + it.i + ')">🗑 删除</button></li>';
+      });
+      html += '</ul>';
+    }
+    document.getElementById('wrongBookContent').innerHTML = html;
   }
 
   function toggleCheckin() {
@@ -2854,21 +2931,38 @@ function init() {
     }
     return streak;
   }
-  function buildCalendar(list) {
+  function buildCalendar(list, year, month) {
     var set = {};
     list.forEach(function(x){ set[x] = 1; });
-    var now = new Date(), y = now.getFullYear(), m = now.getMonth();
-    var startDay = new Date(y, m, 1).getDay();
-    var days = new Date(y, m + 1, 0).getDate();
+    var now = new Date();
+    if (year === undefined) year = now.getFullYear();
+    if (month === undefined) month = now.getMonth();
+    var startDay = new Date(year, month, 1).getDay();
+    var days = new Date(year, month + 1, 0).getDate();
     var heads = ['日','一','二','三','四','五','六'];
     var html = '';
     heads.forEach(function(h){ html += '<div class="cal-head">' + h + '</div>'; });
     for (var i = 0; i < startDay; i++) html += '<div class="cal-day"></div>';
     for (var day = 1; day <= days; day++) {
-      var ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
-      html += '<div class="cal-day' + (set[ds] ? ' checked' : '') + (ds === todayStr() ? ' today' : '') + '">' + day + '</div>';
+      var ds = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+      var isToday = (year === now.getFullYear() && month === now.getMonth() && ds === todayStr());
+      html += '<div class="cal-day' + (set[ds] ? ' checked' : '') + (isToday ? ' today' : '') + '">' + day + '</div>';
     }
     return html;
+  }
+  var calYear = new Date().getFullYear();
+  var calMonth = new Date().getMonth();
+  function calShift(delta) {
+    var d = new Date(calYear, calMonth + delta, 1);
+    calYear = d.getFullYear();
+    calMonth = d.getMonth();
+    renderDataPanel();
+  }
+  function calToday() {
+    var now = new Date();
+    calYear = now.getFullYear();
+    calMonth = now.getMonth();
+    renderDataPanel();
   }
 
   function toggleDataPanel() {
@@ -2899,23 +2993,11 @@ function init() {
     btn.textContent = doneToday ? '✅ 今日已打卡' : '📅 打卡';
     btn.className = 'checkin-btn' + (doneToday ? ' done' : '');
     var monthCount = list.filter(function(x){ return x.slice(0, 7) === t.slice(0, 7); }).length;
-    document.getElementById('checkinInfo').textContent = '连续学习：' + calcStreak(list) + ' 天　本月打卡：' + monthCount + ' 天';
-    document.getElementById('checkinCalendar').innerHTML = buildCalendar(list);
-
-    var wrong = getJson('python_course_wrong_' + user);
-    if (!Array.isArray(wrong)) wrong = [];
-    var html = '';
-    if (wrong.length === 0) {
-      html = '<li class="wrong-empty">🎉 还没有错题，继续保持！</li>';
-    } else {
-      wrong.forEach(function(w, i) {
-        html += '<li class="wrong-item"><div class="w-q">' + w.question + '</div>' +
-          '<div class="w-meta">' + w.lessonTitle + '　你的答案：' + w.userAnswer + '</div>' +
-          '<div class="w-expl">✅ ' + w.explanation + '</div>' +
-          '<button class="wrong-del" onclick="deleteWrong(' + i + ')">🗑 删除</button></li>';
-      });
-    }
-    document.getElementById('wrongList').innerHTML = html;
+    var viewPrefix = calYear + '-' + String(calMonth + 1).padStart(2, '0');
+    var viewMonthCount = list.filter(function(x){ return x.slice(0, 7) === viewPrefix; }).length;
+    document.getElementById('checkinInfo').textContent = '连续学习：' + calcStreak(list) + ' 天　累计打卡：' + list.length + ' 天　' + calYear + '年' + (calMonth + 1) + '月：' + viewMonthCount + ' 天';
+    document.getElementById('calTitle').textContent = calYear + '年' + (calMonth + 1) + '月';
+    document.getElementById('checkinCalendar').innerHTML = buildCalendar(list, calYear, calMonth);
   }
 
   function showToast(msg, type) {
@@ -2928,23 +3010,34 @@ function init() {
     showToast._timer = setTimeout(function(){ t.classList.remove("show"); }, 1800);
   }
 
+  var confirmOnOk = null;
+  function showConfirm(msg, onOk, title) {
+    document.getElementById('confirmMsg').textContent = msg;
+    document.getElementById('confirmTitle').textContent = title || '确认操作';
+    confirmOnOk = onOk || null;
+    document.getElementById('confirmOverlay').classList.add('show');
+  }
+  function confirmOk() {
+    document.getElementById('confirmOverlay').classList.remove('show');
+    var fn = confirmOnOk;
+    confirmOnOk = null;
+    if (fn) fn();
+  }
+  function confirmCancel() {
+    document.getElementById('confirmOverlay').classList.remove('show');
+    confirmOnOk = null;
+  }
+
   authInit();
   init();
 </script>
-<button class="py-toggle" id="pyToggle" onclick="openThonnyGuide()">🐸</button>
+<button class="py-toggle" id="pyToggle" onclick="openThonnyGuide()" aria-label="打开 Thonny 使用引导" title="打开 Thonny 使用引导">🐸</button>
 
 <!-- Overview Panel -->
 <div id="overviewPanel" style="display:none; padding: 16px;">
   <button class="panel-back-btn" onclick="closePanel()">← 返回学习</button>
   <h3 style="margin-bottom:12px;">📊 学习总览</h3>
   <div id="overviewContent" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
-</div>
-
-<!-- Flashcard Panel -->
-<div id="flashcardPanel" style="display:none; padding: 16px;">
-  <button class="panel-back-btn" onclick="closePanel()">← 返回学习</button>
-  <h3 style="margin-bottom:12px;">🎴 知识卡片复习</h3>
-  <div id="flashcardContent" style="max-width:400px;"></div>
 </div>
 
 <!-- Pomodoro Panel -->
@@ -3022,9 +3115,28 @@ function init() {
   <div class="section-title">📅 学习打卡</div>
   <button class="checkin-btn" id="checkinBtn" onclick="toggleCheckin()">📅 打卡</button>
   <div class="checkin-info" id="checkinInfo"></div>
+  <div class="cal-nav">
+    <button class="cal-nav-btn" onclick="calShift(-12)" title="上一年">◀◀ 上年</button>
+    <button class="cal-nav-btn" onclick="calShift(-1)" title="上个月">◀ 上月</button>
+    <span class="cal-title" id="calTitle"></span>
+    <button class="cal-nav-btn" onclick="calShift(1)" title="下个月">下月 ▶</button>
+    <button class="cal-nav-btn" onclick="calShift(12)" title="下一年">下年 ▶▶</button>
+    <button class="cal-nav-btn" onclick="calToday()" title="回到当前月份">回到本月</button>
+  </div>
   <div class="calendar" id="checkinCalendar"></div>
-  <div class="section-title">📖 错题本</div>
-  <ul class="wrong-list" id="wrongList"></ul>
+  <div class="section-title">💾 数据备份</div>
+  <div class="data-actions">
+    <button class="checkin-btn" onclick="exportDataJson()">📤 导出学习数据</button>
+    <button class="checkin-btn" onclick="document.getElementById('dataImportFile').click()">📥 导入学习数据</button>
+    <input type="file" id="dataImportFile" accept=".json,application/json" style="display:none;" onchange="importDataJson(event)">
+  </div>
+</div>
+
+<!-- Wrong Book Panel -->
+<div id="wrongBookPanel" style="display:none; padding: 16px;">
+  <button class="panel-back-btn" onclick="closePanel()">← 返回学习</button>
+  <h3 style="margin-bottom:12px;">📕 错题本</h3>
+  <div id="wrongBookContent"></div>
 </div>
 
 <!-- Thonny Guide Panel -->
@@ -3041,12 +3153,17 @@ function init() {
   </div>
 </div>
 
-<!-- Shortcut Hint -->
-<div class="shortcut-hint" id="shortcutHint">
-  <kbd>←</kbd> <kbd>→</kbd> 切换步骤 · <kbd>空格</kbd> 下一步
-</div>
-
 <div class="toast" id="appToast"></div>
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirmTitle">确认操作</div>
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-actions">
+      <button class="g-btn" onclick="confirmCancel()">取消</button>
+      <button class="g-btn primary" onclick="confirmOk()">确定</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 
