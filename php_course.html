@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -2029,7 +2029,35 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
 }
 .course-grid { perspective: 900px; }
 .course-card { transform-style: preserve-3d; will-change: transform; }
-</style>
+
+/* ===== Mobile toolbar fix ===== */
+@media (max-width: 768px) {
+  .quick-toolbar {
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+    gap: 4px !important;
+    justify-content: flex-start !important;
+  }
+  .quick-toolbar > button {
+    flex: 0 1 auto !important;
+    white-space: nowrap;
+    font-size: 11px !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+  }
+  .tb-group, .tb-group.tools {
+    flex: 1 1 100% !important;
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .tb-group button, .tb-group .tb-group-label {
+    white-space: nowrap;
+  }
+  .font-scale-bar { display: none !important; }
+}</style>
 
 <script>
  (function(){
