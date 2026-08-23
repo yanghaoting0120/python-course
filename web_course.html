@@ -2057,7 +2057,126 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
     white-space: nowrap;
   }
   .font-scale-bar { display: none !important; }
-}</style>
+}
+/* ===== 蛙课堂 × CodeLens 玻璃拟态主题（浅色毛玻璃）===== */
+html { background: linear-gradient(150deg, #eaf1ff 0%, #e4edff 45%, #efeaff 100%); }
+body { background: transparent !important; }
+body::before, body::after { content: ""; position: fixed; z-index: -1; pointer-events: none; border-radius: 50%; filter: blur(80px); }
+body::before { width: 55vw; height: 55vw; left: -16vw; top: -18vw; background: radial-gradient(circle, rgba(110,170,255,.38), transparent 62%); }
+body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background: radial-gradient(circle, rgba(172,132,255,.36), transparent 62%); }
+
+/* 玻璃卡片 */
+.sidebar, .login-box, .course-card, .content-header, .step-tabs,
+.concept-card, .sum-card, .overview-item, .stat-card, .guide-box,
+.confirm-box, .toast, .badge-item, .calendar, .quick-toolbar,
+.panel-box, .achievement-box, .pomodoro-box, .notes-box, .data-box, .wrongbook-box {
+  background: rgba(255,255,255,.55) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,.72);
+  box-shadow: 0 8px 32px rgba(70,100,180,.16), inset 0 1px 0 rgba(255,255,255,.6);
+}
+.content-area { background: transparent !important; }
+.content-header, .step-tabs { border-bottom-color: rgba(255,255,255,.65) !important; }
+.sidebar { border-right-color: rgba(255,255,255,.65) !important; }
+
+/* 侧边栏：原深色侧栏浅色玻璃化，文字改深 */
+.sidebar-header h1, .sidebar-header p, .lesson-item .info .title,
+.lesson-item .info .meta, .user-row, .user-name { color: #24365c !important; }
+.sidebar-header { border-bottom-color: rgba(255,255,255,.55) !important; }
+.sidebar-header .stats span { background: rgba(255,255,255,.5) !important; color: #44557d !important; }
+.lesson-item:hover, .lesson-item.active { background: rgba(255,255,255,.55) !important; }
+.lesson-item.active { border-left-color: #6a9fff !important; }
+.logout-btn { background: rgba(255,255,255,.45) !important; color: #3d5588 !important; }
+
+/* 登录界面 */
+.login-screen { background: linear-gradient(150deg, #eaf1ff 0%, #e4edff 50%, #efeaff 100%) !important; }
+.login-logo { background: linear-gradient(135deg, #dbe7ff, #e6ddff) !important; color: #3f5fa8 !important; }
+
+/* 内容文字 */
+.step-content h2, .step-content h3, .step-content h4, .step-content p,
+.step-content li, .card-body, .card-header { color: #2a3a5c !important; }
+.card-header { border-bottom-color: rgba(255,255,255,.6) !important; }
+
+/* 主按钮渐变 */
+.enter-btn, .g-btn, .btn-start, .checkin-btn, .login-btn, .nav-btn.prev, .nav-btn.next {
+  background: linear-gradient(135deg, #6a9fff, #8b7bff) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(110,150,255,.35);
+}
+.enter-btn:hover, .g-btn:hover, .btn-start:hover, .login-btn:hover,
+.nav-btn.prev:hover, .nav-btn.next:hover { filter: brightness(1.08); }
+.register-btn, .diff-btn { background: rgba(255,255,255,.75) !important; color: #4660a8 !important; border: 1px solid rgba(255,255,255,.85) !important; }
+.diff-btn.active { background: linear-gradient(135deg, #6a9fff, #8b7bff) !important; color: #fff !important; border-color: transparent !important; }
+
+/* 代码块：保持深色但加玻璃感 */
+.code-block-wrapper { background: rgba(22,26,40,.85) !important; border-color: rgba(255,255,255,.25) !important; }
+.code-header { background: rgba(255,255,255,.08) !important; color: #9fb0c8 !important; }
+
+/* CodeLens 入口按钮 */
+.codelens-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 999px;
+  background: linear-gradient(135deg, #6a9fff, #8b7bff);
+  color: #fff !important; font-size: 13px; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(110,150,255,.4);
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+.codelens-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(110,150,255,.55); }
+.code-run-btn {
+  display: inline-block; margin: 0 6px 12px 0; padding: 4px 14px;
+  background: linear-gradient(135deg, #6a9fff, #8b7bff); color: #fff;
+  border: none; border-radius: 4px; cursor: pointer; font-size: 12px;
+  transition: filter .15s ease;
+}
+.code-run-btn:hover { filter: brightness(1.12); }
+
+/* 首页横幅 */
+.codelens-banner {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  background: linear-gradient(135deg, rgba(110,170,255,.16), rgba(172,132,255,.16));
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; max-width: 900px;
+  box-shadow: 0 8px 32px rgba(70,100,180,.14), inset 0 1px 0 rgba(255,255,255,.6);
+  text-decoration: none !important;
+}
+.codelens-banner .cb-icon { font-size: 30px; }
+.codelens-banner .cb-text { flex: 1; min-width: 200px; }
+.codelens-banner .cb-text b { font-size: 15px; color: #2a3a5c; display: block; }
+.codelens-banner .cb-text p { font-size: 12.5px; color: #5a6c95; margin-top: 4px; line-height: 1.6; }
+.codelens-banner .cb-btn {
+  padding: 8px 18px; border-radius: 999px;
+  background: linear-gradient(135deg, #6a9fff, #8b7bff); color: #fff;
+  font-size: 13px; font-weight: 700;
+  box-shadow: 0 6px 18px rgba(110,150,255,.4);
+}
+.sidebar .codelens-link { margin: 10px 0 4px; justify-content: center; }
+
+/* 暗色模式玻璃适配 */
+body.dark-mode { background: linear-gradient(150deg, #0b1026, #101735 50%, #14102e) !important; }
+body.dark-mode .sidebar, body.dark-mode .content-header, body.dark-mode .step-tabs,
+body.dark-mode .concept-card, body.dark-mode .sum-card, body.dark-mode .overview-item,
+body.dark-mode .stat-card, body.dark-mode .guide-box, body.dark-mode .toast,
+body.dark-mode .badge-item, body.dark-mode .quick-toolbar {
+  background: rgba(20,26,48,.55) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+body.dark-mode .content-area { background: transparent !important; }
+body.dark-mode .sidebar-header h1, body.dark-mode .lesson-item .info .title,
+body.dark-mode .user-name { color: #e8ecf8 !important; }
+body.dark-mode .lesson-item .info .meta { color: #8899bb !important; }
+body.dark-mode .lesson-item:hover, body.dark-mode .lesson-item.active { background: rgba(255,255,255,.08) !important; }
+body.dark-mode .logout-btn { background: rgba(255,255,255,.1) !important; color: #c7d4e8 !important; }
+body.dark-mode .codelens-banner { background: rgba(20,26,48,.5) !important; border-color: rgba(255,255,255,.14) !important; }
+body.dark-mode .codelens-banner .cb-text b { color: #e8ecf8 !important; }
+body.dark-mode .codelens-banner .cb-text p { color: #9aa4c4 !important; }
+body.dark-mode .code-block-wrapper { background: rgba(10,14,26,.9) !important; }
+@media (max-width: 900px) { .codelens-link { font-size: 12px; padding: 6px 12px; } }
+
+</style>
 
 <script>
  (function(){
@@ -2166,6 +2285,7 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  <button onclick="toggleBadges()" id="btnBadges">徽章</button>
 </div>
 <div class="content-header">
+<a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/?lang=html" target="_blank">⚡ 在线写代码</a>
  <div class="breadcrumb" id="breadcrumb">Web 开发课程 / <strong>选择课程开始</strong></div>
  <div class="difficulty-selector">
  <span class="diff-label">难度：</span>
@@ -2206,9 +2326,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">网页是怎么打开的</div><div class=\"card-body\">输入网址 → 浏览器向<b>服务器</b>发请求 → 服务器返回网页文件 → 浏览器显示。</div></div><div class=\"code-block-wrapper\"><pre><code>浏览器 → 请求 → 服务器\n浏览器 ← 网页文件 ← 服务器</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>URL</b> 是网页地址，<b>浏览器</b>负责请求和显示，<b>服务器</b>负责存储和响应。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">一个网址对应服务器上的一个网页</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">HTTP 请求与响应</div><div class=\"card-body\"><b>HTTP</b> 是浏览器和服务器之间的语言：浏览器发<b>请求</b>，服务器回<b>响应</b>（状态码 + 内容）。</div></div><div class=\"code-block-wrapper\"><pre><code>GET /index.html HTTP/1.1\n服务器返回：200 OK + HTML 内容</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">请求包含方法（GET）、路径（/index.html）；响应包含状态码，<b>200</b> 表示成功，<b>404</b> 表示找不到。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">200 成功 / 404 找不到 / 500 服务器出错</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">域名与 DNS</div><div class=\"card-body\">人记网址（www.example.com），电脑记 IP。DNS 像<b>电话本</b>，把域名翻译成 IP。</div></div><div class=\"code-block-wrapper\"><pre><code>输入 www.example.com\nDNS 翻译 → 203.0.113.5\n浏览器连接该 IP 的服务器</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">一个域名可以对应一台或多台服务器；DNS 负责把好记的名字变成机器能用的地址。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">URL</span><span class=\"keyword-chip\">浏览器</span><span class=\"keyword-chip\">服务器</span><span class=\"keyword-chip\">HTTP</span><span class=\"keyword-chip\">请求</span><span class=\"keyword-chip\">DNS</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">网页是怎么打开的</div><div class=\"card-body\">输入网址 → 浏览器向<b>服务器</b>发请求 → 服务器返回网页文件 → 浏览器显示。</div></div><div class=\"code-block-wrapper\"><pre><code>浏览器 → 请求 → 服务器\n浏览器 ← 网页文件 ← 服务器</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>URL</b> 是网页地址，<b>浏览器</b>负责请求和显示，<b>服务器</b>负责存储和响应。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">一个网址对应服务器上的一个网页</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">HTTP 请求与响应</div><div class=\"card-body\"><b>HTTP</b> 是浏览器和服务器之间的语言：浏览器发<b>请求</b>，服务器回<b>响应</b>（状态码 + 内容）。</div></div><div class=\"code-block-wrapper\"><pre><code>GET /index.html HTTP/1.1\n服务器返回：200 OK + HTML 内容</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">请求包含方法（GET）、路径（/index.html）；响应包含状态码，<b>200</b> 表示成功，<b>404</b> 表示找不到。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">200 成功 / 404 找不到 / 500 服务器出错</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">域名与 DNS</div><div class=\"card-body\">人记网址（www.example.com），电脑记 IP。DNS 像<b>电话本</b>，把域名翻译成 IP。</div></div><div class=\"code-block-wrapper\"><pre><code>输入 www.example.com\nDNS 翻译 → 203.0.113.5\n浏览器连接该 IP 的服务器</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">一个域名可以对应一台或多台服务器；DNS 负责把好记的名字变成机器能用的地址。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">URL</span><span class=\"keyword-chip\">浏览器</span><span class=\"keyword-chip\">服务器</span><span class=\"keyword-chip\">HTTP</span><span class=\"keyword-chip\">请求</span><span class=\"keyword-chip\">DNS</span></div>"
  }
  },
  {
@@ -2252,9 +2372,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">网页结构与常用标签</div><div class=\"card-body\">HTML 用<b>标签</b>描述内容：h1 标题、p 段落、a 链接、img 图片。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;h1&gt;蛙课堂&lt;/h1&gt;\n&lt;p&gt;欢迎学习 Web 开发&lt;/p&gt;\n&lt;a href=&quot;https://www.runoob.com&quot;&gt;菜鸟教程&lt;/a&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>&lt;h1&gt;</b> 一级标题，<b>&lt;p&gt;</b> 段落，<b>&lt;a href=\"...\"&gt;</b> 带地址的链接。多数标签成对出现。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">蛙课堂\n欢迎学习 Web 开发\n菜鸟教程（可点击）</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">属性与图片</div><div class=\"card-body\">标签可以带<b>属性</b>：a 的 href 是链接地址，img 的 src 是图片地址、alt 是替代文字。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;img src=&quot;logo.png&quot; alt=&quot;蛙课堂标志&quot;&gt;\n&lt;a href=&quot;https://www.runoob.com&quot; target=&quot;_blank&quot;&gt;打开新页面&lt;/a&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>src</b> 指定图片来源，<b>alt</b> 在图片加载失败时显示文字；<b>target=\"_blank\"</b> 让链接在新标签打开。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">图片加载失败时显示'蛙课堂标志'</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">页面骨架与区块</div><div class=\"card-body\">完整 HTML 页面有 <b>html、head、body</b> 骨架；<b>div</b> 用来划分区块。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;&lt;title&gt;页面标题&lt;/title&gt;&lt;/head&gt;\n&lt;body&gt;\n &lt;div&gt;内容区块&lt;/div&gt;\n&lt;/body&gt;\n&lt;/html&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>head</b> 放标题和元信息，<b>body</b> 放可见内容；<b>div</b> 是最常用的区块标签。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">HTML</span><span class=\"keyword-chip\">标签</span><span class=\"keyword-chip\">元素</span><span class=\"keyword-chip\">属性</span><span class=\"keyword-chip\">a</span><span class=\"keyword-chip\">img</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">网页结构与常用标签</div><div class=\"card-body\">HTML 用<b>标签</b>描述内容：h1 标题、p 段落、a 链接、img 图片。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;h1&gt;蛙课堂&lt;/h1&gt;\n&lt;p&gt;欢迎学习 Web 开发&lt;/p&gt;\n&lt;a href=&quot;https://www.runoob.com&quot;&gt;菜鸟教程&lt;/a&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>&lt;h1&gt;</b> 一级标题，<b>&lt;p&gt;</b> 段落，<b>&lt;a href=\"...\"&gt;</b> 带地址的链接。多数标签成对出现。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">蛙课堂\n欢迎学习 Web 开发\n菜鸟教程（可点击）</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">属性与图片</div><div class=\"card-body\">标签可以带<b>属性</b>：a 的 href 是链接地址，img 的 src 是图片地址、alt 是替代文字。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;img src=&quot;logo.png&quot; alt=&quot;蛙课堂标志&quot;&gt;\n&lt;a href=&quot;https://www.runoob.com&quot; target=&quot;_blank&quot;&gt;打开新页面&lt;/a&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>src</b> 指定图片来源，<b>alt</b> 在图片加载失败时显示文字；<b>target=\"_blank\"</b> 让链接在新标签打开。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">图片加载失败时显示'蛙课堂标志'</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">页面骨架与区块</div><div class=\"card-body\">完整 HTML 页面有 <b>html、head、body</b> 骨架；<b>div</b> 用来划分区块。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;&lt;title&gt;页面标题&lt;/title&gt;&lt;/head&gt;\n&lt;body&gt;\n &lt;div&gt;内容区块&lt;/div&gt;\n&lt;/body&gt;\n&lt;/html&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>head</b> 放标题和元信息，<b>body</b> 放可见内容；<b>div</b> 是最常用的区块标签。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">HTML</span><span class=\"keyword-chip\">标签</span><span class=\"keyword-chip\">元素</span><span class=\"keyword-chip\">属性</span><span class=\"keyword-chip\">a</span><span class=\"keyword-chip\">img</span></div>"
  }
  },
  {
@@ -2298,9 +2418,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">CSS 是什么</div><div class=\"card-body\"><b>CSS</b> 控制网页外观：颜色、字体、大小、间距。HTML 定结构，CSS 定样式。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;style&gt;\n h1 { color: blue; font-size: 32px; }\n&lt;/style&gt;\n&lt;h1&gt;蛙课堂&lt;/h1&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>h1</b> 是选择器，选中所有一级标题；<b>color</b> 文字颜色，<b>font-size</b> 字号。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">蛙课堂（蓝色、32 像素）</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">class 选择器</div><div class=\"card-body\">用 <b>class</b> 给元素打标记，CSS 用 <b>.类名</b> 选中它们；同类可复用，代码更整洁。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p class=&quot;highlight&quot;&gt;重点内容&lt;/p&gt;\n&lt;style&gt;\n .highlight { background: yellow; }\n&lt;/style&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">HTML 里 class=\"highlight\"，CSS 里 .highlight 选中它并加黄色背景。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">重点内容（黄底）</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">盒模型与布局</div><div class=\"card-body\">每个元素都是一个<b>盒子</b>：内容 content、内边距 padding、边框 border、外边距 margin。</div></div><div class=\"code-block-wrapper\"><pre><code>.card {\n padding: 20px;\n border: 1px solid #ccc;\n margin: 10px;\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">padding 撑开内容与边框的距离，border 画边框，margin 拉开盒子之间的距离。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">CSS</span><span class=\"keyword-chip\">选择器</span><span class=\"keyword-chip\">color</span><span class=\"keyword-chip\">class</span><span class=\"keyword-chip\">盒模型</span><span class=\"keyword-chip\">padding</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">CSS 是什么</div><div class=\"card-body\"><b>CSS</b> 控制网页外观：颜色、字体、大小、间距。HTML 定结构，CSS 定样式。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;style&gt;\n h1 { color: blue; font-size: 32px; }\n&lt;/style&gt;\n&lt;h1&gt;蛙课堂&lt;/h1&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>h1</b> 是选择器，选中所有一级标题；<b>color</b> 文字颜色，<b>font-size</b> 字号。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">蛙课堂（蓝色、32 像素）</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">class 选择器</div><div class=\"card-body\">用 <b>class</b> 给元素打标记，CSS 用 <b>.类名</b> 选中它们；同类可复用，代码更整洁。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p class=&quot;highlight&quot;&gt;重点内容&lt;/p&gt;\n&lt;style&gt;\n .highlight { background: yellow; }\n&lt;/style&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">HTML 里 class=\"highlight\"，CSS 里 .highlight 选中它并加黄色背景。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">重点内容（黄底）</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">盒模型与布局</div><div class=\"card-body\">每个元素都是一个<b>盒子</b>：内容 content、内边距 padding、边框 border、外边距 margin。</div></div><div class=\"code-block-wrapper\"><pre><code>.card {\n padding: 20px;\n border: 1px solid #ccc;\n margin: 10px;\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">padding 撑开内容与边框的距离，border 画边框，margin 拉开盒子之间的距离。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">CSS</span><span class=\"keyword-chip\">选择器</span><span class=\"keyword-chip\">color</span><span class=\"keyword-chip\">class</span><span class=\"keyword-chip\">盒模型</span><span class=\"keyword-chip\">padding</span></div>"
  }
  },
  {
@@ -2344,9 +2464,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">JavaScript 让网页动起来</div><div class=\"card-body\">HTML 是结构，CSS 是样式，<b>JavaScript</b> 是行为：它能响应用户点击、改变内容、做计算。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;button onclick=&quot;alert(&#x27;你好&#x27;)&quot;&gt;点我&lt;/button&gt;\n&lt;script&gt;\n console.log(&quot;页面加载了&quot;);\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>onclick</b> 是点击事件，点按钮弹出提示；<b>console.log</b> 在开发者工具控制台输出。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">点击按钮 → 弹出'你好'</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">变量与函数</div><div class=\"card-body\">JavaScript 用 <b>let/const</b> 定义变量，用 <b>function</b> 定义函数。</div></div><div class=\"code-block-wrapper\"><pre><code>let name = &quot;蛙课堂&quot;;\nfunction show() {\n console.log(&quot;欢迎来到 &quot; + name);\n}\nshow();</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>let</b> 定义变量，<b>function</b> 定义函数，<b>show()</b> 调用函数。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">欢迎来到 蛙课堂</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">DOM 操作</div><div class=\"card-body\"><b>DOM</b> 是网页的结构模型，JavaScript 通过 <b>getElementById</b> 找到元素并修改内容。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p id=&quot;msg&quot;&gt;旧文字&lt;/p&gt;\n&lt;button onclick=&quot;change()&quot;&gt;改文字&lt;/button&gt;\n&lt;script&gt;\n function change() {\n document.getElementById(&quot;msg&quot;).textContent = &quot;新文字&quot;;\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>getElementById(\"msg\")</b> 找到 id 为 msg 的元素，<b>textContent</b> 修改它的文字。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">JavaScript</span><span class=\"keyword-chip\">变量</span><span class=\"keyword-chip\">函数</span><span class=\"keyword-chip\">事件</span><span class=\"keyword-chip\">DOM</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">JavaScript 让网页动起来</div><div class=\"card-body\">HTML 是结构，CSS 是样式，<b>JavaScript</b> 是行为：它能响应用户点击、改变内容、做计算。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;button onclick=&quot;alert(&#x27;你好&#x27;)&quot;&gt;点我&lt;/button&gt;\n&lt;script&gt;\n console.log(&quot;页面加载了&quot;);\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>onclick</b> 是点击事件，点按钮弹出提示；<b>console.log</b> 在开发者工具控制台输出。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">点击按钮 → 弹出'你好'</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">变量与函数</div><div class=\"card-body\">JavaScript 用 <b>let/const</b> 定义变量，用 <b>function</b> 定义函数。</div></div><div class=\"code-block-wrapper\"><pre><code>let name = &quot;蛙课堂&quot;;\nfunction show() {\n console.log(&quot;欢迎来到 &quot; + name);\n}\nshow();</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>let</b> 定义变量，<b>function</b> 定义函数，<b>show()</b> 调用函数。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">欢迎来到 蛙课堂</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">DOM 操作</div><div class=\"card-body\"><b>DOM</b> 是网页的结构模型，JavaScript 通过 <b>getElementById</b> 找到元素并修改内容。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p id=&quot;msg&quot;&gt;旧文字&lt;/p&gt;\n&lt;button onclick=&quot;change()&quot;&gt;改文字&lt;/button&gt;\n&lt;script&gt;\n function change() {\n document.getElementById(&quot;msg&quot;).textContent = &quot;新文字&quot;;\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>getElementById(\"msg\")</b> 找到 id 为 msg 的元素，<b>textContent</b> 修改它的文字。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">JavaScript</span><span class=\"keyword-chip\">变量</span><span class=\"keyword-chip\">函数</span><span class=\"keyword-chip\">事件</span><span class=\"keyword-chip\">DOM</span></div>"
  }
  },
  {
@@ -2390,9 +2510,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">用 DOM 改网页</div><div class=\"card-body\"><b>DOM</b> 把网页变成对象，JavaScript 可以找到元素并修改内容。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p id=&quot;msg&quot;&gt;旧文字&lt;/p&gt;\n&lt;button onclick=&quot;change()&quot;&gt;改文字&lt;/button&gt;\n&lt;script&gt;\n function change() {\n document.getElementById(&quot;msg&quot;).textContent = &quot;新文字&quot;;\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>getElementById(\"msg\")</b> 找到 id 为 msg 的元素，<b>textContent</b> 修改文字。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">点击按钮 → '旧文字' 变 '新文字'</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">读取表单输入</div><div class=\"card-body\">表单里的 <b>input</b> 可以通过 id 取值：<b>document.getElementById(\"name\").value</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;input id=&quot;name&quot; type=&quot;text&quot;&gt;\n&lt;button onclick=&quot;show()&quot;&gt;显示&lt;/button&gt;\n&lt;script&gt;\n function show() {\n alert(document.getElementById(&quot;name&quot;).value);\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>.value</b> 读取输入框当前内容；<b>alert</b> 弹出提示。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">输入名字 → 点按钮 → 弹出内容</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">表单验证</div><div class=\"card-body\">提交前检查输入：空值、格式、长度。不通过就提示，通过才允许提交。</div></div><div class=\"code-block-wrapper\"><pre><code>if (name.value === &quot;&quot;) {\n alert(&quot;姓名不能为空&quot;);\n return;\n}\n// 验证通过再提交</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">验证逻辑一般放在<b>提交事件</b>里：先检查，不合格就 return 阻止提交。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">DOM</span><span class=\"keyword-chip\">getElementById</span><span class=\"keyword-chip\">表单</span><span class=\"keyword-chip\">input</span><span class=\"keyword-chip\">验证</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">用 DOM 改网页</div><div class=\"card-body\"><b>DOM</b> 把网页变成对象，JavaScript 可以找到元素并修改内容。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;p id=&quot;msg&quot;&gt;旧文字&lt;/p&gt;\n&lt;button onclick=&quot;change()&quot;&gt;改文字&lt;/button&gt;\n&lt;script&gt;\n function change() {\n document.getElementById(&quot;msg&quot;).textContent = &quot;新文字&quot;;\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>getElementById(\"msg\")</b> 找到 id 为 msg 的元素，<b>textContent</b> 修改文字。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">点击按钮 → '旧文字' 变 '新文字'</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">读取表单输入</div><div class=\"card-body\">表单里的 <b>input</b> 可以通过 id 取值：<b>document.getElementById(\"name\").value</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>&lt;input id=&quot;name&quot; type=&quot;text&quot;&gt;\n&lt;button onclick=&quot;show()&quot;&gt;显示&lt;/button&gt;\n&lt;script&gt;\n function show() {\n alert(document.getElementById(&quot;name&quot;).value);\n }\n&lt;/script&gt;</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>.value</b> 读取输入框当前内容；<b>alert</b> 弹出提示。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">输入名字 → 点按钮 → 弹出内容</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">表单验证</div><div class=\"card-body\">提交前检查输入：空值、格式、长度。不通过就提示，通过才允许提交。</div></div><div class=\"code-block-wrapper\"><pre><code>if (name.value === &quot;&quot;) {\n alert(&quot;姓名不能为空&quot;);\n return;\n}\n// 验证通过再提交</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">验证逻辑一般放在<b>提交事件</b>里：先检查，不合格就 return 阻止提交。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">DOM</span><span class=\"keyword-chip\">getElementById</span><span class=\"keyword-chip\">表单</span><span class=\"keyword-chip\">input</span><span class=\"keyword-chip\">验证</span></div>"
  }
  },
  {
@@ -2436,9 +2556,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">前端与后端</div><div class=\"card-body\"><b>前端</b>是用户看到的网页；<b>后端</b>在服务器上处理数据、连接数据库。两者通过请求互相通信。</div></div><div class=\"code-block-wrapper\"><pre><code>浏览器(前端) → 请求 → 服务器(后端)\n浏览器(前端) ← 响应 ← 服务器(后端)</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">你在网页上点按钮，前端发请求给后端，后端处理完把结果返回，前端再显示。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">网页 = 前端 + 后端 + 数据库</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">API 与 GET/POST</div><div class=\"card-body\"><b>API</b> 是程序间通信的接口。<b>GET</b> 通常用来获取数据，<b>POST</b> 用来提交数据。</div></div><div class=\"code-block-wrapper\"><pre><code>GET /books → 获取图书列表\nPOST /books → 新增一本图书</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">RESTful 风格把资源当名词（books），用请求方式表示动作：GET 读、POST 写。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">GET 获取 / POST 提交</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">JSON 数据格式</div><div class=\"card-body\"><b>JSON</b> 是前后端交换数据的标准格式，用键值对描述数据。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;name&quot;: &quot;Web 开发课程&quot;,\n &quot;lessons&quot;: 18\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">JSON 用 <b>\"键\": 值</b> 组织数据，编程语言都有解析 JSON 的能力。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">前端</span><span class=\"keyword-chip\">后端</span><span class=\"keyword-chip\">API</span><span class=\"keyword-chip\">GET</span><span class=\"keyword-chip\">POST</span><span class=\"keyword-chip\">JSON</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">前端与后端</div><div class=\"card-body\"><b>前端</b>是用户看到的网页；<b>后端</b>在服务器上处理数据、连接数据库。两者通过请求互相通信。</div></div><div class=\"code-block-wrapper\"><pre><code>浏览器(前端) → 请求 → 服务器(后端)\n浏览器(前端) ← 响应 ← 服务器(后端)</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">你在网页上点按钮，前端发请求给后端，后端处理完把结果返回，前端再显示。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">网页 = 前端 + 后端 + 数据库</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">API 与 GET/POST</div><div class=\"card-body\"><b>API</b> 是程序间通信的接口。<b>GET</b> 通常用来获取数据，<b>POST</b> 用来提交数据。</div></div><div class=\"code-block-wrapper\"><pre><code>GET /books → 获取图书列表\nPOST /books → 新增一本图书</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">RESTful 风格把资源当名词（books），用请求方式表示动作：GET 读、POST 写。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">GET 获取 / POST 提交</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">JSON 数据格式</div><div class=\"card-body\"><b>JSON</b> 是前后端交换数据的标准格式，用键值对描述数据。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;name&quot;: &quot;Web 开发课程&quot;,\n &quot;lessons&quot;: 18\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">JSON 用 <b>\"键\": 值</b> 组织数据，编程语言都有解析 JSON 的能力。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">前端</span><span class=\"keyword-chip\">后端</span><span class=\"keyword-chip\">API</span><span class=\"keyword-chip\">GET</span><span class=\"keyword-chip\">POST</span><span class=\"keyword-chip\">JSON</span></div>"
  }
  },
  {
@@ -2482,9 +2602,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">JSON 长什么样</div><div class=\"card-body\"><b>JSON</b> 用键值对描述数据，几乎所有编程语言都能读写它。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;name&quot;: &quot;蛙课堂&quot;,\n &quot;lessons&quot;: 4\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>\"name\"</b> 是键，<b>\"蛙课堂\"</b> 是值；键和值之间用冒号，多个键值对用逗号分隔。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">JSON 是前后端通用的'数据语言'</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">数组与嵌套</div><div class=\"card-body\">JSON 里可以放<b>数组</b>，也可以嵌套对象，描述复杂数据。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;courses&quot;: [\n {&quot;name&quot;: &quot;AI&quot;, &quot;lessons&quot;: 10},\n {&quot;name&quot;: &quot;Web&quot;, &quot;lessons&quot;: 10}\n ]\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>courses</b> 的值是数组，数组里每个元素都是一个对象，形成嵌套结构。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">数组 + 对象 = 描述复杂数据</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">转换与传输</div><div class=\"card-body\">JavaScript 用 <b>JSON.stringify</b> 把对象转成 JSON 字符串发送，用 <b>JSON.parse</b> 把 JSON 解析回对象。</div></div><div class=\"code-block-wrapper\"><pre><code>const data = { name: &quot;AI&quot; };\nconst str = JSON.stringify(data); // &quot;{\\&quot;name\\&quot;:\\&quot;AI\\&quot;}&quot;\nconst obj = JSON.parse(str); // { name: &quot;AI&quot; }</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">网络传输的是字符串；stringify 序列化，parse 反序列化。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">JSON</span><span class=\"keyword-chip\">键值对</span><span class=\"keyword-chip\">数组</span><span class=\"keyword-chip\">对象</span><span class=\"keyword-chip\">stringify</span><span class=\"keyword-chip\">parse</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">JSON 长什么样</div><div class=\"card-body\"><b>JSON</b> 用键值对描述数据，几乎所有编程语言都能读写它。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;name&quot;: &quot;蛙课堂&quot;,\n &quot;lessons&quot;: 4\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>\"name\"</b> 是键，<b>\"蛙课堂\"</b> 是值；键和值之间用冒号，多个键值对用逗号分隔。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">JSON 是前后端通用的'数据语言'</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">数组与嵌套</div><div class=\"card-body\">JSON 里可以放<b>数组</b>，也可以嵌套对象，描述复杂数据。</div></div><div class=\"code-block-wrapper\"><pre><code>{\n &quot;courses&quot;: [\n {&quot;name&quot;: &quot;AI&quot;, &quot;lessons&quot;: 10},\n {&quot;name&quot;: &quot;Web&quot;, &quot;lessons&quot;: 10}\n ]\n}</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\"><b>courses</b> 的值是数组，数组里每个元素都是一个对象，形成嵌套结构。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">数组 + 对象 = 描述复杂数据</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">转换与传输</div><div class=\"card-body\">JavaScript 用 <b>JSON.stringify</b> 把对象转成 JSON 字符串发送，用 <b>JSON.parse</b> 把 JSON 解析回对象。</div></div><div class=\"code-block-wrapper\"><pre><code>const data = { name: &quot;AI&quot; };\nconst str = JSON.stringify(data); // &quot;{\\&quot;name\\&quot;:\\&quot;AI\\&quot;}&quot;\nconst obj = JSON.parse(str); // { name: &quot;AI&quot; }</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">网络传输的是字符串；stringify 序列化，parse 反序列化。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">JSON</span><span class=\"keyword-chip\">键值对</span><span class=\"keyword-chip\">数组</span><span class=\"keyword-chip\">对象</span><span class=\"keyword-chip\">stringify</span><span class=\"keyword-chip\">parse</span></div>"
  }
  },
  {
@@ -2528,9 +2648,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">数据库与表</div><div class=\"card-body\"><b>数据库</b>像仓库，数据存在<b>表</b>里：一行是一条记录，一列是一个字段。</div></div><div class=\"code-block-wrapper\"><pre><code>表：books\nid | title | author\n1 | PHP | 张三\n2 | AI | 李四</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">books 表有三列：id、title、author；每行是一本书。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">表 = 行(记录) + 列(字段)</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">SELECT 查询</div><div class=\"card-body\">SQL 用 <b>SELECT</b> 查数据，<b>WHERE</b> 加条件筛选。</div></div><div class=\"code-block-wrapper\"><pre><code>SELECT title FROM books WHERE id = 1;\n-- 结果：PHP</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">SELECT 后面跟要的列，FROM 指定表，WHERE 指定条件；-- 是 SQL 注释。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">SELECT 列 FROM 表 WHERE 条件</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">主键与安全</div><div class=\"card-body\"><b>主键</b>唯一标识一行；查询时用 WHERE 条件而不是把用户输入直接拼进 SQL（防注入）。</div></div><div class=\"code-block-wrapper\"><pre><code>SELECT * FROM users WHERE id = ?; -- 参数化查询\n-- 不要直接拼接：WHERE id = &quot; + 用户输入</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">参数化查询用 ? 占位，数据由数据库安全处理，避免 SQL 注入。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">数据库</span><span class=\"keyword-chip\">表</span><span class=\"keyword-chip\">SQL</span><span class=\"keyword-chip\">SELECT</span><span class=\"keyword-chip\">WHERE</span><span class=\"keyword-chip\">主键</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">数据库与表</div><div class=\"card-body\"><b>数据库</b>像仓库，数据存在<b>表</b>里：一行是一条记录，一列是一个字段。</div></div><div class=\"code-block-wrapper\"><pre><code>表：books\nid | title | author\n1 | PHP | 张三\n2 | AI | 李四</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">books 表有三列：id、title、author；每行是一本书。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">表 = 行(记录) + 列(字段)</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">SELECT 查询</div><div class=\"card-body\">SQL 用 <b>SELECT</b> 查数据，<b>WHERE</b> 加条件筛选。</div></div><div class=\"code-block-wrapper\"><pre><code>SELECT title FROM books WHERE id = 1;\n-- 结果：PHP</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">SELECT 后面跟要的列，FROM 指定表，WHERE 指定条件；-- 是 SQL 注释。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">SELECT 列 FROM 表 WHERE 条件</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">主键与安全</div><div class=\"card-body\"><b>主键</b>唯一标识一行；查询时用 WHERE 条件而不是把用户输入直接拼进 SQL（防注入）。</div></div><div class=\"code-block-wrapper\"><pre><code>SELECT * FROM users WHERE id = ?; -- 参数化查询\n-- 不要直接拼接：WHERE id = &quot; + 用户输入</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">参数化查询用 ? 占位，数据由数据库安全处理，避免 SQL 注入。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">数据库</span><span class=\"keyword-chip\">表</span><span class=\"keyword-chip\">SQL</span><span class=\"keyword-chip\">SELECT</span><span class=\"keyword-chip\">WHERE</span><span class=\"keyword-chip\">主键</span></div>"
  }
  },
  {
@@ -2574,9 +2694,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">让 AI 写网页</div><div class=\"card-body\">用自然语言描述需求，AI 就能生成 HTML/CSS/JS 代码。关键是<b>说清楚</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>提示词：做一个课程介绍页，标题&#x27;我的课程&#x27;，列出 3 门课，浅色背景</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">需求包含：内容（标题、课程）、技术（HTML/CSS）、风格（浅色背景）。信息越全，代码越接近目标。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">描述需求 → AI 生成代码 → 保存为 .html 打开</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">验证与发现问题</div><div class=\"card-body\">AI 生成的代码要先<b>保存并运行</b>，再对照需求检查：标题对不对、布局对不对、有没有报错。</div></div><div class=\"code-block-wrapper\"><pre><code>检查清单：\n1. 页面能否打开\n2. 标题和内容是否正确\n3. 样式是否符合要求\n4. 交互是否可用</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">发现问题后，把<b>具体问题</b>告诉 AI，比如'标题字太小，改成 32px'，比'不太好看'更有效。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">运行 → 对照清单 → 提具体修改意见</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">迭代到验收</div><div class=\"card-body\">开发是一个循环：<b>生成 → 运行 → 发现问题 → 修改 → 再验证</b>，直到符合需求。</div></div><div class=\"code-block-wrapper\"><pre><code>v1：基础页面\nv2：加样式和布局\nv3：加按钮交互\nv4：验收通过</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">每次只改一个重点，方便定位问题；验收时按需求逐项打勾，全部通过才算完成。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">需求描述</span><span class=\"keyword-chip\">生成代码</span><span class=\"keyword-chip\">保存运行</span><span class=\"keyword-chip\">迭代修改</span><span class=\"keyword-chip\">验收</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">让 AI 写网页</div><div class=\"card-body\">用自然语言描述需求，AI 就能生成 HTML/CSS/JS 代码。关键是<b>说清楚</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>提示词：做一个课程介绍页，标题&#x27;我的课程&#x27;，列出 3 门课，浅色背景</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">需求包含：内容（标题、课程）、技术（HTML/CSS）、风格（浅色背景）。信息越全，代码越接近目标。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">描述需求 → AI 生成代码 → 保存为 .html 打开</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">验证与发现问题</div><div class=\"card-body\">AI 生成的代码要先<b>保存并运行</b>，再对照需求检查：标题对不对、布局对不对、有没有报错。</div></div><div class=\"code-block-wrapper\"><pre><code>检查清单：\n1. 页面能否打开\n2. 标题和内容是否正确\n3. 样式是否符合要求\n4. 交互是否可用</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">发现问题后，把<b>具体问题</b>告诉 AI，比如'标题字太小，改成 32px'，比'不太好看'更有效。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">运行 → 对照清单 → 提具体修改意见</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">迭代到验收</div><div class=\"card-body\">开发是一个循环：<b>生成 → 运行 → 发现问题 → 修改 → 再验证</b>，直到符合需求。</div></div><div class=\"code-block-wrapper\"><pre><code>v1：基础页面\nv2：加样式和布局\nv3：加按钮交互\nv4：验收通过</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">每次只改一个重点，方便定位问题；验收时按需求逐项打勾，全部通过才算完成。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">需求描述</span><span class=\"keyword-chip\">生成代码</span><span class=\"keyword-chip\">保存运行</span><span class=\"keyword-chip\">迭代修改</span><span class=\"keyword-chip\">验收</span></div>"
  }
  },
  {
@@ -2620,9 +2740,9 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  "type": "concept",
  "title": "核心内容",
  "content": {
- "basic": "<div class=\"concept-card\"><div class=\"card-header\">从需求到网页</div><div class=\"card-body\">做一个网页的流程：<b>想清楚需求 → 描述给 AI → 生成代码 → 打开验证 → 修改完善</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>需求：做一个课程介绍页\nAI：生成 HTML+CSS 代码\n你：保存为 index.html 并打开验证</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">第一版不完美很正常，重点是会描述需求、会验证、会提修改意见。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">需求 → 生成 → 验证 → 迭代</pre></div>",
- "standard": "<div class=\"concept-card\"><div class=\"card-header\">AI 辅助开发的工作流</div><div class=\"card-body\">把课程里学的技能组合起来：用<b>提示词</b>提需求，让 AI 生成<b>HTML/CSS/JS</b>，再根据<b>运行结果</b>迭代。</div></div><div class=\"code-block-wrapper\"><pre><code>1. 描述需求（提示词工程）\n2. AI 生成页面代码\n3. 保存文件并用浏览器打开\n4. 发现问题 → 改进提示词 → 重新生成</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">AI 生成的代码要自己看一遍，理解结构和逻辑，才能发现问题、提出修改。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">提示词 + 验证 + 迭代 = 能用的网页</pre></div>",
- "advanced": "<div class=\"concept-card\"><div class=\"card-header\">小项目完整流程</div><div class=\"card-body\">一个像样的小项目包括：<b>页面结构</b>、<b>样式</b>、<b>交互</b>、<b>数据（API/JSON）</b>，并考虑<b>部署</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>页面：index.html（结构）\n样式：style.css（外观）\n交互：script.js（行为）\n数据：通过 API 获取 JSON</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">把项目拆成文件是工程习惯；数据通过 API 交换，页面负责展示。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">需求</span><span class=\"keyword-chip\">迭代</span><span class=\"keyword-chip\">验收</span><span class=\"keyword-chip\">部署</span><span class=\"keyword-chip\">Git</span></div>"
+ "basic": "<div class=\"concept-card\"><div class=\"card-header\">从需求到网页</div><div class=\"card-body\">做一个网页的流程：<b>想清楚需求 → 描述给 AI → 生成代码 → 打开验证 → 修改完善</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>需求：做一个课程介绍页\nAI：生成 HTML+CSS 代码\n你：保存为 index.html 并打开验证</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">第一版不完美很正常，重点是会描述需求、会验证、会提修改意见。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">需求 → 生成 → 验证 → 迭代</pre></div>",
+ "standard": "<div class=\"concept-card\"><div class=\"card-header\">AI 辅助开发的工作流</div><div class=\"card-body\">把课程里学的技能组合起来：用<b>提示词</b>提需求，让 AI 生成<b>HTML/CSS/JS</b>，再根据<b>运行结果</b>迭代。</div></div><div class=\"code-block-wrapper\"><pre><code>1. 描述需求（提示词工程）\n2. AI 生成页面代码\n3. 保存文件并用浏览器打开\n4. 发现问题 → 改进提示词 → 重新生成</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">AI 生成的代码要自己看一遍，理解结构和逻辑，才能发现问题、提出修改。</div></div><div class=\"output-demo\"><div class=\"output-header\">运行结果</div><pre class=\"output-content\">提示词 + 验证 + 迭代 = 能用的网页</pre></div>",
+ "advanced": "<div class=\"concept-card\"><div class=\"card-header\">小项目完整流程</div><div class=\"card-body\">一个像样的小项目包括：<b>页面结构</b>、<b>样式</b>、<b>交互</b>、<b>数据（API/JSON）</b>，并考虑<b>部署</b>。</div></div><div class=\"code-block-wrapper\"><pre><code>页面：index.html（结构）\n样式：style.css（外观）\n交互：script.js（行为）\n数据：通过 API 获取 JSON</code></pre><button class=\"copy-btn\" onclick=\"copyCode(this)\">复制</button><button class=\"code-run-btn\" onclick=\"runInCodeLens(this)\">⚡ 在线运行</button></div><div class=\"concept-card\"><div class=\"card-header\">逐行解析</div><div class=\"card-body\">把项目拆成文件是工程习惯；数据通过 API 交换，页面负责展示。</div></div><div class=\"keywords-grid\"><span class=\"keyword-chip\">需求</span><span class=\"keyword-chip\">迭代</span><span class=\"keyword-chip\">验收</span><span class=\"keyword-chip\">部署</span><span class=\"keyword-chip\">Git</span></div>"
  }
  },
  {
@@ -4357,7 +4477,23 @@ function init() {
  '<th style="border:1px solid #999;padding:6px 8px;">学习进度</th>' +
  '</tr>' + rows + '</table>' +
  '<p style="font-size:10px;color:#888;">本文件由 蛙课堂网页导出，可在 Word 或 WPS 中打开。</p>' +
- '</body></html>';
+ '
+<script>
+/* 蛙课堂 × CodeLens 联动：把当前代码块发送到 CodeLens 解释运行 */
+function runInCodeLens(btn) {
+  var wrap = btn.closest ? btn.closest('.code-block-wrapper') : null;
+  var codeEl = wrap ? wrap.querySelector('code') : null;
+  var code = codeEl ? codeEl.textContent : '';
+  if (!code) { alert('没有找到代码内容'); return; }
+  try {
+    localStorage.setItem('codelens_pending', JSON.stringify({ lang: 'html', code: code, ts: Date.now() }));
+    window.open('https://yanghaoting0120.github.io/codelens/', '_blank');
+  } catch (e) {
+    alert('未能自动打开 CodeLens，请复制代码后到 CodeLens 粘贴：\nhttps://yanghaoting0120.github.io/codelens/');
+  }
+}
+</script>
+</body></html>';
  var blob = new Blob(['\ufeff' + html], {type: 'application/msword'});
  var url = URL.createObjectURL(blob);
  var a = document.createElement('a');
