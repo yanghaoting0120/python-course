@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -1020,22 +1020,22 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
 .course-card { transform-style: preserve-3d; will-change: transform; }
 
 /* ===== 蛙课堂 × CodeLens 玻璃拟态主题（浅色毛玻璃）===== */
-html { background: linear-gradient(150deg, #eaf1ff 0%, #e4edff 45%, #efeaff 100%); }
+html { background: linear-gradient(150deg, #eef3ff 0%, #e9eefe 45%, #f3edff 100%); }
 body { background: transparent !important; }
 body::before, body::after { content: ""; position: fixed; z-index: -1; pointer-events: none; border-radius: 50%; filter: blur(80px); }
-body::before { width: 55vw; height: 55vw; left: -16vw; top: -18vw; background: radial-gradient(circle, rgba(110,170,255,.38), transparent 62%); }
-body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background: radial-gradient(circle, rgba(172,132,255,.36), transparent 62%); }
+body::before { width: 55vw; height: 55vw; left: -16vw; top: -18vw; background: radial-gradient(circle, rgba(122,167,255,.34), transparent 62%); }
+body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background: radial-gradient(circle, rgba(167,139,250,.30), transparent 62%); }
 
 /* 玻璃卡片 */
 .sidebar, .login-box, .course-card, .content-header, .step-tabs,
 .concept-card, .sum-card, .overview-item, .stat-card, .guide-box,
 .confirm-box, .toast, .badge-item, .calendar, .quick-toolbar,
 .panel-box, .achievement-box, .pomodoro-box, .notes-box, .data-box, .wrongbook-box {
-  background: rgba(255,255,255,.55) !important;
+  background: rgba(255,255,255,.62) !important;
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   backdrop-filter: blur(20px) saturate(1.5);
-  border: 1px solid rgba(255,255,255,.72);
-  box-shadow: 0 8px 32px rgba(70,100,180,.16), inset 0 1px 0 rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.75);
+  box-shadow: 0 8px 32px rgba(80,110,200,.16), inset 0 1px 0 rgba(255,255,255,.6);
 }
 .content-area { background: transparent !important; }
 .content-header, .step-tabs { border-bottom-color: rgba(255,255,255,.65) !important; }
@@ -1043,52 +1043,52 @@ body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background
 
 /* 侧边栏：原深色侧栏浅色玻璃化，文字改深 */
 .sidebar-header h1, .sidebar-header p, .lesson-item .info .title,
-.lesson-item .info .meta, .user-row, .user-name { color: #24365c !important; }
-.sidebar-header { border-bottom-color: rgba(255,255,255,.55) !important; }
-.sidebar-header .stats span { background: rgba(255,255,255,.5) !important; color: #44557d !important; }
-.lesson-item:hover, .lesson-item.active { background: rgba(255,255,255,.55) !important; }
-.lesson-item.active { border-left-color: #6a9fff !important; }
-.logout-btn { background: rgba(255,255,255,.45) !important; color: #3d5588 !important; }
+.lesson-item .info .meta, .user-row, .user-name { color: #223355 !important; }
+.sidebar-header { border-bottom-color: rgba(255,255,255,.62) !important; }
+.sidebar-header .stats span { background: rgba(255,255,255,.5) !important; color: #42548a !important; }
+.lesson-item:hover, .lesson-item.active { background: rgba(255,255,255,.62) !important; }
+.lesson-item.active { border-left-color: #7aa7ff !important; }
+.logout-btn { background: rgba(255,255,255,.45) !important; color: #3a5288 !important; }
 
 /* 登录界面 */
-.login-screen { background: linear-gradient(150deg, #eaf1ff 0%, #e4edff 50%, #efeaff 100%) !important; }
+.login-screen { background: linear-gradient(150deg, #eef3ff 0%, #e9eefe 50%, #f3edff 100%) !important; }
 .login-logo { background: linear-gradient(135deg, #dbe7ff, #e6ddff) !important; color: #3f5fa8 !important; }
 
 /* 内容文字 */
 .step-content h2, .step-content h3, .step-content h4, .step-content p,
-.step-content li, .card-body, .card-header { color: #2a3a5c !important; }
+.step-content li, .card-body, .card-header { color: #26365e !important; }
 .card-header { border-bottom-color: rgba(255,255,255,.6) !important; }
 
 /* 主按钮渐变 */
 .enter-btn, .g-btn, .btn-start, .checkin-btn, .login-btn, .nav-btn.prev, .nav-btn.next {
-  background: linear-gradient(135deg, #6a9fff, #8b7bff) !important;
+  background: linear-gradient(135deg, #7aa7ff, #a78bfa) !important;
   color: #fff !important;
   border: none !important;
-  box-shadow: 0 6px 18px rgba(110,150,255,.35);
+  box-shadow: 0 6px 18px rgba(122,167,255,.35);
 }
 .enter-btn:hover, .g-btn:hover, .btn-start:hover, .login-btn:hover,
 .nav-btn.prev:hover, .nav-btn.next:hover { filter: brightness(1.08); }
-.register-btn, .diff-btn { background: rgba(255,255,255,.75) !important; color: #4660a8 !important; border: 1px solid rgba(255,255,255,.85) !important; }
-.diff-btn.active { background: linear-gradient(135deg, #6a9fff, #8b7bff) !important; color: #fff !important; border-color: transparent !important; }
+.register-btn, .diff-btn { background: rgba(255,255,255,.75) !important; color: #45599c !important; border: 1px solid rgba(255,255,255,.85) !important; }
+.diff-btn.active { background: linear-gradient(135deg, #7aa7ff, #a78bfa) !important; color: #fff !important; border-color: transparent !important; }
 
 /* 代码块：保持深色但加玻璃感 */
-.code-block-wrapper { background: rgba(22,26,40,.85) !important; border-color: rgba(255,255,255,.25) !important; }
+.code-block-wrapper { background: rgba(20,24,40,.88) !important; border-color: rgba(255,255,255,.25) !important; }
 .code-header { background: rgba(255,255,255,.08) !important; color: #9fb0c8 !important; }
 
 /* CodeLens 入口按钮 */
 .codelens-link {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 16px; border-radius: 999px;
-  background: linear-gradient(135deg, #6a9fff, #8b7bff);
+  background: linear-gradient(135deg, #7aa7ff, #a78bfa);
   color: #fff !important; font-size: 13px; font-weight: 700;
   text-decoration: none; white-space: nowrap;
-  box-shadow: 0 6px 18px rgba(110,150,255,.4);
+  box-shadow: 0 6px 18px rgba(122,167,255,.4);
   transition: transform .15s ease, box-shadow .2s ease;
 }
-.codelens-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(110,150,255,.55); }
+.codelens-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(122,167,255,.55); }
 .code-run-btn {
   display: inline-block; margin: 0 6px 12px 0; padding: 4px 14px;
-  background: linear-gradient(135deg, #6a9fff, #8b7bff); color: #fff;
+  background: linear-gradient(135deg, #7aa7ff, #a78bfa); color: #fff;
   border: none; border-radius: 4px; cursor: pointer; font-size: 12px;
   transition: filter .15s ease;
 }
@@ -1097,32 +1097,32 @@ body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background
 /* 首页横幅 */
 .codelens-banner {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  background: linear-gradient(135deg, rgba(110,170,255,.16), rgba(172,132,255,.16));
+  background: linear-gradient(135deg, rgba(122,167,255,.16), rgba(167,139,250,.16));
   -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.75);
   border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; max-width: 900px;
   box-shadow: 0 8px 32px rgba(70,100,180,.14), inset 0 1px 0 rgba(255,255,255,.6);
   text-decoration: none !important;
 }
 .codelens-banner .cb-icon { font-size: 30px; }
 .codelens-banner .cb-text { flex: 1; min-width: 200px; }
-.codelens-banner .cb-text b { font-size: 15px; color: #2a3a5c; display: block; }
-.codelens-banner .cb-text p { font-size: 12.5px; color: #5a6c95; margin-top: 4px; line-height: 1.6; }
+.codelens-banner .cb-text b { font-size: 15px; color: #26365e; display: block; }
+.codelens-banner .cb-text p { font-size: 12.5px; color: #5b6d99; margin-top: 4px; line-height: 1.6; }
 .codelens-banner .cb-btn {
   padding: 8px 18px; border-radius: 999px;
-  background: linear-gradient(135deg, #6a9fff, #8b7bff); color: #fff;
+  background: linear-gradient(135deg, #7aa7ff, #a78bfa); color: #fff;
   font-size: 13px; font-weight: 700;
-  box-shadow: 0 6px 18px rgba(110,150,255,.4);
+  box-shadow: 0 6px 18px rgba(122,167,255,.4);
 }
 .sidebar .codelens-link { margin: 10px 0 4px; justify-content: center; }
 
 /* 暗色模式玻璃适配 */
-body.dark-mode { background: linear-gradient(150deg, #0b1026, #101735 50%, #14102e) !important; }
+body.dark-mode { background: linear-gradient(150deg, #0a0e20, #0e1430 50%, #13102c) !important; }
 body.dark-mode .sidebar, body.dark-mode .content-header, body.dark-mode .step-tabs,
 body.dark-mode .concept-card, body.dark-mode .sum-card, body.dark-mode .overview-item,
 body.dark-mode .stat-card, body.dark-mode .guide-box, body.dark-mode .toast,
 body.dark-mode .badge-item, body.dark-mode .quick-toolbar {
-  background: rgba(20,26,48,.55) !important;
+  background: rgba(19,25,46,.6) !important;
   border-color: rgba(255,255,255,.12) !important;
 }
 body.dark-mode .content-area { background: transparent !important; }
@@ -1134,7 +1134,7 @@ body.dark-mode .logout-btn { background: rgba(255,255,255,.1) !important; color:
 body.dark-mode .codelens-banner { background: rgba(20,26,48,.5) !important; border-color: rgba(255,255,255,.14) !important; }
 body.dark-mode .codelens-banner .cb-text b { color: #e8ecf8 !important; }
 body.dark-mode .codelens-banner .cb-text p { color: #9aa4c4 !important; }
-body.dark-mode .code-block-wrapper { background: rgba(10,14,26,.9) !important; }
+body.dark-mode .code-block-wrapper { background: rgba(9,12,24,.92) !important; }
 @media (max-width: 900px) { .codelens-link { font-size: 12px; padding: 6px 12px; } }
 
 </style>
