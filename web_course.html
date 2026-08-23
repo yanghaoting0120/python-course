@@ -4477,23 +4477,7 @@ function init() {
  '<th style="border:1px solid #999;padding:6px 8px;">学习进度</th>' +
  '</tr>' + rows + '</table>' +
  '<p style="font-size:10px;color:#888;">本文件由 蛙课堂网页导出，可在 Word 或 WPS 中打开。</p>' +
- '
-<script>
-/* 蛙课堂 × CodeLens 联动：把当前代码块发送到 CodeLens 解释运行 */
-function runInCodeLens(btn) {
-  var wrap = btn.closest ? btn.closest('.code-block-wrapper') : null;
-  var codeEl = wrap ? wrap.querySelector('code') : null;
-  var code = codeEl ? codeEl.textContent : '';
-  if (!code) { alert('没有找到代码内容'); return; }
-  try {
-    localStorage.setItem('codelens_pending', JSON.stringify({ lang: 'html', code: code, ts: Date.now() }));
-    window.open('https://yanghaoting0120.github.io/codelens/', '_blank');
-  } catch (e) {
-    alert('未能自动打开 CodeLens，请复制代码后到 CodeLens 粘贴：\nhttps://yanghaoting0120.github.io/codelens/');
-  }
-}
-</script>
-</body></html>';
+ '</body></html>';
  var blob = new Blob(['\ufeff' + html], {type: 'application/msword'});
  var url = URL.createObjectURL(blob);
  var a = document.createElement('a');
@@ -5710,6 +5694,22 @@ window.goHome = function(){
  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
  else build();
 })();
+</script>
+
+<script>
+/* 蛙课堂 × CodeLens 联动：把当前代码块发送到 CodeLens 解释运行 */
+function runInCodeLens(btn) {
+  var wrap = btn.closest ? btn.closest('.code-block-wrapper') : null;
+  var codeEl = wrap ? wrap.querySelector('code') : null;
+  var code = codeEl ? codeEl.textContent : '';
+  if (!code) { alert('没有找到代码内容'); return; }
+  try {
+    localStorage.setItem('codelens_pending', JSON.stringify({ lang: 'html', code: code, ts: Date.now() }));
+    window.open('https://yanghaoting0120.github.io/codelens/', '_blank');
+  } catch (e) {
+    alert('未能自动打开 CodeLens，请复制代码后到 CodeLens 粘贴：\nhttps://yanghaoting0120.github.io/codelens/');
+  }
+}
 </script>
 </body>
 </html>
