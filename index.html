@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>蛙课堂 - 课程选择</title>
-<meta name="description" content="蛙课堂：选择 Python 或 PHP 交互式课程开始学习。">
+<meta name="description" content="蛙课堂：Python、PHP、AI、Web 与 JavaScript 五门交互式课程，选择一门开始学习。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐸%3C/text%3E%3C/svg%3E">
 <style>
  * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -691,6 +691,7 @@ body[data-fs="5"] .code-block-wrapper code { font-size: 17.5px !important; }
 .course-card.php { border-top-color: #777bb4; }
 .course-card.ai { border-top-color: #7c4dff; }
 .course-card.web { border-top-color: #ef6c00; }
+.course-card.js { border-top-color: #eab308; }
 .course-card .icon {
   width: 58px;
   height: 58px;
@@ -705,10 +706,12 @@ body[data-fs="5"] .code-block-wrapper code { font-size: 17.5px !important; }
 .course-card.php .icon { background: #eef0fa; }
 .course-card.ai .icon { background: #f0ebff; }
 .course-card.web .icon { background: #fff3e0; }
+.course-card.js .icon { background: #fef9c3; }
 .course-card.python .enter-btn { background: #3572a5; }
 .course-card.php .enter-btn { background: #777bb4; }
 .course-card.ai .enter-btn { background: #7c4dff; }
 .course-card.web .enter-btn { background: #ef6c00; }
+.course-card.js .enter-btn { background: #eab308; color: #1a1a2e; }
 
 body.dark-mode .step-tabs { background: #1a1a1a; }
 body.dark-mode .step-tab::before { background: #2a2a2a; color: #9aa7bd; }
@@ -1090,6 +1093,13 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  <p class="desc">从 Web 原理、HTML、CSS、JavaScript、DOM 表单、前后端 API、JSON、数据库 SQL 一路学到 AI 辅助开发，最后完成网页小项目。</p>
  <button class="enter-btn" onclick="event.stopPropagation(); enterCourse('web')">进入 Web 课程 →</button>
  </div>
+ <div class="course-card js" onclick="enterCourse('js')">
+ 
+ <h3>JavaScript 交互式课程</h3>
+ <div class="meta">10 节课 · 三档难度</div>
+ <p class="desc">从零开始学习 JavaScript：变量、类型、运算符、条件、循环、数组、函数、对象，再到 DOM 与事件，最后用 JS 做出能互动的网页小游戏。</p>
+ <button class="enter-btn" onclick="event.stopPropagation(); enterCourse('js')">进入 JavaScript 课程 →</button>
+ </div>
  </div>
  </main>
  </div>
@@ -1103,7 +1113,7 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  shared[user] = pass;
  setJson('frog_class_accounts', shared);
 
- ['python_course', 'php_course', 'ai_course', 'web_course'].forEach(function(prefix) {
+ ['python_course', 'php_course', 'ai_course', 'web_course', 'javascript_course'].forEach(function(prefix) {
  var accounts = getJson(prefix + '_accounts');
  accounts[user] = pass;
  setJson(prefix + '_accounts', accounts);
@@ -1157,6 +1167,7 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  if (lang === 'python') location.href = 'python_course.html?auto_login=' + encodeURIComponent(user);
  else if (lang === 'php') location.href = 'php_course.html?auto_login=' + encodeURIComponent(user);
  else if (lang === 'ai') location.href = 'ai_course.html?auto_login=' + encodeURIComponent(user);
+  else if (lang === 'js') location.href = 'javascript_course.html?auto_login=' + encodeURIComponent(user);
  else location.href = 'web_course.html?auto_login=' + encodeURIComponent(user);
  }
 
@@ -1175,7 +1186,7 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  (function init() {
  var shared = getJson('frog_class_accounts');
  if (!shared['student']) {
- ['frog_class', 'python_course', 'php_course', 'ai_course', 'web_course'].forEach(function(prefix) {
+ ['frog_class', 'python_course', 'php_course', 'ai_course', 'web_course', 'javascript_course'].forEach(function(prefix) {
  var accounts = getJson(prefix + '_accounts');
  accounts['student'] = '123456';
  setJson(prefix + '_accounts', accounts);
@@ -1183,7 +1194,7 @@ body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size:
  }
  var user = localStorage.getItem('frog_class_user');
  if (!user) {
- ['python_course_','php_course_','ai_course_','web_course_'].forEach(function(p){
+ ['python_course_','php_course_','ai_course_','web_course_','javascript_course_'].forEach(function(p){
  if (!user) user = localStorage.getItem(p + 'user');
  });
  }

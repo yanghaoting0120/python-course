@@ -4078,7 +4078,8 @@ function init() {
  var r=t-Math.floor((Date.now()-st)/1000);
  if(r<=0){timer.textContent='00:00';status.innerHTML='时间到';return;}
  timer.textContent=f(r);timer.className='ex-timer'+(r<30?' warning':'');
- document.getElementById(id).textContent=f(r);
+ var el=document.getElementById(id);if(!el)return;
+ el.textContent=f(r);
  requestAnimationFrame(u);
  }
  requestAnimationFrame(u);
@@ -4914,8 +4915,8 @@ function init() {
 <script>
 /* ACHIEVEMENTS_V1 */
 (function(){
- var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_'];
- var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10};
+ var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_', 'javascript_course_'];
+ var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10, 'javascript_course_': 10};
  var CUR = 'python_course_';
  var name = (location.pathname || '').split('/').pop();
  if (name.indexOf('php_') === 0) CUR = 'php_course_';
@@ -5052,7 +5053,7 @@ function init() {
  {icon:'🎓', name:'满腹经纶', ok: done >= 20},
  {icon:'🌟', name:'博学多才', ok: done >= 30},
  {icon:'🚀', name:'学海无涯', ok: done >= 40},
- {icon:'👑', name:'全科状元', ok: done >= 48},
+ {icon:'👑', name:'全科状元', ok: done >= 58},
 {icon:'⏰', name:'持之以恒', ok: (function(){var n=0;PREFIXES.forEach(function(p){var s=getJson(p+'stats_'+user());n+=(s.studyCount||0);});return n>=50;})()},
  {icon:'✏️', name:'小试牛刀', ok: (a.correct||0) >= 10},
  {icon:'🎯', name:'百发百中', ok: (a.bestStreak||0) >= 10},
@@ -5085,6 +5086,8 @@ function init() {
  {icon:'🤖', name:'AI 大师', ok: courseDone('ai_course_') >= 10},
  {icon:'🌐', name:'网页新手', ok: courseDone('web_course_') >= 1},
  {icon:'🌐', name:'网页工程师', ok: courseDone('web_course_') >= 10},
+  {icon:'💛', name:'JS 新手', ok: courseDone('javascript_course_') >= 1},
+  {icon:'💛', name:'JS 高手', ok: courseDone('javascript_course_') >= 10},
  {icon:'🧠', name:'全能学习者', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
  {icon:'📒', name:'笔记达人', ok: notesCount() >= 10},
  {icon:'💾', name:'数据管家', ok: !!a.exported},
@@ -5128,8 +5131,8 @@ function init() {
  };
 
  window.renderBadges = function(){
- var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_'];
- var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10};
+ var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_', 'javascript_course_'];
+ var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10, 'javascript_course_': 10};
  var CUR = 'python_course_';
  var name = (location.pathname || '').split('/').pop();
  if (name.indexOf('php_') === 0) CUR = 'php_course_';
@@ -5160,7 +5163,7 @@ function init() {
  {icon:'🎓', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
  {icon:'🌟', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
  {icon:'🚀', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
- {icon:'👑', name:'全科状元', desc:'四门课程全部完成（48 节）', ok: done >= 48},
+ {icon:'👑', name:'全科状元', desc:'五门课程全部完成（58 节）', ok: done >= 58},
  {icon:'⏰', name:'持之以恒', desc:'累计学习 50 次', ok: (function(){var n=0;PREFIXES.forEach(function(p){var s=getJson(p+'stats_'+user());n+=(s.studyCount||0);});return n>=50;})()},
  {icon:'✏️', name:'小试牛刀', desc:'累计答对 10 题', ok: (a.correct||0) >= 10},
  {icon:'🎯', name:'百发百中', desc:'连续答对 10 题', ok: (a.bestStreak||0) >= 10},
@@ -5193,7 +5196,9 @@ function init() {
  {icon:'🤖', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
  {icon:'🌐', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
  {icon:'🌐', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
- {icon:'🧠', name:'全能学习者', desc:'四门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
+  {icon:'💛', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
+  {icon:'💛', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
+ {icon:'🧠', name:'全能学习者', desc:'五门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
  {icon:'📒', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
  {icon:'💾', name:'数据管家', desc:'成功导出学习数据', ok: !!a.exported},
  {icon:'🔦', name:'夜读学者', desc:'暗色模式下完成学习', ok: !!a.dark},
@@ -5220,8 +5225,8 @@ function init() {
 /* ACHIEVEMENTS_V4 */
 (function(){
  window.renderBadges = function(){
- var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_'];
- var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10};
+ var PREFIXES = ['python_course_', 'php_course_', 'ai_course_', 'web_course_', 'javascript_course_'];
+ var TOTALS = {'python_course_': 18, 'php_course_': 10, 'ai_course_': 10, 'web_course_': 10, 'javascript_course_': 10};
  var CUR = 'python_course_';
  var name = (location.pathname || '').split('/').pop();
  if (name.indexOf('php_') === 0) CUR = 'php_course_';
@@ -5256,7 +5261,7 @@ function init() {
  {icon:'🎓', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
  {icon:'🌟', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
  {icon:'🚀', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
- {icon:'👑', name:'全科状元', desc:'四门课程全部完成（48 节）', ok: done >= 48},
+ {icon:'👑', name:'全科状元', desc:'五门课程全部完成（58 节）', ok: done >= 58},
  {icon:'⏰', name:'持之以恒', desc:'累计学习 50 次', ok: studyCount >= 50}
  ]},
  { title: '练习成就', items: [
@@ -5297,7 +5302,9 @@ function init() {
  {icon:'🤖', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
  {icon:'🌐', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
  {icon:'🌐', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
- {icon:'🧠', name:'全能学习者', desc:'四门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })}
+  {icon:'💛', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
+  {icon:'💛', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
+ {icon:'🧠', name:'全能学习者', desc:'五门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })}
  ]},
  { title: '趣味与隐藏成就', items: [
  {icon:'📒', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
@@ -5358,7 +5365,7 @@ function init() {
 window.goHome = function(){
  var u = localStorage.getItem('frog_class_user');
  if (!u) {
- ['python_course_','php_course_','ai_course_','web_course_'].forEach(function(p){
+ ['python_course_','php_course_','ai_course_','web_course_','javascript_course_'].forEach(function(p){
  if (!u) u = localStorage.getItem(p + 'user');
  });
  }
