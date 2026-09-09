@@ -115,7 +115,7 @@
  <button onclick="toggleBadges()" id="btnBadges">徽章</button>
 </div>
 <div class="content-header">
- <a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/?lang=html" target="_blank">⚡ 在线写代码</a> <div class="breadcrumb" id="breadcrumb">JavaScript 课程 / <strong>选择课程开始</strong></div>
+ <a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/?lang=javascript" target="_blank">⚡ 在线写代码</a> <div class="breadcrumb" id="breadcrumb">JavaScript 课程 / <strong>选择课程开始</strong></div>
  <div class="difficulty-selector">
  <span class="diff-label">难度：</span>
  <button class="diff-btn active" data-level="basic" onclick="setDifficulty('basic')">基础</button>
@@ -3534,7 +3534,7 @@ window.goHome = function(){
  else build();
 })();
 </script>
-<script>/* 蛙课堂 × CodeLens 联动：把当前代码块发送到 CodeLens 解释运行 */function runInCodeLens(btn) {  var wrap = btn.closest ? btn.closest('.code-block-wrapper') : null;  var codeEl = wrap ? wrap.querySelector('code') : null;  var code = codeEl ? codeEl.textContent : '';  if (!code) { alert('没有找到代码内容'); return; }  try {    localStorage.setItem('codelens_pending', JSON.stringify({ lang: 'html', code: code, ts: Date.now() }));    window.open('https://yanghaoting0120.github.io/codelens/', '_blank');  } catch (e) {    alert('未能自动打开 CodeLens，请复制代码后到 CodeLens 粘贴：\nhttps://yanghaoting0120.github.io/codelens/');  }}</script></body>
+<script>/* 蛙课堂 × CodeLens 联动：把当前代码块发送到 CodeLens 解释运行 */function runInCodeLens(btn) {  var wrap = btn.closest ? btn.closest('.code-block-wrapper') : null;  var codeEl = wrap ? wrap.querySelector('code') : null;  var code = codeEl ? codeEl.textContent : '';  if (!code) { alert('没有找到代码内容'); return; }  try {    localStorage.setItem('codelens_pending', JSON.stringify({ lang: 'javascript', code: code, ts: Date.now() }));    window.open('https://yanghaoting0120.github.io/codelens/', '_blank');  } catch (e) {    alert('未能自动打开 CodeLens，请复制代码后到 CodeLens 粘贴：\nhttps://yanghaoting0120.github.io/codelens/');  }}</script></body>
 </html>
 
 
