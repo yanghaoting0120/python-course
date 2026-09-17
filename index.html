@@ -160,6 +160,37 @@ body.dark-mode .course-card h2 { color: #e8ecf8 !important; }
 body.dark-mode .course-card .meta { color: #9fc9ff !important; }
 /* ===== 暗色模式可读性修复 v1 结束 ===== */
 </style>
+
+<!-- ===== 手机端自适应补丁 (2026-09-17) =====
+     全部规则包在 @media (max-width:820px) 内：电脑/平板宽屏(>820px) 完全不受影响。 -->
+<style id="frog-mobile-patch">
+@media only screen and (max-width: 820px) {
+  /* 1) 首页侧栏改「横向顶栏」。上一版误把它设成 48px，导致中文竖排、正文被挤到第 2 屏；
+        首页 ≤768px 本来就是 .app 竖排 + 侧栏通栏，这里只是压缩高度。 */
+  .app { flex-direction: column !important; }
+  .sidebar { width: 100% !important; min-width: 0 !important; flex-direction: row !important;
+             align-items: center; flex-wrap: wrap; gap: 4px 10px; padding: 8px 12px !important; }
+  .sidebar .logo { font-size: 22px; margin: 0; line-height: 1.1; }
+  .sidebar h1 { font-size: 15px; margin: 0; }
+  .sidebar p { display: none; }
+  .sidebar .user { margin: 0; padding: 0; border-top: 0; font-size: 12px; }
+  .sidebar .codelens-link { margin: 0; }
+  .sidebar .logout-btn { margin: 0; padding: 6px 12px; font-size: 12px; }
+
+  /* 2) 首屏压缩：CodeLens 横幅 + 标题，让课程卡片尽早出现 */
+  .main { padding: 12px !important; }
+  .codelens-banner { padding: 10px 12px !important; gap: 8px !important; margin-bottom: 12px !important; }
+  .codelens-banner .cb-text b { font-size: 14px !important; }
+  .codelens-banner .cb-text p { font-size: 12px !important; margin-top: 2px !important; line-height: 1.5 !important; }
+  .main h2 { font-size: 20px !important; margin-bottom: 4px !important; }
+  .main .sub { font-size: 12px !important; }
+  .course-grid { grid-template-columns: 1fr !important; }
+
+  /* 3) 小点击目标抬到 >=40px 高 */
+  .logout-btn, .g-btn { min-height: 40px; }
+  pre, table { max-width: 100%; overflow-x: auto; }
+}
+</style>
 </head>
 <body>
  <div class="login-screen" id="loginScreen">
