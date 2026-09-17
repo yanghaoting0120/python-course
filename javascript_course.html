@@ -363,6 +363,16 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   html { zoom: 0.85; }
 }
 </style>
+<style id="frog-noemoji">
+/* ===== 课时名称去掉 emoji 图标（2026-09-17）=====
+   ① 课时名称可见时（电脑 / 平板 / 手机横屏）：行首不再显示任何图标；
+   ② 手机竖屏侧栏塌成 48px 图标条、课时名称被隐藏，这里改显示课时序号，保证仍能点选课时。 */
+.lesson-item .icon { display: none !important; }
+@media only screen and (max-width: 820px) and (orientation: portrait) {
+  .sidebar .lesson-item .icon { display: block !important; font-size: 13px !important;
+                                font-weight: 700; color: #aabbdd; }
+}
+</style>
 </head>
 <body>
 
@@ -999,7 +1009,7 @@ function init() {
  const div = document.createElement('div');
  div.className = 'lesson-item' + (idx === state.currentLesson ? ' active' : '');
  const statusClass = prog.done ? 'completed' : (idx === state.currentLesson ? 'in-progress' : 'locked');
- div.innerHTML = `<div class="icon">${lesson.icon}</div>
+ div.innerHTML = `<div class="icon">${lesson.id}</div>
  <div class="info"><div class="title">第${lesson.id}节 ${lesson.title}</div>
  <div class="meta">${lesson.date} ${lesson.time}</div></div>
  <div class="status-dot ${statusClass}"></div>`;
@@ -1028,7 +1038,6 @@ function init() {
  // Placeholder for future lessons
  tabs.innerHTML = '';
  area.innerHTML = `<div class="placeholder-box">
- <div class="big-icon">${lesson.icon}</div>
  <h2>第${lesson.id}节 ${lesson.title}</h2>
  <p>${lesson.placeholder || '课程内容将在上课前更新...'}</p>
  <p class="placeholder-meta">上课时间：${lesson.date} ${lesson.time}</p>
