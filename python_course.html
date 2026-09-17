@@ -297,6 +297,10 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .step-progress { margin: 2px 0 4px !important; }
   .py-toggle, .php-toggle, .ai-toggle { bottom: 56px !important; }
   .py-toggle-label, .php-toggle-label, .ai-toggle-label { bottom: 66px !important; }
+  /* 5) 整版等比缩小（2026-09-17 用户要求）：手机横屏视口小，把整页缩到 80%
+        —— 顶部工具条 15 个键可完整显示、课程页可视课时 7→9，无横向溢出。
+        改倍数只需改这里的 0.8（0.7~0.9 之间试）。 */
+  html { zoom: 0.8; }
 }
 </style>
 </head>
