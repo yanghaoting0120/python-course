@@ -186,7 +186,8 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
 <!-- ===== 手机端自适应补丁 (2026-09-17) =====
      全部规则包在 @media (max-width:820px) 内：电脑/平板宽屏(>820px) 完全不受影响。 -->
 <style id="frog-mobile-patch">
-@media only screen and (max-width: 820px) {
+@media only screen and (max-width: 820px),
+       only screen and (orientation: landscape) and (max-height: 560px) {
   /* 1) 侧栏塌成图标条（原 .sidebar{width:280px} 写在文件末尾，把前面的手机媒体查询覆盖了，这里补回） */
   .sidebar { width: 48px; min-width: 48px; }
   .sidebar .info, .sidebar .stats, .sidebar .meta,
@@ -243,6 +244,59 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .py-toggle, .php-toggle, .ai-toggle { top: auto !important; bottom: 72px !important; right: 12px !important; }
   .py-toggle-label, .php-toggle-label, .ai-toggle-label { top: auto !important; bottom: 84px !important;
                    right: 76px !important; left: auto !important; }
+}
+</style>
+<style id="frog-landscape-patch">
+/* 手机横屏 = 电脑版布局（左侧竖排侧栏 + 宽内容区）。2026-09-17
+   只命中：orientation:landscape 且 视口高度 <= 560px（手机横屏）。竖屏、平板、电脑(高度>560)不匹配。 */
+@media only screen and (orientation: landscape) and (max-height: 560px) {
+  /* 1) 恢复「左栏 + 右内容」两列结构（竖屏补丁把它压成了横条 / 图标条） */
+  .app { flex-direction: row !important; }
+  .sidebar { width: clamp(150px, 24vw, 230px) !important;
+             min-width: clamp(150px, 24vw, 230px) !important;
+             flex-direction: column !important; align-items: stretch !important;
+             flex-wrap: nowrap !important; gap: 0 !important;
+             padding: 8px 10px !important; overflow-y: auto !important;
+             overflow-x: hidden !important; max-height: 100vh; }
+  /* 2) 恢复竖屏补丁隐藏的侧栏文字/统计（电脑版的信息密度） */
+  .sidebar .info, .sidebar .stats, .sidebar-header p { display: block !important; }
+  .sidebar-header .stats { display: flex !important; }
+  .lesson-item .status-dot { display: block !important; }
+  .sidebar-header { padding: 8px 4px 6px !important; }
+  .sidebar-header h1 { font-size: 15px !important; margin: 0 !important; }
+  .sidebar-header h1:after { content: none !important; }
+  .sidebar-header p { font-size: 11px !important; margin-top: 2px !important; }
+  .sidebar-header .stats { margin-top: 4px !important; font-size: 11px !important; gap: 8px !important; }
+  .sidebar .user, .sidebar .user-row { margin-top: 6px !important; padding-top: 6px !important; font-size: 11px !important; }
+  .lesson-item { justify-content: flex-start !important; padding: 7px 8px !important; }
+  .lesson-item .info .title { font-size: 12px !important; }
+  .lesson-item .info .meta { font-size: 10px !important; }
+  .sidebar .lesson-list { flex: 1; overflow-y: auto; }
+  /* 3) 首页：标题压缩 + 课程卡两列（电脑版网格） */
+  .sidebar .logo { font-size: 24px !important; margin: 0 0 2px !important; line-height: 1.1 !important; }
+  .sidebar h1 { font-size: 15px !important; margin: 0 !important; }
+  .main { padding: 10px 12px !important; }
+  .main h2 { font-size: 18px !important; margin-bottom: 2px !important; }
+  .main .sub { font-size: 12px !important; margin-bottom: 10px !important; }
+  .codelens-banner { margin-bottom: 10px !important; }
+  .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                 max-width: none !important; gap: 12px !important; }
+  .course-card { padding: 14px 14px 12px !important; }
+  .course-card .icon { font-size: 26px !important; }
+  .course-card h3 { font-size: 15px !important; margin: 4px 0 4px !important; }
+  /* 4) 正文区：横屏高度只有 ~400px，压缩留白换可视行数 */
+  .content-area { padding: 10px !important; }
+  /* 头栏强制单行（面包屑省略号收缩），窄横屏(740 等)不再折成两行 */
+  .content-header { flex-wrap: nowrap !important; }
+  .content-header .breadcrumb { flex: 1 1 auto !important; min-width: 0 !important; }
+  .diff-btn { padding: 4px 7px !important; font-size: 11px !important; }
+  .diff-label { font-size: 10px !important; }
+  .lesson-badge { padding: 2px 6px !important; font-size: 10px !important; }
+  .content-footer { padding: 5px 10px !important; }
+  .nav-btn { min-height: 36px !important; padding: 7px 8px !important; }
+  .step-progress { margin: 2px 0 4px !important; }
+  .py-toggle, .php-toggle, .ai-toggle { bottom: 56px !important; }
+  .py-toggle-label, .php-toggle-label, .ai-toggle-label { bottom: 66px !important; }
 }
 </style>
 </head>
