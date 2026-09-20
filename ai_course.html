@@ -115,7 +115,6 @@ body.dark-mode .quiz-actions button:hover { background: #1a2940 !important; bord
 /* --- 8. 悬浮开关标签 / 状态文字 / CodeLens 横幅图标 / 番茄钟标题 --- */
 body.dark-mode .py-toggle-label,
 body.dark-mode .php-toggle-label,
-body.dark-mode .ai-toggle-label { color: #9fc9ff !important; border-color: #9fc9ff !important; }
 body.dark-mode .ex-status,
 body.dark-mode .account-hint,
 body.dark-mode .badge-desc { color: #a3adb9 !important; }
@@ -240,10 +239,7 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   pre, table { max-width: 100%; overflow-x: auto; }
 
   /* 7) 悬浮 🐸 按钮：原来钉在 top:158px，正好压住正文开头 —— 挪到右下、避开底栏 */
-  .py-toggle, .php-toggle, .ai-toggle { top: auto !important; bottom: 72px !important; right: 12px !important; }
-  .py-toggle-label, .php-toggle-label, .ai-toggle-label { top: auto !important; bottom: 84px !important;
-                   right: 76px !important; left: auto !important; }
-}
+  .py-toggle, .php-toggle,  .py-toggle-label, .php-toggle-label,}
 </style>
 <style id="frog-mobile-patch3">
 /* ===== 手机版排版 v3（2026-09-17）：对比度 + 紧凑化 ===== */
@@ -297,8 +293,7 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .step-content h2 { font-size: 20px; margin-bottom: 10px; }
   .difficulty-indicator { margin-bottom: 8px; }
   /* 7) 悬浮青蛙：长标签盖正文 → 隐藏，只留按钮 */
-  .py-toggle-label, .php-toggle-label, .ai-toggle-label { display: none; }
-}
+  .py-toggle-label, .php-toggle-label,}
 </style>
 <style id="frog-landscape-patch">
 /* 手机横屏 = 电脑版布局（左侧竖排侧栏 + 宽内容区）。2026-09-17
@@ -349,9 +344,7 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .content-footer { padding: 5px 10px !important; }
   .nav-btn { min-height: 36px !important; padding: 7px 8px !important; }
   .step-progress { margin: 2px 0 4px !important; }
-  .py-toggle, .php-toggle, .ai-toggle { bottom: 56px !important; }
-  .py-toggle-label, .php-toggle-label, .ai-toggle-label { bottom: 66px !important; }
-  /* 5) 整版等比缩小（2026-09-17 用户要求）：手机横屏视口小，把整页缩到 80%
+  .py-toggle, .php-toggle,  .py-toggle-label, .php-toggle-label,  /* 5) 整版等比缩小（2026-09-17 用户要求）：手机横屏视口小，把整页缩到 80%
         —— 顶部工具条 15 个键可完整显示、课程页可视课时 7→9，无横向溢出。
         改倍数只需改这里的 0.8（0.7~0.9 之间试）。 */
   html { zoom: 0.8; }
@@ -2421,9 +2414,10 @@ window.__FROG_EDITOR_LANG = "javascript";
 
    覆盖范围（每个功能都过一遍）：
      侧边栏课时列表 → 进度 → 三档难度 → 四步学习流程 → 掌握度 →
-     代码块「在线运行」→ 应用题「看讲解」→ 选择题与错题本（间隔复习）→
-     总览面板（薄弱知识点）→ 工具区（笔记/数据/专注/成就）→
-     右下角学习指引 → 上一步/下一步
+     代码块「⚡ 在线运行 → CodeLens」→ 练习题 → 应用题编辑区 →
+     错题本与间隔复习 → 学习总览（薄弱知识点）→
+     工具区（笔记/数据/专注/成就/导出）→ 上一步 / 下一步
+     （共 12 步。原来还有一步讲右下角那个悬浮青蛙，青蛙已按需求去掉。）
 
    实现要点：
      · 遮罩用「一个大阴影」挖洞：`box-shadow: 0 0 0 9999px rgba(...)`，
@@ -2521,7 +2515,9 @@ window.__FROG_EDITOR_LANG = "javascript";
       target: function () { return document.querySelector('.cle-root'); },
       waitExtra: 500,
       title: '第 8 步 · 应用题编辑区',
-      text: '应用题不再是光秃秃的输入框：有行号、语法高亮、Tab 缩进、括号自动配对。',
+      /* 文案只说"是什么"，不提"以前是文本框"之类 ——
+         对学员来说这就是它本来的样子，没必要让人看出改过多少遍。 */
+      text: '应用题在这里写：有行号、语法高亮、Tab 缩进、括号自动配对。',
       tip: '写完点「看讲解」，它会把你写的代码逐行翻译成人话；点讲解条目还能跳到对应代码行。',
     },
     {
@@ -2549,14 +2545,8 @@ window.__FROG_EDITOR_LANG = "javascript";
       tip: '「数据」里可以把学习记录导出成 Word 或 JSON，换电脑时导入回来。',
     },
     {
-      target: function () { return document.getElementById('aiToggle'); },
-      title: '第 12 步 · 学习指引（那个青蛙）',
-      text: '右下角的青蛙按钮随时能打开「学习指引」，忘了哪个功能点这里。',
-      tip: '也可以按键盘 Ctrl + / 快速打开。',
-    },
-    {
       target: function () { return document.querySelector('.nav-btn'); },
-      title: '第 13 步 · 上一步 / 下一步',
+      title: '第 12 步 · 上一步 / 下一步',
       text: '底部这两个按钮在四步之间移动。也可以按键盘 ← → 切换。',
       tip: '学完四步后，这里会变成「完成本节课」。',
     },
@@ -6222,8 +6212,6 @@ function init() {
  authInit();
  init();
 </script>
-<button class="ai-toggle" id="aiToggle" onclick="openAiGuide()" aria-label="AI 学习指引" title="AI 学习指引">🐸</button>
-<div class="ai-toggle-label" onclick="openAiGuide()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAiGuide();}">AI 学习指引</div>
 
 <!-- Overview Panel -->
 <div id="overviewPanel" style="display:none; padding: 16px;">
@@ -6331,21 +6319,6 @@ function init() {
  <h3 style="margin-bottom:12px;">错题本</h3>
  <div id="wrongBookContent"></div>
 </div>
-
-<!-- AI 工具 Guide Panel -->
-<div id="aiPanel" style="display:none; padding: 16px;">
- <button class="panel-back-btn" onclick="closePanel()">← 返回学习</button>
- <h3 style="margin-bottom:12px;">🐸 AI 学习指引</h3>
- <div class="ai-guide">
- <p>这门课会用到 AI 工具。示例可以直接复制，动手实践时登录 ChatGPT、Codex 或国内 AI 助手提问。</p>
- <div class="ai-step"><b>使用 AI 工具：</b>登录 ChatGPT、Codex 或国内 AI 助手，用自然语言提问和生成代码即可。</div>
- <div class="ai-step"><b>网页开发工具：</b>安装 VS Code 写代码，浏览器自带开发者工具可以查看网页效果。</div>
- <div class="ai-actions">
- <button class="g-btn primary" onclick="closePanel()">我了解了，开始学习</button>
- </div>
- </div>
-</div>
-
 <div class="toast" id="appToast"></div>
 <div class="confirm-overlay" id="confirmOverlay">
  <div class="confirm-box">
@@ -6569,12 +6542,6 @@ function init() {
 /* ACHIEVEMENTS_V3 */
 (function(){
  function pageKey(){ return (location.pathname || '').split('/').pop(); }
- function fixGuideLabel(){
- var label = document.querySelector('.py-toggle-label, .php-toggle-label, .ai-toggle-label');
- if (label) label.textContent = 'AI 学习指引';
- }
- if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fixGuideLabel);
- else fixGuideLabel();
 
  window.toggleBadgeDesc = function(el){
  el.classList.toggle('open');
