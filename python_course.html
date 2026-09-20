@@ -2496,10 +2496,20 @@ window.__FROG_EDITOR_LANG = "python";
       tip: '没达标不会被放行 —— 这是故意的，避免"看完就过"。',
     },
     {
+      /* ⚠ 这一步必须先切到「有 ⚡ 在线运行 按钮的那一课」。
+         第 1 课的核心内容里没有代码块，原来直接找 .code-run-btn 会框到
+         别处一个小元素（实测 82×19，点击罩还不可见）——
+         用户反馈的「介绍 CodeLens 时没有把 CodeLens 框出来」就是这个。
+         同时把文案改清楚：这个按钮**就是** CodeLens 的入口。 */
       target: function () { return document.querySelector('.code-run-btn'); },
-      title: '第 6 步 · 示例代码可以真的跑',
-      text: '讲解里的每段代码右上角都有「⚡ 在线运行」，点了会打开在线运行器看效果。',
-      tip: '「复制」按钮把代码复制走，可以贴到自己的编辑器里。',
+      enter: function () {
+        try { if (typeof selectLesson === 'function') selectLesson(1); } catch (e) {}
+        try { if (typeof selectStep === 'function') selectStep(1); } catch (e) {}
+      },
+      waitExtra: 400,
+      title: '第 6 步 · ⚡ 在线运行 = 打开 CodeLens',
+      text: '讲解里的每段代码右上角都有「⚡ 在线运行」，点了就把这段代码送进 CodeLens（译码）—— 它会真实跑一遍，并逐行解释给你听。',
+      tip: '旁边的「复制」把代码复制走，可以贴到自己的编辑器里。CodeLens 也可以单独打开：yanghaoting0120.github.io/codelens。',
     },
     {
       target: function () { return document.querySelector('.step-tab:nth-child(3)'); },
@@ -2524,9 +2534,14 @@ window.__FROG_EDITOR_LANG = "python";
     {
       target: function () { return byText('.tool-btn', '总览') || byText('.quick-toolbar button', '总览'); },
       enter: function () { try { toggleOverview(); } catch (e) {} },
+      /* ⚠ 离开这一步必须把总览面板收回去。
+         总览面板是全高浮层（实测 10→990px），而工具区在顶部 0→34px ——
+         不收的话它正好盖住下一步要介绍的那排按钮，
+         用户反馈的「总览介绍完没有自动收回去，挡住了后面按键的介绍」就是这个。 */
+      leave: function () { try { hideAllPanels(); } catch (e) {} },
       title: '第 10 步 · 学习总览',
       text: '这里能看到每节课的完成情况，还有「薄弱知识点」报告 —— 哪些地方正确率低，一眼看出来。',
-      tip: '复习完可以回来看看薄弱点有没有消掉。',
+      tip: '复习完可以回来看看薄弱点有没有消掉。（看完会自动帮你收起这个面板）',
     },
     {
       target: function () { return document.querySelector('.quick-toolbar'); },
@@ -2717,6 +2732,13 @@ window.__FROG_EDITOR_LANG = "python";
   }
 
   function show(i) {
+    /* 先跑上一步的 leave（收面板之类）。
+       为什么必须有：有的步骤会打开全高浮层（总览面板实测 10→990px），
+       不收的话它正好盖住下一步要介绍的元素 —— 用户看到的就是
+       「上一个功能讲完了，面板还杵在那儿挡着」。 */
+    var prevStep = (idx >= 0 && idx < STEPS.length) ? STEPS[idx] : null;
+    if (prevStep && prevStep.leave) { try { prevStep.leave(); } catch (e) {} }
+
     idx = i;
     if (idx >= STEPS.length) return finish();
     var step = STEPS[idx];
@@ -2878,8 +2900,7 @@ window.__FROG_EDITOR_LANG = "python";
  <button onclick="toggleDarkMode()" id="btnDarkMode">暗色</button>
  <button onclick="exportProgress()" class="export-btn">导出</button>
  <button onclick="resetProgress()" class="reset-btn">重置进度</button>
- <button onclick="openGuide()">帮助</button>
- <button onclick="toggleNotes()">笔记</button>
+  <button onclick="toggleNotes()">笔记</button>
  <button onclick="toggleDataPanel()">数据</button>
  <button onclick="toggleWrongBook()" id="btnWrongBook">错题本</button>
  <button onclick="toggleBadges()" id="btnBadges">徽章</button>
