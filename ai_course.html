@@ -4244,9 +4244,7 @@ function init() {
  updateStepProgress();
  updateMasteryBadge();
  /* 把应用题的小文本框升级成「专业编辑区」（行内高亮 + 人话讲解）。
-    必须放在 restoreAllDrafts() 之前 —— 升级会换掉 textarea 节点，
-    放在之后写进去的草稿就丢了（见 apply-exercise-pro.js 的说明）。
-    CodeLensPro 由 build-pages 注入（defer 脚本）；万一没注入到，这里静默跳过，
+    CodeLensPro 由 build-pages 注入（defer 脚本）；没注入到就静默跳过，
     退化成原来的 textarea，不影响做题。 */
  if (window.CodeLensPro && window.CodeLensPro.upgradeAll) {
  try { window.CodeLensPro.upgradeAll(); } catch (e) {}
@@ -4548,7 +4546,15 @@ function init() {
  var pre = ln ? '第 ' + ln + ' 行：' : '';
  if (e instanceof TypeError) return pre + '类型不对：可能把文字当数字用了，或调用了不存在的方法。' + (e.message ? '（' + e.message + '）' : '');
  if (e instanceof ReferenceError) return pre + '名字不认识：用到了没声明过的变量或函数。' + (e.message ? '（' + e.message + '）' : '');
- if (e instanceof SyntaxError) return pre + '语法错误：括号、引号、分号有没有成对？' + (e.message ? '（' + e.message + '）' : '');
+ if (e instanceof SyntaxError) {
+ /* 浏览器原始消息里有 "Unexpected token '<'" 这种，对初学者等于没说。
+    最常见的两种：尖括号标签被当代码（说明写的是 HTML/PHP 之类）、括号引号没成对。 */
+ var rawMsg = e.message || '';
+ var hint = /token '<'/i.test(rawMsg)
+ ? '看起来里面有尖括号标签 —— 这一段可能不是 JavaScript，HTML / PHP 要放到各自环境里跑。'
+ : '检查括号、引号、分号是不是成对，尤其看上一行有没有漏掉收尾。';
+ return pre + '语法错误：' + hint;
+ }
  if (e instanceof RangeError) return pre + '数字越界：' + (e.message || '');
  return pre + '运行出错：' + (e && e.message ? e.message : String(e));
  }
@@ -4626,6 +4632,19 @@ function init() {
  '</body></html>';
  }
 
+ /* 各语言「该去哪儿真跑一遍」的提示。讲清楚环境，比给个假运行有用。 */
+ function langHint(lang) {
+ var m = {
+ python: '把代码粘到 Thonny 或 IDLE 里按 F5 运行（本课程前面几课装过）；',
+ php: '把代码存成 .php 放进 PHP 环境（XAMPP 的 htdocs）再用浏览器打开；',
+ mysql: '把 SQL 粘到数据库工具或 phpMyAdmin 的 SQL 窗口里执行；',
+ html: '把代码存成 .html 双击用浏览器打开，直接就能看效果；',
+ css: '把样式放进 HTML 的 style 标签里，用浏览器打开看效果；',
+ ai: '这段是参考写法，重点是读懂它的思路；'
+ };
+ return m[lang] || '把代码放到对应的环境里运行；';
+ }
+
  /* ---------- 运行按钮 ---------- */
  function runExercise(btn) {
  var ex = btn.closest('.coding-exercise');
@@ -4639,6 +4658,20 @@ function init() {
  var checkCode = checkEl ? checkEl.textContent : '';
  var setupEl = ex.querySelector('.ex-setup-src') || ex.querySelector('.ex-setup');
  var setupCode = setupEl ? setupEl.textContent : '';
+
+ /* 语言守卫：只有 JavaScript 能在浏览器沙箱里直接跑。
+    其它语言的题（本课没有自检脚本时）不要硬塞进 JS 沙箱 —— 否则
+    PHP 报 "Unexpected token '<'"、Python 报 "print is not defined"，
+    而且 HTML 会被当文档结构吞掉，看着像跑通了。讲清楚比假装能跑更好。 */
+ var courseLang = window.__FROG_EDITOR_LANG || 'javascript';
+ if (courseLang !== 'javascript' && !checkCode) {
+ out.className = 'ex-run-output warn';
+ out.textContent = '这道题不是 JavaScript，浏览器里跑不了 ' + courseLang.toUpperCase() + '。\n' +
+ '　· 先照着上面的讲解把代码读懂、写对；\n' +
+ '　· 想真跑一遍：' + langHint(courseLang) + '\n' +
+ '写完可以点「看讲解」，让它逐行告诉你这段代码在做什么。';
+ return;
+ }
  btn.disabled = true; btn.textContent = '运行中…';
  out.className = 'ex-run-output';
  out.textContent = '正在运行…';
