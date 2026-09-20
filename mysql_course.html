@@ -2541,8 +2541,8 @@ window.__FROG_EDITOR_LANG = "javascript";
     {
       target: function () { return document.querySelector('.quick-toolbar'); },
       title: '第 11 步 · 工具区',
-      text: '顶栏这一排：学习总览、笔记、数据（导出/导入学习记录）、错题本、专注模式、成就、字体大小、主题色。',
-      tip: '「数据」里可以把学习记录导出成 Word 或 JSON，换电脑时导入回来。',
+      text: '顶栏这一排：学习总览、笔记、数据（导出/导入学习记录）、错题本、专注模式、成就徽章、字体大小、主题色。',
+      tip: '「数据」里可以把学习记录导出成 Word 或 JSON，换电脑时导入回来。Python 和 PHP 课还各有一个环境指引按钮，教你怎么装 Thonny / PHP。',
     },
     {
       target: function () { return document.querySelector('.nav-btn'); },
@@ -2807,6 +2807,53 @@ window.__FROG_EDITOR_LANG = "javascript";
     restart: function () { finish(); active = false; start(true); },
     isDone: isDone,
   };
+
+  /* ============================================================
+     修一个从没生效过的 bug：三个「环境指引」按钮点了没反应
+
+     症状：点 🐸 /「打开 Thonny 写代码」/「PHP 运行说明」什么都不发生，
+           控制台报 `openThonnyGuide is not defined`。
+
+     根因：页面里 openThonnyGuide / openPhpGuide / openAiGuide 只有
+           `function xxx() {}` 定义，**没有挂到 window**；而 HTML 里写的是
+           `onclick="openThonnyGuide()"` —— 内联 onclick 在全局作用域执行，
+           拿不到那个 script 块里的函数。
+           对比：toggleOverview / hideAllPanels / closePanel / openGuide
+           这些都挂上了，所以它们正常；就这三个漏了。
+
+     ⚠ 两个坑，都踩过：
+       ① 用普通 eval 取不到 —— eval 在**本函数的闭包里**执行，够不着外层；
+          必须用**间接 eval**（`(0, eval)(...)`）才会在全局作用域求值。
+       ② 本脚本是 `<script defer>`，**先于**页面后面那几个 script 块执行，
+          这时函数还不存在。所以要等到 DOMContentLoaded 之后再取，
+          并且延迟重试一次兜底。
+
+     为什么在这里做：tour.js 是每个页面都加载的全局脚本，用它做统一暴露，
+     不用去动那些位置敏感、又被阶段 B 补丁 replaceRegion 覆盖的 script 块。
+     全程 typeof 探测，取不到就静默跳过，不会把脚本带崩。
+     ============================================================ */
+  var GUIDE_FNS = ['openThonnyGuide', 'openPhpGuide', 'openAiGuide'];
+  var gEval = eval;   // 间接 eval：在全局作用域求值
+
+  function exposeGuideFns() {
+    for (var i = 0; i < GUIDE_FNS.length; i++) {
+      var fn = GUIDE_FNS[i];
+      try {
+        if (typeof window[fn] === 'function') continue;   // 已经有了
+        var f = gEval('typeof ' + fn + ' === "function" ? ' + fn + ' : null');
+        if (f) window[fn] = f;
+      } catch (e) { /* 取不到就算了，不影响其它功能 */ }
+    }
+  }
+  exposeGuideFns();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      exposeGuideFns();
+      setTimeout(exposeGuideFns, 120);   // 兜底：万一还有更晚的脚本
+    });
+  } else {
+    setTimeout(exposeGuideFns, 0);
+  }
 })();
 
 </script>
@@ -4266,6 +4313,34 @@ function init() {
  var ex = b.closest('.coding-exercise');
  ex.querySelector('.ex-solution').classList.add('show');
  b.textContent='已显示参考解答';b.disabled=true;
+ }
+
+ /* ============================================================
+   环境指引面板的打开函数
+
+   ⚠ 这三个函数必须放在这里，不能靠模板里的原文。
+
+   原因：本文件是阶段 B `replaceRegion` 的替换内容，替换范围是
+   「// ===== Interactive Exercise =====」到「// ===== Keyboard Protection =====」。
+   而模板里 openAiGuide / openPhpGuide / openAiGuide 的定义**正好落在这个区间内**
+   —— 所以替换一跑，它们就被抹掉了。
+
+   后果：页面上按钮 onclick="openAiGuide()" 永远报
+   `openAiGuide is not defined`，点了没反应。
+   （这三个按钮从加进来那天起就是坏的，只是没人点过。
+     用户反馈"点了没反应"才查出来。）
+
+   各课的函数名/面板 id 不同，由 make-sources 归一化时替换
+   openAiGuide→openAiGuide、aiPanel→aiPanel，
+   构建时再按课填回（Python→Thonny、PHP→Php、其余→Ai）。
+
+   注意：不要引 window.xxx，就按普通函数声明写，
+   HTML 的 onclick 需要它们在全局作用域。
+   ============================================================ */
+ function openAiGuide() {
+ hideAllPanels();
+ var p = document.getElementById('aiPanel');
+ if (p) p.style.display = 'block';
  }
  // ===== Keyboard Protection =====
  document.addEventListener('keydown',function(e){
