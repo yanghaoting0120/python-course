@@ -1034,13 +1034,17 @@ body.dark-mode .tok-plain { color: #dbe6f5; }
 .ftt-actions .ftt-next { font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 8px; background: #2f6fd0; color: #fff; border: 0; cursor: pointer; font-family: inherit; }
 .ftt-actions .ftt-next:hover { filter: brightness(1.08); }
 
+/* 引导提示语：放**顶部居中**。
+   第一版放底部，和右下角的「JavaScript 学习指引」标签、以及页面自己的
+   上一步/下一步按钮撞在一起。顶部中间那片区域是空的，最安全。 */
 .frog-tour-hint {
-  position: fixed; left: 50%; bottom: 40px;
-  transform: translateX(-50%) translateY(10px);
+  position: fixed; left: 50%; top: 16px;
+  transform: translateX(-50%) translateY(-10px);
   background: rgba(20, 32, 54, .92); color: #fff;
   font-size: 13px; padding: 9px 18px; border-radius: 20px;
   opacity: 0; transition: opacity .2s, transform .2s;
   pointer-events: none; white-space: nowrap;
+  z-index: 1;
 }
 .frog-tour-hint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -2609,16 +2613,25 @@ window.__FROG_EDITOR_LANG = "html";
     document.addEventListener('keydown', onKey, true);
   }
 
-  /* 推进一步。用 advanced 标记防重复 —— 点高亮区会同时触发
-     「模拟点击 → 目标元素自己的行为」，再加「下一步」按钮，容易一步走两格。 */
+  /* 推进一步。
+     ⚠ 防重复不能只靠一个固定时长的标记，这里踩过两次：
+       ① 点高亮区既触发「模拟点击目标」又触发推进 → 一步两格；
+       ② 加了个 380ms 的 advanced 标记，但定时器到点就解锁，
+          而此时下一步界面还没切完，再点一下又推一格
+          （连点实测会 1,2,3,4,5,5,7,7,13 那样跳）。
+     现在：**由切步完成来解锁**（show() 定位完才 unlock()），期间按钮禁用。
+     这样无论点多快都是稳稳一步一步走。 */
   function advance() {
     if (!active || advanced) return;
     advanced = true;
-    setTimeout(function () {
-      if (!active) return;
-      advanced = false;
-      next();
-    }, 380);
+    if (tipNext) { tipNext.disabled = true; tipNext.textContent = '切换中…'; }
+    setTimeout(next, 320);
+  }
+
+  /* 切步完成时解锁（由 show() 调用） */
+  function unlock() {
+    advanced = false;
+    if (tipNext) tipNext.disabled = false;
   }
 
   function onKey(e) {
@@ -2655,15 +2668,37 @@ window.__FROG_EDITOR_LANG = "html";
     catchEl.style.height = h + 'px';
     catchEl.style.display = 'block';
 
-    /* 提示框：优先放目标下方，放不下就放上方；都不行就贴底 */
-    var tw = 340, th = tipBox.offsetHeight || 190;
-    var tx = Math.min(Math.max(12, x), vw - tw - 12);
-    var ty;
-    if (y + h + 14 + th < vh) ty = y + h + 14;
-    else if (y - 14 - th > 0) ty = y - 14 - th;
-    else ty = vh - th - 16;
+    /* 提示框位置：目标是「不要压住聚光灯」。
+       优先级：目标下方 → 目标上方 → 屏幕左右两侧留白处 → 贴底。
+       第一版只有"下方/上方/贴底"三档，结果是：目标本身就在页面底部时，
+       只能贴底，提示框正好盖住高亮区 —— 学生看不到该点哪儿。
+       现在多了「贴到左右留白」这一档（侧边栏类目标右边就是大片空白，很好放）。 */
+    var tw = 340, th = tipBox.offsetHeight || 200, gap = 14;
+    var tx, ty;
+
+    function fitsLeft() { return vw - (x + w) - gap - 12 >= tw; }
+    function fitsBelow() { return y + h + gap + th <= vh - 12; }
+    function fitsAbove() { return y - gap - th >= 12; }
+
+    if (fitsBelow()) {
+      tx = clampX(x); ty = y + h + gap;
+    } else if (fitsAbove()) {
+      tx = clampX(x); ty = y - gap - th;
+    } else if (fitsLeft()) {
+      /* 放在目标右侧的空白里，垂直方向跟目标对齐（夹在视口内） */
+      tx = x + w + gap;
+      ty = Math.min(Math.max(12, y), Math.max(12, vh - th - 12));
+    } else if (x - gap - tw >= 12) {
+      tx = x - gap - tw;
+      ty = Math.min(Math.max(12, y), Math.max(12, vh - th - 12));
+    } else {
+      /* 实在没地方：贴底，但把聚光灯往上顶一点也来不及 —— 至少保证提示框完整可见 */
+      tx = clampX(x); ty = Math.max(12, vh - th - 12);
+    }
     tipBox.style.left = tx + 'px';
-    tipBox.style.top = Math.max(12, ty) + 'px';
+    tipBox.style.top = ty + 'px';
+
+    function clampX(v) { return Math.min(Math.max(12, v), Math.max(12, vw - tw - 12)); }
   }
 
   /* 等目标元素出现（切界面是异步的） */
@@ -2696,16 +2731,24 @@ window.__FROG_EDITOR_LANG = "html";
         tipNext.textContent = (idx === STEPS.length - 1) ? '开始学习 →' : '下一步 →';
 
         if (!el) {
-          /* 找不到目标（比如在窄屏上被隐藏了）——只显示提示框，不框空气 */
+          /* 找不到目标（比如窄屏上被隐藏了）——不框空气，提示框居中 */
           spot.style.width = '0px'; spot.style.height = '0px';
           catchEl.style.display = 'none';
+          curTarget = null;
           tipBox.style.left = '50%'; tipBox.style.top = '50%';
           tipBox.style.transform = 'translate(-50%,-50%)';
+          unlock();
           return;
         }
         tipBox.style.transform = '';
-        if (el.scrollIntoView) { try { el.scrollIntoView({ block: 'center', behavior: 'instant' }); } catch (e) { el.scrollIntoView(); } }
+        /* 先量高度再定位（内容换了，高度会变） */
+        tipBox.style.visibility = 'hidden';
+        if (el.scrollIntoView) {
+          try { el.scrollIntoView({ block: 'center', behavior: 'instant' }); } catch (e) { el.scrollIntoView(); }
+        }
         place(el);
+        tipBox.style.visibility = '';
+        unlock();
       });
     }
 
