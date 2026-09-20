@@ -617,6 +617,123 @@ body.dark-mode .w-due.ok { background: #17301f; border-color: #2c5c3c; color: #a
   right: 92px !important;
 }
 
+/* ============================================================
+   版式统一：卡片模板 + 呼吸感间距
+   ------------------------------------------------------------
+   两个诉求：
+     ① 每个栏目的「标题」与「内容」挨得太近；大栏与大栏之间也要留白；
+     ② 知识卡片要统一成一个模板。
+   现状（实测）：
+     · .step-content h2 → 下面只有 18px，紧接着就是难度标签和第一张卡
+     · 卡片之间**完全没有 margin**，靠在一起像一整块
+     · 页面里混着三套卡片结构：concept-card / sum-card / objective-box，
+       另有 explain-card（知识点卡）；card-header 有 198 处带内联背景色、其余不带
+   做法：只加一层统一规则，**不动原有结构** —— 六个页面、三套结构一起收敛，
+   不用改 1747 处 HTML。用 :where() 保持零特异性，个别地方要覆盖时不必再加 !important。
+
+   调间距只改下面这三个变量。
+   ============================================================ */
+:root {
+  --frog-gap-block: 22px;    /* 大块（卡片 / 代码块 / 练习区）之间 */
+  --frog-gap-title: 26px;    /* 栏目标题与内容之间 */
+  --frog-card-radius: 10px;
+  --frog-card-border: #dbe4f0;
+  --frog-card-head-bg: linear-gradient(90deg, #e8f1fd, #f6faff);
+  --frog-card-head-fg: #0d47a1;
+}
+
+/* ---------- ① 栏目标题与内容拉开 ---------- */
+.step-content > h2 {
+  margin: 0 0 var(--frog-gap-title) !important;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e6eef9;
+}
+.step-content > .difficulty-indicator {
+  margin-bottom: var(--frog-gap-block) !important;
+}
+
+/* ---------- ② 大块之间留白 ---------- */
+.step-content > :where(.concept-card, .sum-card, .objective-box, .explain-grid,
+                        .code-block-wrapper, .output-demo, .exercise-section,
+                        .keywords-grid, .tip-box, .warning-box, .quiz) {
+  margin-bottom: var(--frog-gap-block);
+}
+/* 两张卡片紧挨着时多留一点，避免糊成一坨 */
+.step-content > .concept-card + .concept-card,
+.step-content > .sum-card + .sum-card {
+  margin-top: calc(var(--frog-gap-block) - 6px);
+}
+
+/* ---------- ③ 卡片统一成一个模板 ----------
+
+   ⚠ 别给它加 border-radius / box-shadow。
+   页面里有一段「Rectangular clean layout」（2026-08-23 玻璃拟态改造时加的），
+   把 .concept-card / .sum-card / .quiz / .code-block-wrapper / .explain-card /
+   各种面板共 27 个类统一成 `border-radius: 0 !important; box-shadow: none !important`
+   —— 直角扁平是**既定的设计语言**，不是漏掉了。
+   我一开始加圆角+阴影，被它压掉，还以为是优先级问题；其实是我在逆着设计走。
+   所以这里改成：在直角的基础上做出「统一的卡片感」——
+   靠**统一的描边、统一的标题条、统一的内边距**区分，而不是靠圆角。
+   （这也顺带解释了为什么原先三套卡片结构看起来"没模板"：它们都被抹平成同一个样子了。） */
+
+/* 卡片容器。选择器刻意写具体（带 .step-content 父级）：
+   页面里有一段「Rectangular clean layout」把 .concept-card 设成
+   `border-left: none !important`，同优先级时靠顺序决定胜负，太脆。
+   提高特异性后无论那段排在哪儿都由我们说了算。 */
+.step-content :where(.concept-card, .sum-card, .objective-box, .explain-card),
+.step-content > .concept-card,
+.step-content > .sum-card {
+  border: 1px solid var(--frog-card-border) !important;
+  border-left: 4px solid #1565c0 !important;   /* 左色条：三种结构统一都有 */
+  background: #fff !important;
+}
+
+/* 标题条：统一底色、字号、内边距、下边框 */
+.step-content :where(.concept-card, .sum-card, .explain-card) > :where(.card-header, .sum-header, .explain-title),
+.step-content .objective-box > h4 {
+  background: var(--frog-card-head-bg) !important;
+  color: var(--frog-card-head-fg) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  padding: 11px 16px 11px 13px !important;   /* 左边少 3px：补回左色条占掉的宽度，视觉对齐 */
+  margin: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid #d7e6f8 !important;
+}
+
+/* 正文：统一内边距与行高 —— 这就是「标题和内容挨太近」的直接解药 */
+.step-content :where(.concept-card, .sum-card, .explain-card) > :where(.card-body, .sum-body, .explain-body) {
+  padding: 16px 18px !important;
+  line-height: 1.85;
+}
+.card-body > :first-child, .sum-body > :first-child, .explain-body > :first-child { margin-top: 0; }
+.card-body > :last-child,  .sum-body > :last-child,  .explain-body > :last-child  { margin-bottom: 0; }
+.objective-box { padding: 0 0 14px !important; }
+.objective-box > ul { margin: 12px 18px 0; padding-left: 20px; line-height: 1.9; }
+
+/* 代码块与运行结果：同一种描边，和卡片成为一套 */
+.step-content > :where(.code-block-wrapper, .output-demo) {
+  border: 1px solid var(--frog-card-border) !important;
+}
+.output-demo > .output-header {
+  padding: 9px 16px !important;
+  font-size: 13px !important;
+}
+
+/* ---------- 暗色适配 ---------- */
+body.dark-mode {
+  --frog-card-border: #2c3a52;
+  --frog-card-head-bg: linear-gradient(90deg, #1d2c44, #1a2434);
+  --frog-card-head-fg: #9fc9ff;
+}
+body.dark-mode .step-content :where(.concept-card, .sum-card, .objective-box, .explain-card) {
+  background: #1b2230 !important;
+}
+body.dark-mode .step-content :where(.concept-card, .sum-card, .explain-card) > :where(.card-header, .sum-header, .explain-title) {
+  border-bottom-color: #2f4a6b !important;
+}
+body.dark-mode .step-content > h2 { border-bottom-color: #2c3a52; }
+
 </style>
 <style>
 /* === FROG-EDITOR-CSS === */
@@ -867,6 +984,87 @@ body.dark-mode .tok-var { color: #dbe6f5; }
 body.dark-mode .tok-builtin { color: #89ddff; }
 body.dark-mode .tok-plain { color: #dbe6f5; }
 
+/* ============================================================
+   新手分步引导（聚光灯式）样式 —— 配套 src/parts/codelens/tour.js
+   ------------------------------------------------------------
+   挖洞遮罩：一个 div，用超大 box-shadow 把周围糊黑、自身透明。
+   比"四块拼遮罩"简单，滚动时也不会露缝。
+   高亮区 pointer-events:none —— 点击会真的落到被高亮的元素上，
+   学生的操作是真实发生的，不是做个样子。
+   ============================================================ */
+.frog-tour-mask { position: fixed; inset: 0; z-index: 99990; display: none; }
+.frog-tour-mask.show { display: block; }
+
+.frog-tour-spot {
+  position: fixed;
+  border-radius: 8px;
+  box-shadow: 0 0 0 9999px rgba(12, 22, 40, .58);
+  outline: 2px solid #7aa7ff;
+  outline-offset: 2px;
+  transition: all .16s ease-out;
+  pointer-events: none;
+  cursor: pointer;
+}
+.frog-tour-spot::after {
+  content: '';
+  position: absolute; inset: -6px;
+  border-radius: 12px;
+  border: 2px solid rgba(122, 167, 255, .55);
+  animation: frogTourPulse 1.6s ease-in-out infinite;
+}
+@keyframes frogTourPulse {
+  0%, 100% { opacity: .25; transform: scale(1); }
+  50%      { opacity: .9;  transform: scale(1.015); }
+}
+
+.frog-tour-tip {
+  position: fixed; width: 340px;
+  background: #fff; border: 1px solid #cfdcee; border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(12, 22, 40, .28);
+  padding: 14px 16px 12px;
+  transition: left .16s ease-out, top .16s ease-out;
+}
+.ftt-count { font-size: 11px; font-weight: 700; color: #2f6fd0; letter-spacing: .06em; margin-bottom: 4px; }
+.ftt-title { font-size: 15px; font-weight: 700; color: #1f2a44; margin-bottom: 6px; }
+.ftt-text { font-size: 13px; color: #46536b; line-height: 1.75; }
+.ftt-extra { font-size: 12px; color: #6b7a94; line-height: 1.7; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e3e9f2; }
+.ftt-actions { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.ftt-actions .ftt-skip { margin-right: auto; font-size: 12px; color: #8fa0b8; background: none; border: 0; cursor: pointer; padding: 4px 0; }
+.ftt-actions .ftt-skip:hover { color: #6b7a94; text-decoration: underline; }
+.ftt-actions .ftt-next { font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 8px; background: #2f6fd0; color: #fff; border: 0; cursor: pointer; font-family: inherit; }
+.ftt-actions .ftt-next:hover { filter: brightness(1.08); }
+
+.frog-tour-hint {
+  position: fixed; left: 50%; bottom: 40px;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(20, 32, 54, .92); color: #fff;
+  font-size: 13px; padding: 9px 18px; border-radius: 20px;
+  opacity: 0; transition: opacity .2s, transform .2s;
+  pointer-events: none; white-space: nowrap;
+}
+.frog-tour-hint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+body.dark-mode .frog-tour-tip { background: #1b2230; border-color: #3c4658; box-shadow: 0 14px 40px rgba(0, 0, 0, .5); }
+body.dark-mode .ftt-title { color: #dbe6f5; }
+body.dark-mode .ftt-text { color: #a9b6ca; }
+body.dark-mode .ftt-extra { color: #7c8aa5; border-top-color: #2c3648; }
+body.dark-mode .ftt-count { color: #7fb2f0; }
+
+@media (max-width: 560px) {
+  .frog-tour-tip { left: 10px !important; right: 10px; width: auto; top: auto !important; bottom: 12px; }
+  .frog-tour-hint { bottom: 12px; }
+}
+/* 「点击罩」：盖在聚光灯范围上，透明可点。
+   聚光灯自己是 pointer-events:none（这样遮罩不挡页面），
+   但那样也收不到"学生点了高亮区"的事件 —— 所以另放一个透明罩接住点击，
+   点它就模拟点击真实元素（操作真的生效）并推进引导。 */
+.frog-tour-catch {
+  position: fixed;
+  z-index: 1;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+}
 </style>
 <script defer>
 /* === FROG-EDITOR-JS === */
@@ -2206,6 +2404,354 @@ window.__FROG_EDITOR_LANG = "javascript";
   function boot() { try { upgradeAll(); } catch (e) {} }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
+})();
+
+;
+/* ============================================================
+   蛙课堂 · 新手分步引导（聚光灯式）
+   ------------------------------------------------------------
+   和原来那个「7 页纯文字浮层」的区别：
+     原来的：一段段文字讲，学生看完还是不知道按钮在哪。
+     现在的：**把该点的地方框出来**，学生照着点，点完自动进下一步。
+             点错地方会被拦住并提示；也可以用「下一步」跳过。
+
+   覆盖范围（每个功能都过一遍）：
+     侧边栏课时列表 → 进度 → 三档难度 → 四步学习流程 → 掌握度 →
+     代码块「在线运行」→ 应用题「看讲解」→ 选择题与错题本（间隔复习）→
+     总览面板（薄弱知识点）→ 工具区（笔记/数据/专注/成就）→
+     右下角学习指引 → 上一步/下一步
+
+   实现要点：
+     · 遮罩用「一个大阴影」挖洞：`box-shadow: 0 0 0 9999px rgba(...)`，
+       比四块拼出来的遮罩简单得多，也不会在滚动时露缝。
+     · 挖洞区域设 pointer-events:none，所以**点击真的落到目标元素上**
+       —— 学生点「练习题」标签，页面真的会切到练习题，不是做个样子。
+     · 每一步可以带 onEnter：自动把页面切到那一步要讲的界面（比如先切到练习题），
+       否则学生会在"找不到那个按钮"的状态下被高亮空气。
+
+   ⚠ 会被内联进页面的 script 块：注释和字符串里不能出现完整的 script 结束标签。
+
+   用法：tourStart() 手动开始；tourDone()/tourSkip() 标记完成。
+   完成状态沿用原来的 `ai_course_guide_done_<user>`，所以升级后不会再弹一次。
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var KEY_DONE = 'ai_course_guide_done_';
+  var pad = 6;              // 高亮框比元素大一圈
+  var waitMs = 1200;        // 等目标元素出现的上限
+
+  function $(sel) { return document.querySelector(sel); }
+  function byText(sel, text, nth) {
+    var list = Array.prototype.slice.call(document.querySelectorAll(sel));
+    var hit = list.filter(function (e) { return (e.textContent || '').indexOf(text) !== -1; });
+    return hit[nth || 0] || null;
+  }
+  function doneKey() {
+    var u = (typeof getCurrentUserName === 'function') ? getCurrentUserName() : '';
+    return u ? KEY_DONE + u : '';
+  }
+  function isDone() { var k = doneKey(); return !!k && localStorage.getItem(k) === '1'; }
+  function markDone() { var k = doneKey(); if (k) localStorage.setItem(k, '1'); }
+
+  /* ---------------- 引导步骤 ----------------
+     target: 选择器或返回元素的函数
+     onEnter: 进入这一步前先做的准备（切界面）
+     text: 说明；tip: 补充一句
+     advanceOnClick: 点中高亮区域是否自动进下一步（默认 true） */
+  var STEPS = [
+    {
+      target: '#sidebar',
+      title: '第 1 步 · 课程列表在这里',
+      text: '左边这一列就是全部课时。点任意一节就能切换。',
+      tip: '绿点＝已学完，橙点＝正在学，灰点＝还没开始。',
+    },
+    {
+      target: function () { return document.querySelector('.lesson-item'); },
+      title: '第 2 步 · 点一节开始学',
+      text: '点一下第一节，右边就会打开这一课的内容。',
+      tip: '你刚才已经点过了，所以这一步可以直接「下一步」。',
+    },
+    {
+      target: function () { return byText('.diff-btn', '基础') ? document.querySelector('.diff-btn').parentElement : null; },
+      title: '第 3 步 · 三档难度',
+      text: '同一节课有三个难度：基础 / 进阶 / 挑战。',
+      tip: '每个难度的讲解卡片是**不一样**的，由易到难，可以逐档往上走。',
+    },
+    {
+      target: function () { return document.querySelector('.step-tabs'); },
+      title: '第 4 步 · 一节课分四步',
+      text: '本节主题 → 核心内容 → 练习题 → 小结。',
+      tip: '按顺序走完这四步，一节课就完整学过了。',
+    },
+    {
+      target: function () { return $('#masteryBadge'); },
+      title: '第 5 步 · 掌握度',
+      text: '这里显示本节答对率。答对率达到 80% 才算掌握，才能点「完成本节课」。',
+      tip: '没达标不会被放行 —— 这是故意的，避免"看完就过"。',
+    },
+    {
+      target: function () { return document.querySelector('.code-run-btn'); },
+      title: '第 6 步 · 示例代码可以真的跑',
+      text: '讲解里的每段代码右上角都有「⚡ 在线运行」，点了会打开在线运行器看效果。',
+      tip: '「复制」按钮把代码复制走，可以贴到自己的编辑器里。',
+    },
+    {
+      target: function () { return document.querySelector('.step-tab:nth-child(3)'); },
+      enter: function () { if (typeof selectStep === 'function') selectStep(2); },
+      title: '第 7 步 · 练习题',
+      text: '点第三个标签进入练习。选择题答错会自动进错题本，并解锁答案解析。',
+      tip: '旁边还有「应用题」：写完代码点「▶ 运行验证」，程序会真的跑并判分。',
+    },
+    {
+      target: function () { return document.querySelector('.cle-root'); },
+      waitExtra: 500,
+      title: '第 8 步 · 应用题编辑区',
+      text: '应用题不再是光秃秃的输入框：有行号、语法高亮、Tab 缩进、括号自动配对。',
+      tip: '写完点「看讲解」，它会把你写的代码逐行翻译成人话；点讲解条目还能跳到对应代码行。',
+    },
+    {
+      target: function () { return byText('.tool-btn', '错题本') || byText('.quick-toolbar button', '错题本'); },
+      title: '第 9 步 · 错题本与间隔复习',
+      text: '答错的题都收在这里。按 1 / 3 / 7 / 15 天四档安排复习，走完四档才算真掌握。',
+      tip: '「开始今日复习」会挑出今天该复习的题，答对进下一档，答错回到第一档。',
+    },
+    {
+      target: function () { return byText('.tool-btn', '总览') || byText('.quick-toolbar button', '总览'); },
+      enter: function () { try { toggleOverview(); } catch (e) {} },
+      title: '第 10 步 · 学习总览',
+      text: '这里能看到每节课的完成情况，还有「薄弱知识点」报告 —— 哪些地方正确率低，一眼看出来。',
+      tip: '复习完可以回来看看薄弱点有没有消掉。',
+    },
+    {
+      target: function () { return document.querySelector('.quick-toolbar'); },
+      title: '第 11 步 · 工具区',
+      text: '顶栏这一排：学习总览、笔记、数据（导出/导入学习记录）、错题本、专注模式、成就、字体大小、主题色。',
+      tip: '「数据」里可以把学习记录导出成 Word 或 JSON，换电脑时导入回来。',
+    },
+    {
+      target: function () { return document.getElementById('aiToggle'); },
+      title: '第 12 步 · 学习指引（那个青蛙）',
+      text: '右下角的青蛙按钮随时能打开「学习指引」，忘了哪个功能点这里。',
+      tip: '也可以按键盘 Ctrl + / 快速打开。',
+    },
+    {
+      target: function () { return document.querySelector('.nav-btn'); },
+      title: '第 13 步 · 上一步 / 下一步',
+      text: '底部这两个按钮在四步之间移动。也可以按键盘 ← → 切换。',
+      tip: '学完四步后，这里会变成「完成本节课」。',
+    },
+  ];
+
+  /* ---------------- DOM ---------------- */
+  var mask, spot, catchEl, tipBox, tipTitle, tipText, tipExtra, tipNext, tipSkip, tipCount, hint;
+  var idx = -1, active = false, retryTimer = null, advanced = false, curTarget = null;
+
+  function buildDom() {
+    if (mask) return;
+    mask = document.createElement('div');
+    mask.className = 'frog-tour-mask';
+    spot = document.createElement('div');
+    spot.className = 'frog-tour-spot';
+    mask.appendChild(spot);
+
+    /* 「点击罩」：盖在聚光灯范围上，透明、可点。
+       为什么要它 —— 聚光灯本身 pointer-events:none（让遮罩不挡页面），
+       但那样我们也收不到"学生点了高亮区"这个事件，引导就不会推进。
+       所以另放一个透明的罩子接住点击：既模拟点击真实元素（学生的操作真的生效），
+       又推进引导。用 el.click() 而不是 elementFromPoint 转发 —— 前者更可靠，
+       而且对按钮/标签这种元素就是真实的激活行为。 */
+    catchEl = document.createElement('div');
+    catchEl.className = 'frog-tour-catch';
+    mask.appendChild(catchEl);
+
+    tipBox = document.createElement('div');
+    tipBox.className = 'frog-tour-tip';
+    tipBox.innerHTML =
+      '<div class="ftt-count"></div>' +
+      '<div class="ftt-title"></div>' +
+      '<div class="ftt-text"></div>' +
+      '<div class="ftt-extra"></div>' +
+      '<div class="ftt-actions">' +
+      '  <button type="button" class="ftt-skip">跳过引导</button>' +
+      '  <button type="button" class="ftt-next">下一步 →</button>' +
+      '</div>';
+    mask.appendChild(tipBox);
+
+    hint = document.createElement('div');
+    hint.className = 'frog-tour-hint';
+    mask.appendChild(hint);
+
+    document.body.appendChild(mask);
+    tipCount = tipBox.querySelector('.ftt-count');
+    tipTitle = tipBox.querySelector('.ftt-title');
+    tipText = tipBox.querySelector('.ftt-text');
+    tipExtra = tipBox.querySelector('.ftt-extra');
+    tipNext = tipBox.querySelector('.ftt-next');
+    tipSkip = tipBox.querySelector('.ftt-skip');
+
+    tipNext.addEventListener('click', function (e) { e.stopPropagation(); advance(); });
+    tipSkip.addEventListener('click', function (e) { e.stopPropagation(); finish(); });
+
+    /* 点遮罩空白处 = 提示去点高亮的地方 */
+    mask.addEventListener('click', function (e) {
+      if (catchEl.contains(e.target) || tipBox.contains(e.target)) return;
+      flashHint('请点上面框出来的地方（也可以按「下一步」跳过）');
+    });
+
+    /* 点高亮区：先让真实元素响应，再推进 */
+    catchEl.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (curTarget) { try { curTarget.click(); } catch (err) {} }
+      setTimeout(advance, 320);
+    });
+
+    document.addEventListener('keydown', onKey, true);
+  }
+
+  /* 推进一步。用 advanced 标记防重复 —— 点高亮区会同时触发
+     「模拟点击 → 目标元素自己的行为」，再加「下一步」按钮，容易一步走两格。 */
+  function advance() {
+    if (!active || advanced) return;
+    advanced = true;
+    setTimeout(function () {
+      if (!active) return;
+      advanced = false;
+      next();
+    }, 380);
+  }
+
+  function onKey(e) {
+    if (!active) return;
+    if (e.key === 'Escape') { e.preventDefault(); finish(); }
+    else if (e.key === 'ArrowRight' || e.key === 'Enter') { e.preventDefault(); advance(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  }
+
+  function flashHint(msg) {
+    hint.textContent = msg;
+    hint.classList.add('show');
+    clearTimeout(flashHint._t);
+    flashHint._t = setTimeout(function () { hint.classList.remove('show'); }, 1800);
+  }
+
+  /* ---------------- 定位 ---------------- */
+  function place(el) {
+    curTarget = el;
+    var r = el.getBoundingClientRect();
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var x = Math.max(4, r.left - pad), y = Math.max(4, r.top - pad);
+    var w = Math.min(vw - x - 4, r.width + pad * 2);
+    var h = Math.min(vh - y - 4, r.height + pad * 2);
+
+    spot.style.left = x + 'px';
+    spot.style.top = y + 'px';
+    spot.style.width = w + 'px';
+    spot.style.height = h + 'px';
+    /* 点击罩贴着聚光灯 */
+    catchEl.style.left = x + 'px';
+    catchEl.style.top = y + 'px';
+    catchEl.style.width = w + 'px';
+    catchEl.style.height = h + 'px';
+    catchEl.style.display = 'block';
+
+    /* 提示框：优先放目标下方，放不下就放上方；都不行就贴底 */
+    var tw = 340, th = tipBox.offsetHeight || 190;
+    var tx = Math.min(Math.max(12, x), vw - tw - 12);
+    var ty;
+    if (y + h + 14 + th < vh) ty = y + h + 14;
+    else if (y - 14 - th > 0) ty = y - 14 - th;
+    else ty = vh - th - 16;
+    tipBox.style.left = tx + 'px';
+    tipBox.style.top = Math.max(12, ty) + 'px';
+  }
+
+  /* 等目标元素出现（切界面是异步的） */
+  function resolve(step, cb) {
+    var t0 = Date.now();
+    (function poll() {
+      var el = null;
+      try {
+        el = (typeof step.target === 'function') ? step.target() : document.querySelector(step.target);
+      } catch (e) { el = null; }
+      if (el && el.offsetParent !== null && el.getBoundingClientRect().height > 0) return cb(el);
+      if (Date.now() - t0 > waitMs) return cb(null);
+      retryTimer = setTimeout(poll, 80);
+    })();
+  }
+
+  function show(i) {
+    idx = i;
+    if (idx >= STEPS.length) return finish();
+    var step = STEPS[idx];
+
+    function go() {
+      resolve(step, function (el) {
+        if (!active) return;
+        tipCount.textContent = (idx + 1) + ' / ' + STEPS.length;
+        tipTitle.textContent = step.title;
+        tipText.textContent = step.text;
+        tipExtra.textContent = step.tip || '';
+        tipExtra.style.display = step.tip ? '' : 'none';
+        tipNext.textContent = (idx === STEPS.length - 1) ? '开始学习 →' : '下一步 →';
+
+        if (!el) {
+          /* 找不到目标（比如在窄屏上被隐藏了）——只显示提示框，不框空气 */
+          spot.style.width = '0px'; spot.style.height = '0px';
+          catchEl.style.display = 'none';
+          tipBox.style.left = '50%'; tipBox.style.top = '50%';
+          tipBox.style.transform = 'translate(-50%,-50%)';
+          return;
+        }
+        tipBox.style.transform = '';
+        if (el.scrollIntoView) { try { el.scrollIntoView({ block: 'center', behavior: 'instant' }); } catch (e) { el.scrollIntoView(); } }
+        place(el);
+      });
+    }
+
+    if (step.enter) { try { step.enter(); } catch (e) {} }
+    if (step.waitExtra) setTimeout(go, step.waitExtra); else go();
+  }
+
+  function next() { if (idx + 1 >= STEPS.length) return finish(); show(idx + 1); }
+  function prev() { if (idx > 0) show(idx - 1); }
+
+  function start(force) {
+    if (active) return;
+    if (!force && isDone()) return;
+    if (!document.body) return;
+    buildDom();
+    active = true;
+    mask.classList.add('show');
+    show(0);
+    flashHint('照着框住的地方点一下就能往下走');
+  }
+
+  function finish() {
+    active = false;
+    clearTimeout(retryTimer);
+    markDone();
+    if (mask) mask.classList.remove('show');
+  }
+
+  /* 滚动/缩放时重新贴合 */
+  window.addEventListener('resize', function () { if (active && idx >= 0) show(idx); });
+  window.addEventListener('scroll', function () {
+    if (!active || idx < 0) return;
+    var step = STEPS[idx];
+    var el = null;
+    try { el = (typeof step.target === 'function') ? step.target() : document.querySelector(step.target); } catch (e) {}
+    if (el) place(el);
+  }, true);
+
+  window.FrogTour = {
+    start: start,
+    next: next,
+    prev: prev,
+    finish: finish,
+    restart: function () { finish(); active = false; start(true); },
+    isDone: isDone,
+  };
 })();
 
 </script>
@@ -5021,7 +5567,7 @@ function init() {
  document.getElementById('userNameLabel').textContent = '' + user;
  document.getElementById('userRow').style.display = 'flex';
  setTimeout(function(){ screen.style.display = 'none'; }, 420);
- setTimeout(function(){ if (!guideDoneFor(user)) openGuide(); }, 800);
+ setTimeout(startTourIfNeeded, 800);
  }
  function logout() {
  localStorage.removeItem('ai_course_user');
@@ -5038,7 +5584,7 @@ function init() {
  document.getElementById('loginScreen').style.display = 'none';
  document.getElementById('userNameLabel').textContent = '' + user;
  document.getElementById('userRow').style.display = 'flex';
- setTimeout(function(){ if (!guideDoneFor(user)) openGuide(); }, 500);
+ setTimeout(startTourIfNeeded, 500);
  }
  }
 
@@ -5109,6 +5655,15 @@ function init() {
  function getCurrentUserName() {
  return localStorage.getItem('ai_course_user') || '';
  }
+ /* 开场引导：优先用分步聚光引导（框住该点的地方，点一下进下一步）；
+    FrogTour 没加载成功就退回原来的文字浮层，保证不会什么都不弹。 */
+ function startTourIfNeeded() {
+ var user = getCurrentUserName();
+ if (!user) return;
+ if (window.FrogTour) { window.FrogTour.start(false); return; }
+ if (!guideDoneFor(user)) openGuide();
+ }
+
  function guideDoneFor(user) {
  return !!user && localStorage.getItem('ai_course_guide_done_' + user) === '1';
  }
