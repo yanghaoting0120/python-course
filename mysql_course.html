@@ -1010,8 +1010,15 @@ body.dark-mode .tok-plain { color: #dbe6f5; }
   50%      { opacity: .9;  transform: scale(1.015); }
 }
 
+/* 这里的宽度/内边距/最高高度都是「显示成多大」，位置由 tour.js 的 place() 算。
+   2026-09-21 起 place() 不再手抄这几个常量，而是直接量 .frog-tour-tip 的
+   offsetWidth/offsetHeight，所以这里改了宽度也不会再算错 ——
+   但**记得 place() 是布局 px**：手机竖屏整页 html{zoom:.85}，同一个框
+   offsetWidth=300、rect.width 只有 255，别拿矩形和这里比大小。
+   max-height 50vh 是硬约束（内容再长也占不到半屏、超出给滚动条），别去掉。 */
 .frog-tour-tip {
   position: fixed; width: 340px;
+  max-height: 50vh; overflow: auto;
   background: #fff; border: 1px solid #cfdcee; border-radius: 12px;
   box-shadow: 0 14px 40px rgba(12, 22, 40, .28);
   padding: 14px 16px 12px;
@@ -1027,16 +1034,21 @@ body.dark-mode .tok-plain { color: #dbe6f5; }
 .ftt-actions .ftt-next { font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 8px; background: #2f6fd0; color: #fff; border: 0; cursor: pointer; font-family: inherit; }
 .ftt-actions .ftt-next:hover { filter: brightness(1.08); }
 
-/* 引导提示语：放**顶部居中**。
+/* 引导提示语：桌面端放**顶部居中**。
    第一版放底部，和右下角的「JavaScript 学习指引」标签、以及页面自己的
-   上一步/下一步按钮撞在一起。顶部中间那片区域是空的，最安全。 */
+   上一步/下一步按钮撞在一起。顶部中间那片区域是空的，最安全。
+   ⚠ 手机端改放底部（见下面 @media）：窄屏上顶栏就是工具按钮所在，
+     提示语压住第 11 步要介绍的按钮。 */
 .frog-tour-hint {
-  position: fixed; left: 50%; top: 16px;
+  position: fixed; left: 50%; top: 16px; bottom: auto;
   transform: translateX(-50%) translateY(-10px);
   background: rgba(20, 32, 54, .92); color: #fff;
   font-size: 13px; padding: 9px 18px; border-radius: 20px;
   opacity: 0; transition: opacity .2s, transform .2s;
-  pointer-events: none; white-space: nowrap;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: calc(100vw - 24px);
+  overflow: hidden; text-overflow: ellipsis;
   z-index: 1;
 }
 .frog-tour-hint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -1047,9 +1059,20 @@ body.dark-mode .ftt-text { color: #a9b6ca; }
 body.dark-mode .ftt-extra { color: #7c8aa5; border-top-color: #2c3648; }
 body.dark-mode .ftt-count { color: #7fb2f0; }
 
+/* 手机端：**只缩窄 + 下移提示语**，定位仍然交给 tour.js 的 place()。
+   ⚠ 这里曾经写成 `left/top !important + bottom:12px` 把提示框强制贴底，
+   后果（2026-09-21 实测，视口 390x844）：
+     · JS 算的 place() 全被 !important 覆盖 → 第 12 步提示框压住高亮的
+       「上一步/下一步」4410px²，学生根本点不到；
+     · 「找不到目标」兜底分支给 tip 加的 translate(-50%,-50%) 和 !important
+       打架 → 第 6 步提示框横向出屏（x=-178..195）。
+   现在只留宽度和内边距，位置一律由 JS 决定：目标在下半屏就贴顶、在上半屏
+   就贴底，永远不压住聚光灯。 */
 @media (max-width: 560px) {
-  .frog-tour-tip { left: 10px !important; right: 10px; width: auto; top: auto !important; bottom: 12px; }
-  .frog-tour-hint { bottom: 12px; }
+  .frog-tour-tip { width: 300px; padding: 11px 13px 10px; }
+  /* ⚠ 必须写 top:auto —— 否则基础规则的 top:16px 和这里的 bottom:12px
+     同时生效，提示语条被拉成整屏高（实测 196x820），开场整片糊住引导。 */
+  .frog-tour-hint { top: auto; bottom: 12px; }
 }
 /* 「点击罩」：盖在聚光灯范围上，透明可点。
    聚光灯自己是 pointer-events:none（这样遮罩不挡页面），
@@ -2440,6 +2463,8 @@ window.__FROG_EDITOR_LANG = "javascript";
   var waitMs = 1200;        // 等目标元素出现的上限
 
   function $(sel) { return document.querySelector(sel); }
+  /* 步骤字段（title / text / tip）允许写成函数，取用时统一求值 */
+  function pick(v) { return (typeof v === 'function') ? (v() || '') : (v || ''); }
   function byText(sel, text, nth) {
     var list = Array.prototype.slice.call(document.querySelectorAll(sel));
     var hit = list.filter(function (e) { return (e.textContent || '').indexOf(text) !== -1; });
@@ -2489,20 +2514,43 @@ window.__FROG_EDITOR_LANG = "javascript";
       tip: '没达标不会被放行 —— 这是故意的，避免"看完就过"。',
     },
     {
-      /* ⚠ 这一步必须先切到「有 ⚡ 在线运行 按钮的那一课」。
-         第 1 课的核心内容里没有代码块，原来直接找 .code-run-btn 会框到
-         别处一个小元素（实测 82×19，点击罩还不可见）——
-         用户反馈的「介绍 CodeLens 时没有把 CodeLens 框出来」就是这个。
-         同时把文案改清楚：这个按钮**就是** CodeLens 的入口。 */
-      target: function () { return document.querySelector('.code-run-btn'); },
+      /* ⚠ 这一步的目标**按课程分两种**（2026-09-21 实测）：
+         · JavaScript / Python 课的代码块有「⚡ 在线运行」按钮（`.code-run-btn`）
+           → 直接框那个按钮。
+         · MySQL / PHP / AI / Web 四门课的代码块**只有「复制」**，
+           整门课 0 个 `.code-run-btn`（正文里数过：JS 64 个、Python 60 个、
+           其余四门 0 个），原来硬切到第 2 课去找 → 框不到东西。
+           这四门课退而框代码块本身，文案同步改成讲「复制 + 去 CodeLens」。
+       ⚠ 原来还写着「第 1 课的核心内容里没有代码块」—— 那是**旧的错误结论**：
+         实测六门课第 1 课核心内容都有 3 个代码块（`.code-block-wrapper`）。
+         之前框到 82x19 的小元素，是因为 `.code-run-btn` 只在 **JS / Python**
+         课里有，其余四门课 querySelector 命中了别处的残留节点。 */
+      target: function () {
+        return document.querySelector('.code-run-btn')
+          || document.querySelector('.copy-btn')
+          || document.querySelector('.code-block-wrapper');
+      },
       enter: function () {
         try { if (typeof selectLesson === 'function') selectLesson(1); } catch (e) {}
         try { if (typeof selectStep === 'function') selectStep(1); } catch (e) {}
       },
       waitExtra: 400,
-      title: '第 6 步 · ⚡ 在线运行 = 打开 CodeLens',
-      text: '讲解里的每段代码右上角都有「⚡ 在线运行」，点了就把这段代码送进 CodeLens（译码）—— 它会真实跑一遍，并逐行解释给你听。',
-      tip: '旁边的「复制」把代码复制走，可以贴到自己的编辑器里。CodeLens 也可以单独打开：yanghaoting0120.github.io/codelens。',
+      title: function () {
+        return document.querySelector('.code-run-btn')
+          ? '第 6 步 · ⚡ 在线运行 = 打开 CodeLens'
+          : '第 6 步 · 代码块 = CodeLens 的入口';
+      },
+      text: function () {
+        if (document.querySelector('.code-run-btn')) {
+          return '讲解里的每段代码右上角都有「⚡ 在线运行」，点了就把这段代码送进 CodeLens（译码）—— 它会真实跑一遍，并逐行解释给你听。';
+        }
+        return '这门课的代码块右上角是「复制」。想边跑边看解释：复制代码，点顶部「⚡ 在线写代码」打开 CodeLens，粘贴进去就能逐行讲解；应用题编辑区里的「看讲解」是本课自带的同类功能。';
+      },
+      tip: function () {
+        return document.querySelector('.code-run-btn')
+          ? '旁边的「复制」把代码复制走，可以贴到自己的编辑器里。CodeLens 也可以单独打开：yanghaoting0120.github.io/codelens。'
+          : '这门课的语言浏览器跑不了（HTML / SQL / PHP / Python 都要自己的环境），所以代码块不提供「在线运行」，改用 CodeLens 逐行讲解。';
+      },
     },
     {
       target: function () { return document.querySelector('.step-tab:nth-child(3)'); },
@@ -2555,6 +2603,9 @@ window.__FROG_EDITOR_LANG = "javascript";
   /* ---------------- DOM ---------------- */
   var mask, spot, catchEl, tipBox, tipTitle, tipText, tipExtra, tipNext, tipSkip, tipCount, hint;
   var idx = -1, active = false, retryTimer = null, advanced = false, curTarget = null;
+  /* 推进用的令牌：一次 advance 对应一个 token，只有**当前**这一次推进
+     有资格解锁按钮（见 advance / unlock 里的说明）。 */
+  var stepToken = 0, advTimer = null;
 
   function buildDom() {
     if (mask) return;
@@ -2619,22 +2670,29 @@ window.__FROG_EDITOR_LANG = "javascript";
   }
 
   /* 推进一步。
-     ⚠ 防重复不能只靠一个固定时长的标记，这里踩过两次：
+      ⚠ 防重复不能只靠一个固定时长的标记，这里踩过三次：
        ① 点高亮区既触发「模拟点击目标」又触发推进 → 一步两格；
        ② 加了个 380ms 的 advanced 标记，但定时器到点就解锁，
           而此时下一步界面还没切完，再点一下又推一格
           （连点实测会 1,2,3,4,5,5,7,7,13 那样跳）。
      现在：**由切步完成来解锁**（show() 定位完才 unlock()），期间按钮禁用。
-     这样无论点多快都是稳稳一步一步走。 */
+     ③ 但上面这条在手机端还不够（2026-09-21 实测 5 → 6 → 7）：换步那 320ms 的
+        定时器比新一步的定位还早到点，先把按钮解锁了，此时再点一下就和
+        「还在飞的那次推进」叠成两格。手机画面高、resolve() 更慢，所以只有手机端露出来。
+     最终做法：每次推进发一个**令牌**，定时器带号进 show()，只有号仍是最新的
+     那次才有资格 unlock()，旧定时器一律作废。点多快、屏多慢都是一次一格。 */
   function advance() {
     if (!active || advanced) return;
     advanced = true;
     if (tipNext) { tipNext.disabled = true; tipNext.textContent = '切换中…'; }
-    setTimeout(next, 320);
+    var tk = ++stepToken;
+    clearTimeout(advTimer);
+    advTimer = setTimeout(function () { next(tk); }, 320);
   }
 
-  /* 切步完成时解锁（由 show() 调用） */
-  function unlock() {
+  /* 切步完成时解锁（由 show() 调用；只有最新那次推进的号才算数） */
+  function unlock(tk) {
+    if (tk !== undefined && tk !== stepToken) return;   // 已过期的那次推进
     advanced = false;
     if (tipNext) tipNext.disabled = false;
   }
@@ -2648,19 +2706,57 @@ window.__FROG_EDITOR_LANG = "javascript";
 
   function flashHint(msg) {
     hint.textContent = msg;
+    hint.style.display = 'block';
+    void hint.offsetHeight;              /* 强制回流，保证 opacity 过渡仍从 0 开始 */
     hint.classList.add('show');
     clearTimeout(flashHint._t);
-    flashHint._t = setTimeout(function () { hint.classList.remove('show'); }, 1800);
+    clearTimeout(flashHint._t2);
+    flashHint._t = setTimeout(function () {
+      hint.classList.remove('show');
+      /* 淡出后**必须撤掉布局**：opacity:0 的元素照样占着屏幕底部那条矩形，
+         place() 会一直躲它（把提示框挤到别处），检查脚本也会一直算成
+         「提示语条压住提示框」。display:none 之后矩形归零，两边口径就一致了。 */
+      flashHint._t2 = setTimeout(function () { hint.style.display = 'none'; }, 300);
+    }, 1800);
   }
 
   /* ---------------- 定位 ---------------- */
+
+  /* 整页等比缩小的倍数。
+     手机竖屏有 html{zoom:.85}（style#frog-mobile-patch4）、横屏 .8
+     （patch3），是 2026-09-17「整版等比缩小」加的。
+
+     ⚠ zoom 让「写进去的 px」和「量出来的矩形」差这个倍数：同一个提示框
+       offsetWidth=300 而 rect.width=255（=300×0.85）。place() 原来两边混着用，
+       后果（2026-09-21 实测 360x640 第 8 步 · CodeLens 编辑器）：
+         · 聚光灯比真实目标小一圈、还整体偏左上（目标 247x331，画出来 220x291 偏 17px）
+           —— 高亮框根本没套住要介绍的东西；
+         · 提示框按「300 宽」算、画出来只有 255，七个位置全塞不下后退到屏幕正中，
+           正好压在编辑器上 40222px²。
+       所以下面统一换成**布局坐标**：视口和目标矩形都除以 z；宽高也不抄 CSS 常量，
+       直接量元素自己的 offsetWidth/offsetHeight（同样是布局 px）。z=1 的电脑端不受影响。 */
+  function overlayZoom() {
+    var z = 1;
+    try {
+      var zh = parseFloat(getComputedStyle(document.documentElement).zoom);
+      var zb = parseFloat(getComputedStyle(document.body).zoom);
+      if (zh > 0) z *= zh;
+      if (zb > 0) z *= zb;
+    } catch (e) {}
+    return (z > 0 && isFinite(z)) ? z : 1;
+  }
+
   function place(el) {
     curTarget = el;
+    /* 供检查脚本读取「这一步实际框到了谁」——
+       `scripts\check-tour-mobile.py` 用它区分「框对了」和「框到别处的残留节点」。 */
+    window.__lastTourTarget = el && el.className ? ('.' + String(el.className).split(' ')[0]) : '';
+    var z = overlayZoom();
     var r = el.getBoundingClientRect();
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var x = Math.max(4, r.left - pad), y = Math.max(4, r.top - pad);
-    var w = Math.min(vw - x - 4, r.width + pad * 2);
-    var h = Math.min(vh - y - 4, r.height + pad * 2);
+    var vw = window.innerWidth / z, vh = window.innerHeight / z;   // 布局 px
+    var x = Math.max(4, r.left / z - pad), y = Math.max(4, r.top / z - pad);
+    var w = Math.min(vw - x - 4, r.width / z + pad * 2);
+    var h = Math.min(vh - y - 4, r.height / z + pad * 2);
 
     spot.style.left = x + 'px';
     spot.style.top = y + 'px';
@@ -2673,37 +2769,72 @@ window.__FROG_EDITOR_LANG = "javascript";
     catchEl.style.height = h + 'px';
     catchEl.style.display = 'block';
 
-    /* 提示框位置：目标是「不要压住聚光灯」。
-       优先级：目标下方 → 目标上方 → 屏幕左右两侧留白处 → 贴底。
-       第一版只有"下方/上方/贴底"三档，结果是：目标本身就在页面底部时，
-       只能贴底，提示框正好盖住高亮区 —— 学生看不到该点哪儿。
-       现在多了「贴到左右留白」这一档（侧边栏类目标右边就是大片空白，很好放）。 */
-    var tw = 340, th = tipBox.offsetHeight || 200, gap = 14;
-    var tx, ty;
+    /* 提示框位置：硬规则是「不许压住聚光灯、不许出屏」。
+       怎么挑（2026-09-21 第五版：改成**候选打分**，不再是一串 if/else）：
+       七个能放的位置全算出来，谁挡得少谁上；一样好就按这个顺序取靠前的：
+         目标下方 → 目标上方 → 右侧留白 → 左侧留白 → 贴顶 → 贴底 → 屏幕正中。
+       回顾：第一版只有"下方/上方/贴底"，目标贴着页面底部时只能贴底、正好盖住高亮区；
+       第二版加了左右留白；第三版让兜底按目标在上/下半屏选贴顶还是贴底；
+       第四版把兜底改成屏幕正中、再补一次重叠自检 —— 但那还是「先挑一个再看合不合适」，
+       小屏上七个位置全塞不下时只能退回正中（360x640 第 8 步实测压住 40222px²）。
+       打分没这个死角：**贴底不压目标时它自己会赢**。 */
+    var isNarrow = window.innerWidth <= 560;   // 判媒体查询用视觉宽度（和 CSS 同一口径）
+    /* 宽高直接量元素自己（布局 px），不再手抄 CSS 常量 ——
+       手机端那份宽度是按媒体查询切的，抄常量必然漂移。 */
+    var tw = tipBox.offsetWidth || (isNarrow ? 300 : 340);
+    /* 高度也不用自己封顶：CSS 的 max-height:50vh + overflow:auto 已经压住了，
+       offsetHeight 就是压过之后的真实高度。 */
+    var th = tipBox.offsetHeight || 200, gap = 14;
 
-    function fitsLeft() { return vw - (x + w) - gap - 12 >= tw; }
-    function fitsBelow() { return y + h + gap + th <= vh - 12; }
-    function fitsAbove() { return y - gap - th >= 12; }
-
-    if (fitsBelow()) {
-      tx = clampX(x); ty = y + h + gap;
-    } else if (fitsAbove()) {
-      tx = clampX(x); ty = y - gap - th;
-    } else if (fitsLeft()) {
-      /* 放在目标右侧的空白里，垂直方向跟目标对齐（夹在视口内） */
-      tx = x + w + gap;
-      ty = Math.min(Math.max(12, y), Math.max(12, vh - th - 12));
-    } else if (x - gap - tw >= 12) {
-      tx = x - gap - tw;
-      ty = Math.min(Math.max(12, y), Math.max(12, vh - th - 12));
-    } else {
-      /* 实在没地方：贴底，但把聚光灯往上顶一点也来不及 —— 至少保证提示框完整可见 */
-      tx = clampX(x); ty = Math.max(12, vh - th - 12);
-    }
-    tipBox.style.left = tx + 'px';
-    tipBox.style.top = ty + 'px';
+    /* 「提示语条」（屏幕上那条黑底提示）也算障碍物：它在底部居中，提示框压上去
+       就是两层字叠一起。它淡出后 display:none、矩形归零，这里自然就不再躲它 ——
+       所以不必额外判 .show，量矩形就够。 */
+    var hr0 = hint.getBoundingClientRect();
+    var hx = hr0.left / z, hy = hr0.top / z, hw = hr0.width / z, hh = hr0.height / z;
+    var hintVis = hw > 0 && hh > 0;
 
     function clampX(v) { return Math.min(Math.max(12, v), Math.max(12, vw - tw - 12)); }
+    function alignY() { return Math.min(Math.max(12, y), Math.max(12, vh - th - 12)); }
+
+    var cands = [
+      [clampX(x), y + h + gap],        // 目标下方
+      [clampX(x), y - gap - th],       // 目标上方
+      [x + w + gap, alignY()],         // 目标右侧的留白
+      [x - gap - tw, alignY()],        // 目标左侧的留白
+      [clampX(x), 12],                 // 贴顶
+      [clampX(x), vh - th - 12],       // 贴底
+      [(vw - tw) / 2, (vh - th) / 2]   // 屏幕正中（最后手段）
+    ];
+    /* 打分口径：① 能不出屏就别出屏（出屏的按出屏像素数往后排）；
+               ② 都不出屏时，先看谁**没压住提示语条**；
+               ③ 再比谁压住聚光灯的面积小；
+               ④ 打平就保留靠前的候选（= 上面那个优先级）。 */
+    function better(a, b) {
+      if ((a.out > 0) !== (b.out > 0)) return a.out === 0;
+      if (a.out !== b.out) return a.out < b.out;
+      if ((a.hint > 0) !== (b.hint > 0)) return a.hint === 0;
+      if (a.area !== b.area) return a.area < b.area;
+      return a.hint < b.hint;
+    }
+    var pick = null;
+    for (var ci = 0; ci < cands.length; ci++) {
+      var cx = Math.round(cands[ci][0]), cy = Math.round(cands[ci][1]);
+      var ox = Math.min(cx + tw, x + w) - Math.max(cx, x);   // 与聚光灯的横向交集
+      var oy = Math.min(cy + th, y + h) - Math.max(cy, y);   // 纵向交集
+      var hox = Math.min(cx + tw, hx + hw) - Math.max(cx, hx);   // 与提示语条的横向交集
+      var hoy = Math.min(cy + th, hy + hh) - Math.max(cy, hy);
+      var c = {
+        x: cx, y: cy,
+        area: (ox > 0 && oy > 0) ? ox * oy : 0,
+        hint: (hintVis && hox > 0 && hoy > 0) ? hox * hoy : 0,
+        out: Math.max(0, -cx) + Math.max(0, -cy) +
+             Math.max(0, cx + tw - vw) + Math.max(0, cy + th - vh)
+      };
+      if (!pick || better(c, pick)) pick = c;
+    }
+    /* 收尾夹一次：万一七个位置全出屏，至少保证整个提示框（含「下一步」）留在屏幕里 */
+    tipBox.style.left = Math.max(0, Math.min(pick.x, Math.max(0, vw - tw))) + 'px';
+    tipBox.style.top = Math.max(0, Math.min(pick.y, Math.max(0, vh - th))) + 'px';
   }
 
   /* 等目标元素出现（切界面是异步的） */
@@ -2720,7 +2851,7 @@ window.__FROG_EDITOR_LANG = "javascript";
     })();
   }
 
-  function show(i) {
+  function show(i, tk) {
     /* 先跑上一步的 leave（收面板之类）。
        为什么必须有：有的步骤会打开全高浮层（总览面板实测 10→990px），
        不收的话它正好盖住下一步要介绍的元素 —— 用户看到的就是
@@ -2735,11 +2866,14 @@ window.__FROG_EDITOR_LANG = "javascript";
     function go() {
       resolve(step, function (el) {
         if (!active) return;
+        /* title / text / tip 允许写成函数：第 6 步的目标按课程分两种，
+           文案也得跟着分叉（见 STEPS 里的说明）。字符串照原样用。 */
         tipCount.textContent = (idx + 1) + ' / ' + STEPS.length;
-        tipTitle.textContent = step.title;
-        tipText.textContent = step.text;
-        tipExtra.textContent = step.tip || '';
-        tipExtra.style.display = step.tip ? '' : 'none';
+        tipTitle.textContent = pick(step.title);
+        tipText.textContent = pick(step.text);
+        var extra = pick(step.tip);
+        tipExtra.textContent = extra;
+        tipExtra.style.display = extra ? '' : 'none';
         tipNext.textContent = (idx === STEPS.length - 1) ? '开始学习 →' : '下一步 →';
 
         if (!el) {
@@ -2747,9 +2881,10 @@ window.__FROG_EDITOR_LANG = "javascript";
           spot.style.width = '0px'; spot.style.height = '0px';
           catchEl.style.display = 'none';
           curTarget = null;
+          window.__lastTourTarget = '';
           tipBox.style.left = '50%'; tipBox.style.top = '50%';
           tipBox.style.transform = 'translate(-50%,-50%)';
-          unlock();
+          unlock(tk);
           return;
         }
         tipBox.style.transform = '';
@@ -2760,7 +2895,7 @@ window.__FROG_EDITOR_LANG = "javascript";
         }
         place(el);
         tipBox.style.visibility = '';
-        unlock();
+        unlock(tk);
       });
     }
 
@@ -2768,7 +2903,7 @@ window.__FROG_EDITOR_LANG = "javascript";
     if (step.waitExtra) setTimeout(go, step.waitExtra); else go();
   }
 
-  function next() { if (idx + 1 >= STEPS.length) return finish(); show(idx + 1); }
+  function next(tk) { if (idx + 1 >= STEPS.length) return finish(); show(idx + 1, tk); }
   function prev() { if (idx > 0) show(idx - 1); }
 
   function start(force) {
