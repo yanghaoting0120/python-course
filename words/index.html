@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="application-name" content="蛙课堂背单词" />
+    <meta name="apple-mobile-web-app-title" content="蛙课堂背单词" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#818CF8" />
+    <title>蛙课堂背单词</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+
+    <script>
+      // Dark mode init
+      if (
+        ('state' in localStorage && JSON.parse(localStorage.state).darkMode) ||
+        (!('state' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-66e84bbb.js"></script>
+    <link rel="stylesheet" href="./assets/index-20a24934.css">
+  </head>
+  <body>
+    <noscript>
+      <div>你需要启用 JavaScript 才能运行蛙课堂背单词。</div>
+    </noscript>
+    <div id="root"></div>
+    
+  </body>
+</html>

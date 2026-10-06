@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
+<title>蛙课堂背单词 · 源码（GPL-3.0）</title>
+<style>
+  :root { --ink:#26365e; --muted:#5b6d99; --line:rgba(255,255,255,.75); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { background: linear-gradient(150deg,#eef3ff 0%,#e9eefe 45%,#f3edff 100%); min-height:100%; }
+  body { font-family:'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif; color:var(--ink);
+         padding:40px 20px; line-height:1.85; }
+  .wrap { max-width:760px; margin:0 auto; background:rgba(255,255,255,.62);
+          backdrop-filter:blur(20px) saturate(1.5); -webkit-backdrop-filter:blur(20px) saturate(1.5);
+          border:1px solid var(--line); border-radius:16px; padding:34px 32px;
+          box-shadow:0 8px 32px rgba(80,110,200,.16), inset 0 1px 0 rgba(255,255,255,.6); }
+  h1 { font-size:24px; font-weight:700; margin-bottom:6px; }
+  h2 { font-size:16px; font-weight:700; margin:26px 0 10px; }
+  p, li { font-size:14px; color:var(--muted); }
+  strong { color:var(--ink); }
+  a { color:#1565c0; }
+  .sub { font-size:13px; color:var(--muted); margin-bottom:8px; }
+  .files { list-style:none; margin-top:10px; }
+  .files li { padding:10px 14px; margin-bottom:8px; background:rgba(255,255,255,.6);
+              border:1px solid var(--line); border-radius:10px; font-size:13.5px; }
+  .files li b { display:block; font-size:14px; color:var(--ink); }
+  .files li a { font-weight:700; }
+  .dl { display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:10px 22px;
+        border-radius:999px; background:linear-gradient(135deg,#7aa7ff,#a78bfa); color:#fff !important;
+        font-size:14px; font-weight:700; text-decoration:none;
+        box-shadow:0 6px 18px rgba(122,167,255,.4); }
+  .dl:hover { filter:brightness(1.08); }
+  .back { display:inline-block; margin-top:22px; font-size:13px; }
+  code { background:rgba(21,101,192,.09); padding:1px 6px; border-radius:4px;
+         font-family:'Cascadia Code',Consolas,monospace; font-size:12.5px; color:#0d47a1; }
+  .note { margin-top:16px; padding:12px 16px; border-radius:10px;
+          background:rgba(255,200,0,.12); border:1px solid rgba(255,200,0,.35); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>蛙课堂背单词 · 源码</h1>
+  <p class="sub">GPL-3.0 合规说明 —— 你可以在这里拿到本栏目运行的完整源码。</p>
+
+  <h2>为什么要放这个</h2>
+  <p>本站的「背单词」栏目是在开源项目 <strong>qwerty-learner</strong> 基础上修改而来的，
+     该项目以 <strong>GNU GPL-3.0</strong> 授权。GPL-3.0 规定：把这个程序（含修改版）
+     分发给他人时，必须同时提供<strong>完整的对应源码</strong>。
+     网站对公网开放，访问者的浏览器会下载本栏目的全部前端代码，因此构成分发 —— 源码就放在这里。</p>
+
+  <h2>下载</h2>
+  <a class="dl" href="waketang-words-src.zip" download>⬇ 下载完整源码（waketang-words-src.zip，约 6 MB）</a>
+
+  <h2>目录里有什么</h2>
+  <ul class="files">
+    <li><b>waketang-words-src.zip</b>
+        完整源码树（不含 <code>node_modules</code>）。解压后 <code>pnpm install &amp;&amp; pnpm build:web</code> 即可构建出本栏目运行的网页版。</li>
+    <li><b><a href="NOTICE.md">NOTICE.md</a></b>
+        上游信息 + 相对上游做了哪些修改（GPL-3.0 第 5 条要求标明改动），以及词库数据的来源与版权提示。</li>
+    <li><b><a href="如何构建.md">如何构建.md</a></b> 环境要求、构建命令、目录速览。</li>
+    <li><b><a href="LICENSE">LICENSE</a></b> GNU GPL-3.0 许可证全文。</li>
+  </ul>
+
+  <div class="note">
+    <strong>关于词库数据：</strong>四级 / 六级词库来自开源词表项目 <code>kajweb/dict</code>，
+    该项目没有 LICENSE 声明；编程类词库来自上游仓库自带词表。
+    这些数据的授权状况不明确，目前仅用于学习用途。
+    单词发音走的是有道在线接口（非官方），可能随时失效。
+  </div>
+
+  <a class="back" href="../index.html">← 返回背单词</a>
+</div>
+</body>
+</html>

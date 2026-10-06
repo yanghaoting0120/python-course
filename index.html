@@ -360,6 +360,41 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
 @media only screen and (max-width: 820px) and (orientation: portrait) {
   body, #app, .app, .main { min-height: calc(100vh / 0.85) !important; }
 }
+/* ===== 栏目选择（2026-10-06 新增）=====
+   学生界面现在分两个栏目：背单词 / 编程课。
+   两张栏目卡沿用 .course-card 的全部主题与响应式规则，只用强调色区分。
+
+   ⚠️ 必须写 border-style: solid —— 原 CSS 的「矩形化」那一节有
+   `.course-card { border-top: none !important; }`，只改 border-width 的话
+   上边框的样式仍是 none，结果就是**卡片顶边没有描边**（用户截图指出来的）。 */
+.course-card.track-card {
+  border-style: solid !important;
+  border-width: 2px !important;
+}
+.course-card.track-words { border-color: rgba(46,158,79,.7) !important; }
+.course-card.track-code { border-color: rgba(122,167,255,.85) !important; }
+.course-card.track-words .meta { color: #1f7a3d !important; }
+body.dark-mode .course-card.track-words .meta { color: #7fd99a !important; }
+.course-card.track-card h3 { font-size: 24px !important; margin: 2px 0 8px !important; }
+.course-card.track-card .meta { font-size: 13px !important; }
+.course-card.track-card .desc { min-height: 0 !important; }
+.track-back {
+  display: inline-flex; align-items: center; gap: 6px; vertical-align: 2px;
+  margin-left: 10px; padding: 5px 14px; border-radius: 999px;
+  background: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.85);
+  color: #45599c; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  transition: background .18s ease, transform .18s ease;
+}
+.track-back:hover { background: #fff; transform: translateY(-1px); }
+.track-source { margin-top: 14px; font-size: 12px; color: #5b6d99; }
+.track-source a { color: #45599c; font-weight: 700; }
+body.dark-mode .track-source { color: #9aa4c4; }
+body.dark-mode .track-source a { color: #9fc9ff; }
+body.dark-mode .track-back { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.2); color: #c7d4e8; }
+@media (max-width: 900px) {
+  .course-card.track-card h3 { font-size: 20px !important; }
+  .track-source { font-size: 11.5px; }
+}
 </style>
 </head>
 <body>
@@ -400,9 +435,35 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
 
 <a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/" target="_blank">⚡ 在线写代码</a><button class="logout-btn" onclick="logout()">退出登录</button>
  </aside>
- <main class="main"><a class="codelens-banner" href="https://yanghaoting0120.github.io/codelens/" target="_blank"><span class="cb-icon">⚡</span><span class="cb-text"><b>想动手打代码？来 CodeLens 在线写代码</b><p>不用安装任何软件：输入或粘贴代码 → 自动解释每一行 → 本地直接运行看结果。点这里开始（新窗口打开）</p></span><span class="cb-btn">打开 CodeLens →</span></a>
+ <main class="main">
+<!-- ===== 栏目选择（2026-10-06 新增）=====
+      学生界面现在分两个栏目：背单词 / 编程课。
+      点「编程课」才展开下面的 6 门课程卡片；点「背单词」跳到 words/ 子目录。 -->
+ <div id="trackSection">
+ <h2>选择栏目</h2>
+ <p class="sub">登录已完成，先选一个栏目</p>
+ <div class="course-grid">
+ <div class="course-card track-card track-words" onclick="enterTrack('words')">
+ <h3>背单词</h3>
+ <div class="meta">CET-4 / CET-6 · 24 本词库 · 遗忘曲线复习</div>
+ <p class="desc">先「选词记忆」认脸，再「拼写练习」上手打 —— 没认过的词进不了拼写。按艾宾浩斯 1 / 2 / 4 / 7 / 15 天自动安排复习，学习进度存在你自己的浏览器里。</p>
+ <button class="enter-btn" onclick="event.stopPropagation(); enterTrack('words')">进入背单词 →</button>
+ </div>
+ <div class="course-card track-card track-code" onclick="enterTrack('code')">
+ <h3>编程课</h3>
+ <div class="meta">6 门课程 · 三档难度</div>
+ <p class="desc">Python、PHP、AI、Web、JavaScript、MySQL —— 每门课都是交互式教学：看讲解、做选择题、动手写代码并当场运行看结果。</p>
+ <button class="enter-btn" onclick="event.stopPropagation(); enterTrack('code')">选择课程 →</button>
+ </div>
+ </div>
+ <p class="track-source">「背单词」栏目基于开源项目 qwerty-learner（GPL-3.0）修改，完整源码见 <a href="words/source/index.html">words/source/</a></p>
+ </div>
+
+ <!-- ===== 编程课：6 门课程 ===== -->
+ <div id="courseSection" style="display:none">
+ <a class="codelens-banner" href="https://yanghaoting0120.github.io/codelens/" target="_blank"><span class="cb-icon">⚡</span><span class="cb-text"><b>想动手打代码？来 CodeLens 在线写代码</b><p>不用安装任何软件：输入或粘贴代码 → 自动解释每一行 → 本地直接运行看结果。点这里开始（新窗口打开）</p></span><span class="cb-btn">打开 CodeLens →</span></a>
  <h2>选择课程</h2>
- <p class="sub">登录已完成，点击卡片进入对应的交互式课程</p>
+ <p class="sub">登录已完成，点击卡片进入对应的交互式课程 <button class="track-back" onclick="backToTracks()">← 返回栏目</button></p>
  <div class="course-grid">
  <div class="course-card python" onclick="enterCourse('python')">
  
@@ -444,6 +505,7 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
  <div class="meta">10 节课 · 三档难度</div>
  <p class="desc">从零开始学数据库：认识库、表、行、列，学会建库建表、增删改查、排序分页、聚合分组、多表连接与子查询，最后做出一个学生成绩管理系统。</p>
  <button class="enter-btn" onclick="event.stopPropagation(); enterCourse('mysql')">进入 MySQL 课程 →</button>
+ </div>
  </div>
  </div>
  </main>
@@ -505,6 +567,26 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
  document.getElementById('loginScreen').style.display = 'none';
  document.getElementById('app').style.display = 'flex';
  document.getElementById('userNameLabel').textContent = user;
+ }
+
+ /* ===== 栏目切换（2026-10-06 新增）=====
+    学生界面分两个栏目：背单词 / 编程课。
+    背单词是同站 words/ 子目录下的独立网页应用，直接跳过去；
+    编程课在本页展开那 6 张课程卡。 */
+ function enterTrack(t) {
+ if (t === 'words') {
+ location.href = (location.protocol === 'file:') ? 'wkt://local/index.html' : 'words/index.html';
+ return;
+ }
+ document.getElementById('trackSection').style.display = 'none';
+ document.getElementById('courseSection').style.display = '';
+ window.scrollTo(0, 0);
+ }
+
+ function backToTracks() {
+ document.getElementById('courseSection').style.display = 'none';
+ document.getElementById('trackSection').style.display = '';
+ window.scrollTo(0, 0);
  }
 
  function enterCourse(lang) {
