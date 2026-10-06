@@ -575,7 +575,7 @@ body.dark-mode .track-back { background: rgba(255,255,255,.12); border-color: rg
     编程课在本页展开那 6 张课程卡。 */
  function enterTrack(t) {
  if (t === 'words') {
- location.href = (location.protocol === 'file:') ? 'wkt://local/index.html' : 'words/index.html';
+ location.href = (location.protocol === 'file:') ? 'wkt://local/words/index.html' : 'words/index.html';
  return;
  }
  document.getElementById('trackSection').style.display = 'none';
