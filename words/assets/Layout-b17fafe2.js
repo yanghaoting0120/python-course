@@ -1,0 +1,1 @@
+import{L as a}from"./index-403cff2a.js";globalThis.jotaiAtomCache=globalThis.jotaiAtomCache||{cache:new Map,get(e,t){return this.cache.has(e)?this.cache.get(e):(this.cache.set(e,t),t)}};function h({children:e}){return a("main",{className:"flex h-screen w-full flex-col items-center pb-4",children:e})}export{h as L};
