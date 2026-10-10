@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>蛙课堂 - 交互式教学</title>
 <meta name="description" content="蛙课堂：10 节 AI 交互式课程，分基础、进阶、挑战三档难度，含练习、打卡与错题复习。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐸%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E %3C/text%3E%3C/svg%3E">
 <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: #f0f2f5; color: #1a1a2e; display: flex; height: 100vh; overflow: hidden; } /* ===== Sidebar ===== */ .sidebar { width: 280px; min-width: 280px; background: #1a1a2e; color: #e0e0e0; display: flex; flex-direction: column; overflow: hidden; } .sidebar-header { padding: 20px; border-bottom: 1px solid #2a2a4e; } .sidebar-header h1 { font-size: 16px; font-weight: 700; color: #fff; } .sidebar-header p { font-size: 12px; color: #8899bb; margin-top: 4px; } .sidebar-header .stats { display: flex; gap: 12px; margin-top: 10px; font-size: 12px; } .sidebar-header .stats span { background: #2a2a4e; padding: 4px 10px; border-radius: 12px; color: #aabbdd; } .lesson-list { flex: 1; overflow-y: auto; padding: 8px 0; } .lesson-list::-webkit-scrollbar { width: 4px; } .lesson-list::-webkit-scrollbar-track { background: transparent; } .lesson-list::-webkit-scrollbar-thumb { background: #3a3a5e; border-radius: 2px; } .lesson-item { display: flex; align-items: center; gap: 10px; padding: 12px 20px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.2s; } .lesson-item:hover { background: #2a2a4e; } .lesson-item.active { background: #2a2a4e; border-left-color: #4fc3f7; } .lesson-item .icon { font-size: 18px; width: 28px; text-align: center; } .lesson-item .info { flex: 1; min-width: 0; } .lesson-item .info .title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .lesson-item .info .meta { font-size: 11px; color: #8899bb; margin-top: 2px; } .lesson-item .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; } .lesson-item .status-dot.completed { background: #4caf50; } .lesson-item .status-dot.in-progress { background: #ff9800; } .lesson-item .status-dot.locked { background: #555; } /* ===== Main Content ===== */ .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; } .content-header { background: #fff; padding: 16px 30px; border-bottom: 1px solid #e8e8e8; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; } .difficulty-indicator { margin-bottom: 12px; } .diff-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; } .diff-tag.basic { background: #e8f5e9; color: #1b5e20; } .diff-tag.standard { background: #fff3e0; color: #e65100; } .diff-tag.advanced { background: #ffebee; color: #b71c1c; } .difficulty-selector { display: flex; align-items: center; gap: 4px; } .diff-label { font-size: 12px; color: #666; margin-right: 4px; } .diff-btn { padding: 6px 14px; border: 2px solid #ddd; border-radius: 20px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; } .diff-btn:hover { border-color: #1565c0; } .diff-btn.active[data-level="basic"] { border-color: #4caf50; background: #e8f5e9; color: #1b5e20; } .diff-btn.active[data-level="standard"] { border-color: #ff9800; background: #fff3e0; color: #e65100; } .diff-btn.active[data-level="advanced"] { border-color: #f44336; background: #ffebee; color: #b71c1c; } .content-header .breadcrumb { font-size: 13px; color: #666; } .content-header .breadcrumb strong { color: #1a1a2e; } .content-header .lesson-badge { background: #e3f2fd; color: #1565c0; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; } .content-area { flex: 1; overflow-y: auto; padding: 30px; background: #f7f8fa; } .content-area::-webkit-scrollbar { width: 6px; } .content-area::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; } /* ===== Step navigation ===== */ .step-tabs { display: flex; gap: 0; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 0 20px; overflow-x: auto; } .step-tab { padding: 12px 20px; font-size: 13px; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; color: #888; transition: all 0.2s; } .step-tab:hover { color: #333; } .step-tab.active { color: #1565c0; border-bottom-color: #1565c0; font-weight: 600; } .step-tab .step-icon { margin-right: 6px; } /* ===== Content cards ===== */ .step-content { display: none; animation: fadeIn 0.3s ease; } .step-content.active { display: block; } @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } } .step-content h2 { font-size: 20px; margin-bottom: 16px; color: #1a1a2e; } .step-content h3 { font-size: 16px; margin: 20px 0 10px; color: #333; } .step-content h4 { font-size: 14px; margin: 16px 0 8px; color: #444; } .step-content p { font-size: 14px; line-height: 1.8; color: #333; margin-bottom: 12px; } .step-content ul, .step-content ol { margin: 10px 0 16px 24px; } .step-content li { font-size: 14px; line-height: 1.8; color: #333; margin-bottom: 4px; } /* ===== Code blocks ===== */ .code-block-wrapper { background: #1e1e2e; border-radius: 8px; margin: 12px 0 16px; overflow: hidden; border: 1px solid #2a2a3e; } .code-block-wrapper.wrong { border-color: #e53935; } .code-header { background: #2a2a3e; padding: 8px 16px; font-size: 12px; color: #8899bb; font-weight: 600; } .code-block-wrapper pre { margin: 0; padding: 16px; overflow-x: auto; } .code-block-wrapper code { font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; line-height: 1.7; color: #e0e0e0; white-space: pre; } .copy-btn { display: inline-block; margin: 0 16px 12px; padding: 4px 14px; background: #3a3a5e; color: #ccc; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.2s; } .copy-btn:hover { background: #4a4a7e; color: #fff; } .copy-btn.copied { background: #2e7d32; color: #fff; } /* ===== Interactive elements ===== */ .quiz { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; margin: 16px 0; } .quiz .quiz-question { font-size: 14px; margin-bottom: 8px; padding: 8px 12px; background: #f5f5f5; border-radius: 6px; } .quiz-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; } .quiz-actions button { padding: 10px 20px; border: 2px solid #ddd; border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; transition: all 0.2s; flex: 1; min-width: 120px; } .quiz-actions button:hover { border-color: #1565c0; background: #e3f2fd; } .quiz-actions button.selected-correct { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; font-weight: 600; } .quiz-actions button.selected-wrong { border-color: #c62828; background: #ffebee; color: #b71c1c; } .quiz-actions button:disabled { opacity: 0.6; cursor: not-allowed; } .quiz-result { font-size: 14px; font-weight: 600; margin-top: 8px; min-height: 24px; } .quiz-result.correct { color: #2e7d32; } .quiz-result.wrong { color: #c62828; } .quiz-explanation { margin-top: 10px; padding: 12px; background: #fff8e1; border-radius: 6px; font-size: 13px; color: #555; } /* ===== Highlight boxes ===== */ .highlight-box { background: #e3f2fd; border-left: 4px solid #1565c0; padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; font-size: 14px; } .warning-box { background: #fff3e0; border-left: 4px solid #e65100; padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; font-size: 14px; } .tip-box { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; font-size: 14px; } .task-card { background: #fff; border: 2px dashed #1565c0; border-radius: 10px; padding: 16px; margin: 12px 0; } .task-card h4 { margin-top: 0; color: #1565c0; } .checklist { list-style: none; padding: 0; } .checklist li { padding: 6px 0; font-size: 14px; } .structure-diagram { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; } .struct-item { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 16px; } .struct-num { display: inline-block; width: 24px; text-align: center; } .keywords-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; } .keyword-chip { background: #e3f2fd; color: #1565c0; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-family: 'Consolas', monospace; } kbd { background: #f5f5f5; border: 1px solid #ddd; border-radius: 3px; padding: 1px 6px; font-size: 12px; font-family: 'Consolas', monospace; } /* ===== Placeholder ===== */ .placeholder-box { text-align: center; padding: 60px 20px; color: #999; } .placeholder-box .big-icon { font-size: 64px; margin-bottom: 16px; } .placeholder-box p { font-size: 16px; color: #888; } /* ===== Nav buttons ===== */ .content-footer { background: #fff; border-top: 1px solid #e8e8e8; padding: 16px 30px; display: flex; justify-content: space-between; align-items: center; } .nav-btn { padding: 10px 28px; border-radius: 8px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; } .nav-btn.prev { background: #f0f0f0; color: #555; } .nav-btn.prev:hover { background: #e0e0e0; } .nav-btn.next { background: #1565c0; color: #fff; } .nav-btn.next:hover { background: #0d47a1; } .nav-btn.next:disabled, .nav-btn.prev:disabled { opacity: 0.4; cursor: not-allowed; } .nav-btn.complete-step { background: #2e7d32; color: #fff; } .nav-btn.complete-step:hover { background: #1b5e20; } /* ===== Responsive ===== */ @media (max-width: 768px) { .sidebar { width: 60px; min-width: 60px; } .sidebar .info, .sidebar .stats, .sidebar .lesson-item .status-dot, .sidebar-header p { display: none; } .sidebar-header h1 { font-size: 0; } .sidebar-header h1:after { content: 'Py'; font-size: 16px; } .lesson-item { padding: 12px 0; justify-content: center; } .step-tab { padding: 12px 10px; font-size: 12px; } .content-area { padding: 16px; } }@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.step-content{animation:fadeInUp .4s ease}.lesson-item{transition:all .2s ease}.lesson-item:hover{transform:translateX(5px)}.diff-btn{transition:all .3s ease}.diff-btn:hover{transform:translateY(-2px)}.coding-exercise{background:#fff;border:2px solid #1565c0;border-radius:12px;margin:16px 0;overflow:hidden}.coding-exercise .ex-header{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:12px 16px;display:flex;justify-content:space-between}.coding-exercise .ex-header .ex-timer{font-size:18px;font-family:monospace;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:6px}.coding-exercise .ex-body{padding:16px}.coding-exercise textarea{width:100%;min-height:120px;border:2px solid #ddd;border-radius:8px;padding:12px;font-family:Consolas,monospace;font-size:13px;resize:vertical;outline:none;box-sizing:border-box;background:#fafafa}.coding-exercise .ex-actions{display:flex;gap:8px;margin-top:12px}.coding-exercise .ex-actions button{padding:8px 20px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600}.coding-exercise .ex-actions .btn-start{background:#1565c0;color:#fff}.coding-exercise .ex-actions .btn-reveal{background:#e8f5e9;color:#2e7d32;border:2px solid #2e7d32}.coding-exercise .ex-solution{display:none;margin-top:12px;border:2px solid #2e7d32;border-radius:8px;overflow:hidden}.coding-exercise .ex-solution.show{display:block}.coding-exercise .ex-solution .sol-header{background:#e8f5e9;padding:8px 12px;font-weight:600;font-size:13px;color:#1b5e20}.coding-exercise .ex-solution pre{margin:0;padding:12px;background:#fafafa}.coding-exercise .ex-solution code{font-family:Consolas,monospace;font-size:13px;white-space:pre}.coding-exercise .ex-status{font-size:13px;color:#888;padding:8px;background:#fafafa;text-align:center}.sum-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;margin:8px 0;overflow:hidden}.sum-card .sum-header{background:#e8f5e9;padding:10px 16px;font-weight:600;font-size:14px;color:#1b5e20}.sum-card .sum-body{padding:12px 16px}.sum-card .sum-body ul{margin:0;padding-left:20px}.sum-card .sum-body li{font-size:13px;line-height:1.8;color:#333}.ai-toggle{position:fixed;bottom:20px;right:20px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#1565c0;color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(21,101,192,.4)}:root { --primary: #1565c0; --primary-light: #e3f2fd; --success: #2e7d32; --success-light: #e8f5e9; --warning: #ff9800; --warning-light: #fff3e0; --danger: #c62828; --danger-light: #ffebee; --text: #1a1a2e; --text-secondary: #666; --border: #e0e0e0; --bg: #f0f2f5; --card-bg: #ffffff; --radius: 10px;}.step-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 10px 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);}.step-progress .progress-label { font-size: 12px; color: var(--text-secondary); white-space: nowrap;}.step-progress .progress-bar { flex: 1; height: 8px; background: #eee; border-radius: 4px; overflow: hidden;}.step-progress .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #4fc3f7); border-radius: 4px; transition: width 0.4s ease;}.exercise-hint { display: none; margin-top: 10px; padding: 12px 16px; background: var(--warning-light); border-left: 4px solid var(--warning); border-radius: 0 6px 6px 0; font-size: 13px; color: #663c00; line-height: 1.7;}.exercise-hint.show { display: block; }.hint-btn { background: var(--warning-light); color: #e65100; border: 1px solid #ffe0b2; border-radius: 6px; padding: 6px 16px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s;}.hint-btn:hover { background: #ffe0b2; }.lesson-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);}.lesson-meta .meta-badge { padding: 3px 10px; border-radius: 12px; background: var(--primary-light); color: var(--primary); font-weight: 600;}.coding-exercise textarea { padding-left: 48px; }@media (max-width: 768px) { .step-progress { flex-direction: column; align-items: flex-start; } .step-progress .progress-bar { width: 100%; } .lesson-meta { flex-wrap: wrap; }}/* ===== Code Editor Enhancement ===== */.coding-exercise textarea { font-family: Consolas, monospace; font-size: 13px; line-height: 1.6; background: #fafafa;}.coding-exercise textarea:focus { border-color: var(--primary); }.coding-exercise .ex-actions { margin-top: 12px; }/* ===== Completion Feedback ===== */.lesson-complete-msg { display: none; text-align: center; padding: 20px; margin: 16px 0; background: var(--success-light); border: 2px solid var(--success); border-radius: var(--radius);}.lesson-complete-msg.show { display: block; animation: fadeInUp 0.5s ease; }.lesson-complete-msg .big { font-size: 48px; }.lesson-complete-msg h3 { color: var(--success); margin: 8px 0; }/* ===== Visual Polish ===== */body { background: var(--bg); }.sidebar { background: #1a1a2e; }.sidebar-header { border-bottom-color: #2a2a4e; }.sidebar-header h1 { color: #fff; }.lesson-item:hover { background: #2a2a4e; }.lesson-item.active { background: #2a2a4e; border-left-color: #4fc3f7; }.lesson-item .title { color: #e0e0e0; }.lesson-item .meta { color: #8899bb; }.content-header { background: var(--card-bg); border-bottom-color: var(--border); }.content-area { background: #f7f8fa; }.step-tab.active { color: var(--primary); border-bottom-color: var(--primary); }.nav-btn.next { background: var(--primary); }.nav-btn.next:hover { background: #0d47a1; }.code-block-wrapper { border-color: #2a2a3e; }.code-block-wrapper code { color: #e0e0e0; }.code-header { background: #2a2a3e; color: #8899bb; }/* ===== Mobile Responsive ===== */@media (max-width: 768px) { .sidebar { width: 48px; min-width: 48px; } .sidebar .info, .sidebar .meta { display: none; } .sidebar .lesson-item { padding: 10px 0; justify-content: center; } .sidebar .lesson-item .icon { font-size: 16px; } .step-tab { padding: 10px 8px; font-size: 11px; } .content-header { padding: 12px 16px; flex-wrap: wrap; } .content-area { padding: 16px; } .coding-exercise textarea { font-size: 12px; } .diff-btn { padding: 4px 8px; font-size: 11px; }}/* ===== Focus States for Accessibility ===== */button:focus-visible, .lesson-item:focus-visible, .step-tab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px;}.output-demo { margin: 12px 0; border: 2px solid #2e7d32; border-radius: 8px; overflow: hidden; background: #f1f8e9;}.output-demo .output-header { background: #2e7d32; color: #fff; padding: 6px 12px; font-size: 12px; font-weight: 600;}.output-demo .output-content { margin: 0; padding: 10px 12px; font-family: Consolas, monospace; font-size: 13px; color: #1b5e20; white-space: pre-wrap; line-height: 1.6;}/* ==== Learning Overview ==== */.overview-panel { padding: 12px; }.overview-title { font-size: 13px; color: #8899bb; font-weight: 600; padding: 8px 12px; }.overview-stats { display: flex; gap: 8px; padding: 4px 12px 10px; }.overview-stats .stat { flex: 1; background: #2a2a4e; border-radius: 8px; padding: 8px 6px; text-align: center; }.overview-stats .stat .num { font-size: 20px; font-weight: 700; color: #4fc3f7; }.overview-stats .stat .lbl { font-size: 10px; color: #8899bb; margin-top: 2px; }/* ==== Quiz / Warmup ==== */.warmup-quiz { background: #fff; border: 2px solid #1565c0; border-radius: 10px; padding: 16px; margin: 12px 0; }.warmup-quiz h4 { margin: 0 0 10px; color: #1565c0; }.warmup-quiz .q-item { margin-bottom: 12px; }.warmup-quiz .q-item .q-text { font-size: 13px; font-weight: 600; margin-bottom: 6px; }.warmup-quiz .q-item .q-options { display: flex; gap: 8px; flex-wrap: wrap; }.warmup-quiz .q-item .q-options button { padding: 6px 14px; border: 2px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-size: 12px; }.warmup-quiz .q-item .q-options button.correct { border-color: #2e7d32; background: #e8f5e9; }.warmup-quiz .q-item .q-options button.wrong { border-color: #c62828; background: #ffebee; }/* ==== Badges ==== */.badges-panel { padding: 12px; }.badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }.badge-item { background: #2a2a4e; border-radius: 10px; padding: 10px; text-align: center; }.badge-item .badge-icon { font-size: 24px; }.badge-item .badge-name { font-size: 10px; color: #8899bb; margin-top: 4px; }.badge-item.locked { opacity: 0.3; }/* ==== Dark Mode ==== */body.dark-mode { background: #121212; color: #e0e0e0; }body.dark-mode .sidebar { background: #1e1e1e; }body.dark-mode .content-header { background: #1e1e1e; border-bottom-color: #333; }body.dark-mode .content-area { background: #121212; }body.dark-mode .step-tab { color: #888; }body.dark-mode .step-tab.active { color: #4fc3f7; }body.dark-mode .sum-card, body.dark-mode .concept-card, body.dark-mode .coding-exercise { background: #1e1e1e; border-color: #333; }body.dark-mode .code-block-wrapper { background: #111; }body.dark-mode .code-header { background: #1e1e1e; }/* ==== Pomodoro ==== */.pomodoro-panel { padding: 12px; }.pomodoro-timer { font-size: 32px; font-weight: 700; text-align: center; color: #4fc3f7; font-family: monospace; }.pomodoro-btns { display: flex; gap: 8px; justify-content: center; margin-top: 10px; }.pomodoro-btns button { padding: 6px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }/* ==== Toolbar ==== */.quick-toolbar { display: flex; gap: 4px; padding: 4px 8px; background: #f5f5f5; border-bottom: 1px solid #e0e0e0; flex-wrap: wrap; }.quick-toolbar button { padding: 4px 10px; border: 1px solid #ddd; border-radius: 4px; background: #fff; cursor: pointer; font-size: 11px; }.quick-toolbar button:hover { background: #e3f2fd; }.quick-toolbar button.active { background: #1565c0; color: #fff; border-color: #1565c0; }body.dark-mode .quick-toolbar { background: #1e1e1e; border-bottom-color: #333; }/* ==== Export / Save ==== */.export-btn { background: #2e7d32 !important; color: #fff !important; }/* ==== Auto-check result ==== */.check-result { margin-top: 8px; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; }.check-result.correct { background: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }.check-result.wrong { background: #ffebee; color: #c62828; border: 1px solid #c62828; }/* ===== Sidebar Layout Fix ===== */.sidebar { width: 280px; min-width: 280px; background: #1a1a2e; color: #e0e0e0; display: flex; flex-direction: column; overflow-y: auto; }.sidebar .sidebar-header { padding: 16px 20px; border-bottom: 1px solid #2a2a4e; }.sidebar .sidebar-header h1 { font-size: 15px; font-weight: 700; color: #fff; margin: 0; }.sidebar .sidebar-header p { font-size: 11px; color: #8899bb; margin-top: 2px; }.sidebar .lesson-list { flex: 1; overflow-y: auto; padding: 8px 0; }.sidebar .lesson-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.2s; }.sidebar .lesson-item .icon { font-size: 18px; width: 26px; text-align: center; flex-shrink: 0; }.sidebar .lesson-item .info { flex: 1; min-width: 0; }.sidebar .lesson-item .info .title { font-size: 12px; font-weight: 600; color: #e0e0e0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.sidebar .lesson-item .info .meta { font-size: 10px; color: #8899bb; }.quick-toolbar { position: sticky; top: 0; z-index: 100; }/* ==== Panel back button ==== */.panel-back-btn { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 8px 14px; border: 1px solid #1565c0; border-radius: 6px; background: #fff; color: #1565c0; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s; }.panel-back-btn:hover { background: #1565c0; color: #fff; }body.dark-mode .panel-back-btn { background: #1e1e1e; color: #64b5f6; border-color: #64b5f6; }body.dark-mode .panel-back-btn:hover { background: #64b5f6; color: #1e1e1e; }/* ==== Login Screen ==== */.login-screen { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #0f172a 0%, #1a1a2e 55%, #14213d 100%); transition: opacity 0.4s ease; }.login-screen.hidden { opacity: 0; pointer-events: none; }.login-box { width: min(92vw, 420px); box-sizing: border-box; padding: 34px 30px 26px; background: #ffffff; border-radius: 12px; box-shadow: 0 18px 60px rgba(0,0,0,0.4); text-align: center; }.login-logo { width: 64px; height: 64px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 34px; background: #eef4ff; border-radius: 16px; }.login-box h1 { margin: 0; font-size: 26px; color: #0f172a; letter-spacing: 0; }.login-sub { margin: 6px 0 24px; font-size: 13px; color: #64748b; }.login-field { margin-bottom: 14px; text-align: left; }.login-field label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: #334155; }.login-field input { width: 100%; box-sizing: border-box; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }.login-field input:focus { border-color: #1565c0; box-shadow: 0 0 0 3px rgba(21,101,192,0.15); }.login-actions { display: flex; gap: 10px; margin-top: 8px; }.login-btn { flex: 1; padding: 11px 0; border: 0; border-radius: 6px; background: #1565c0; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }.login-btn:hover { background: #0d47a1; }.register-btn { flex: 1; padding: 11px 0; border: 1px solid #1565c0; border-radius: 6px; background: #fff; color: #1565c0; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }.register-btn:hover { background: #eef4ff; }.login-msg { min-height: 18px; margin: 10px 0 0; font-size: 12px; color: #c62828; }.login-tip { margin-top: 16px; padding: 10px 12px; background: #f1f5f9; border-radius: 6px; font-size: 12px; line-height: 1.7; color: #475569; }.login-tip strong { color: #1565c0; }/* ==== User row & reset button ==== */.user-row { display: none; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #2a2a4e; font-size: 12px; color: #aab8d8; }.user-row .user-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.logout-btn { flex-shrink: 0; padding: 4px 10px; border: 1px solid #4c6a9c; border-radius: 6px; background: transparent; color: #aab8d8; font-size: 11px; cursor: pointer; transition: all 0.2s; }.logout-btn:hover { background: #2a2a4e; color: #fff; }.reset-btn { background: #ef6c00 !important; color: #fff !important; }.user-actions { display: flex; gap: 6px; flex-shrink: 0; }/* ==== Account Settings Panel ==== */.account-card { max-width: 460px; box-sizing: border-box; padding: 18px; margin-bottom: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }.account-info { display: flex; align-items: center; gap: 12px; }.account-avatar { width: 46px; height: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; background: #eef4ff; border-radius: 50%; }.account-name { font-size: 16px; font-weight: 700; color: #0f172a; }.account-hint { margin-top: 2px; font-size: 12px; color: #64748b; }.account-actions { display: flex; gap: 10px; margin-top: 14px; }.account-action-btn { flex: 1; padding: 9px 0; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s, opacity 0.2s; }.account-action-btn.switch { border: 0; background: #1565c0; color: #fff; }.account-action-btn.switch:hover { background: #0d47a1; }.account-action-btn.danger { background: #fff; color: #c62828; border: 1px solid #c62828; }.account-action-btn.danger:hover { background: #ffebee; }.account-card h4 { margin: 0 0 14px; font-size: 14px; color: #0f172a; }.account-card .login-btn { width: 100%; }.account-card .login-msg { text-align: left; }body.dark-mode .account-card { background: #1e1e1e; border-color: #333; }body.dark-mode .account-name, body.dark-mode .account-card h4 { color: #e0e0e0; }body.dark-mode .account-hint { color: #8899bb; }body.dark-mode .account-action-btn.danger { background: #1e1e1e; }body.dark-mode .account-avatar { background: #2a2a4e; }/* ================================================================ Unified Theme System - light: blue & white, dark: black & white Applied last so these tokens win across every module. ================================================================ */:root { --bg-page: #f4f7fb; --bg-content: #f4f7fb; --bg-card: #ffffff; --bg-soft: #edf3fa; --bg-inset: #f8fbfe; --bg-sidebar: #0b2b52; --bg-sidebar-hover: #123a6b; --border: #d8e4f2; --border-strong: #c3d6ea; --text: #172b45; --text-secondary: #5a6d84; --text-muted: #8496ab; --primary: #1565c0; --primary-dark: #0d47a1; --primary-soft: #e8f1fb; --accent: #3f8ae0; --success: #2e8b57; --success-dark: #236b43; --success-soft: #e8f6ef; --warning: #e8890c; --warning-dark: #b56a07; --warning-soft: #fdf1e0; --danger: #d64545; --danger-dark: #b03535; --danger-soft: #fdeaea; --code-bg: #101725; --code-header: #182335; --code-text: #e6edf5; --text-on-primary: #ffffff; --text-on-success: #ffffff; --radius: 8px; --shadow: 0 1px 3px rgba(22,40,61,0.08), 0 4px 14px rgba(22,40,61,0.06);}body.dark-mode { --bg-page: #0a0c10; --bg-content: #0e1115; --bg-card: #14171c; --bg-soft: #1b2027; --bg-inset: #101318; --bg-sidebar: #06080b; --bg-sidebar-hover: #171c23; --border: #2b3038; --border-strong: #343b46; --text: #f2f5f9; --text-secondary: #a3adb9; --text-muted: #7c8794; --primary: #7ab1ff; --primary-dark: #5f9beb; --primary-soft: #1a2940; --accent: #9cc5ff; --success: #4caf87; --success-dark: #6cc7a0; --success-soft: #16332a; --warning: #e0a33c; --warning-dark: #e9b45c; --warning-soft: #3a2e14; --danger: #e06060; --danger-dark: #ec7b7b; --danger-soft: #3a1c1c; --code-bg: #0d0f14; --code-header: #171b22; --code-text: #e6edf5; --text-on-primary: #0a1320; --text-on-success: #0c1a13; --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,0.5), 0 6px 20px rgba(0,0,0,0.35);}/* ---- Page & main layout ---- */body { background: var(--bg-page); color: var(--text); }.content-header { background: var(--bg-card); border-bottom-color: var(--border); }.content-area { background: var(--bg-content); }.content-footer { background: var(--bg-card); border-top-color: var(--border); }.step-tabs { background: var(--bg-card); border-bottom-color: var(--border); }.step-tab { color: var(--text-muted); }.step-tab:hover { color: var(--text); }.step-tab.active { color: var(--primary); border-bottom-color: var(--primary); }.step-content h2, .step-content h3, .step-content h4 { color: var(--text); }.step-content p, .step-content li { color: var(--text-secondary); }.placeholder-box { color: var(--text-muted); }.placeholder-box p, .placeholder-meta { color: var(--text-muted); }.content-header .breadcrumb { color: var(--text-muted); }.content-header .breadcrumb strong { color: var(--text); }.content-header .lesson-badge { background: var(--primary-soft); color: var(--primary); }.diff-label { color: var(--text-muted); }.diff-btn { border-color: var(--border-strong); background: var(--bg-card); color: var(--text); }.diff-btn:hover { border-color: var(--primary); }.diff-btn.active[data-level="basic"] { border-color: var(--success); background: var(--success-soft); color: var(--success-dark); }.diff-btn.active[data-level="standard"] { border-color: var(--warning); background: var(--warning-soft); color: var(--warning-dark); }.diff-btn.active[data-level="advanced"] { border-color: var(--danger); background: var(--danger-soft); color: var(--danger-dark); }/* ---- Sidebar ---- */.sidebar { background: var(--bg-sidebar); }.sidebar-header { border-bottom-color: var(--border-strong); }.sidebar-header p, .lesson-item .info .meta { color: #9fb0c8; }.sidebar-header .stats span { background: var(--bg-sidebar-hover); color: #c7d4e8; }.lesson-item:hover, .lesson-item.active { background: var(--bg-sidebar-hover); }.lesson-item.active { border-left-color: var(--accent); }.lesson-item .info .title { color: #f0f4fa; }.lesson-list::-webkit-scrollbar-thumb { background: var(--border-strong); }/* ---- Cards & teaching boxes ---- */.quiz, .warmup-quiz, .task-card, .sum-card, .struct-item { background: var(--bg-card); border-color: var(--border-strong); border-radius: var(--radius); }.quiz .quiz-question { background: var(--bg-soft); }.quiz-actions button, .warmup-quiz .q-item .q-options button { border-color: var(--border-strong); background: var(--bg-card); color: var(--text); border-radius: var(--radius); }.quiz-actions button:hover { border-color: var(--primary); background: var(--primary-soft); }.quiz-actions button.selected-correct, .warmup-quiz .q-item .q-options button.correct { border-color: var(--success); background: var(--success-soft); color: var(--success-dark); }.quiz-actions button.selected-wrong, .warmup-quiz .q-item .q-options button.wrong { border-color: var(--danger); background: var(--danger-soft); color: var(--danger-dark); }.quiz-result.correct { color: var(--success); }.quiz-result.wrong { color: var(--danger); }.quiz-explanation { background: var(--warning-soft); color: var(--text-secondary); }.quiz-explanation { display: none; }.quiz-answer-btn { margin: 8px 0 0; padding: 6px 14px; border: 1px solid var(--primary); border-radius: 6px; background: transparent; color: var(--primary); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }.quiz-answer-btn:hover { background: var(--primary); color: #fff; }.warmup-quiz h4, .task-card h4 { color: var(--primary); }.highlight-box { background: var(--primary-soft); border-left-color: var(--primary); color: var(--text-secondary); }.warning-box { background: var(--warning-soft); border-left-color: var(--warning); color: var(--text-secondary); }.tip-box { background: var(--success-soft); border-left-color: var(--success); color: var(--text-secondary); }.keyword-chip { background: var(--primary-soft); color: var(--primary); }.exercise-hint { background: var(--warning-soft); border-left-color: var(--warning); color: var(--warning-dark); }.hint-btn { background: var(--warning-soft); color: var(--warning-dark); border-color: var(--warning); }.hint-btn:hover { background: var(--warning); color: #fff; }.sum-card .sum-header { background: var(--success-soft); color: var(--success-dark); }.sum-card .sum-body li { color: var(--text-secondary); }.output-demo { background: var(--success-soft); border-color: var(--success); }.output-demo .output-content { color: var(--success-dark); }.check-result.correct { background: var(--success-soft); color: var(--success-dark); border-color: var(--success); }.check-result.wrong { background: var(--danger-soft); color: var(--danger-dark); border-color: var(--danger); }.lesson-complete-msg { background: var(--success-soft); border-color: var(--success); }.lesson-complete-msg h3 { color: var(--success-dark); }.step-progress { background: var(--bg-card); border-color: var(--border-strong); border-radius: var(--radius); }.step-progress .progress-label, .lesson-meta { color: var(--text-secondary); }.step-progress .progress-bar { background: var(--bg-soft); }.step-progress .progress-fill { background: linear-gradient(90deg, var(--primary), var(--accent)); }.lesson-meta .meta-badge { background: var(--primary-soft); color: var(--primary); }kbd { background: var(--bg-soft); border-color: var(--border-strong); color: var(--text); }/* ---- Coding exercises ---- */.coding-exercise { background: var(--bg-card); border-color: var(--primary); border-radius: var(--radius); }.coding-exercise .ex-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }.coding-exercise textarea { background: var(--bg-inset); border-color: var(--border-strong); color: var(--text); }.coding-exercise textarea:focus { border-color: var(--primary); }.coding-exercise .ex-actions .btn-start { background: var(--primary); color: #fff; }.coding-exercise .ex-actions .btn-reveal { background: var(--success-soft); color: var(--success-dark); border-color: var(--success); }.coding-exercise .ex-solution { border-color: var(--success); }.coding-exercise .ex-solution .sol-header { background: var(--success-soft); color: var(--success-dark); }.coding-exercise .ex-solution pre { background: var(--bg-inset); }.coding-exercise .ex-status { color: var(--text-muted); background: var(--bg-soft); }/* ---- Code blocks ---- */.code-block-wrapper { background: var(--code-bg); border-color: var(--border-strong); border-radius: var(--radius); }.code-block-wrapper code { color: var(--code-text); }.code-header { background: var(--code-header); color: var(--text-muted); }.copy-btn { background: var(--bg-sidebar-hover); color: var(--text-secondary); }.copy-btn:hover { background: var(--primary); color: #fff; }.copy-btn.copied { background: var(--success); color: var(--text-on-success); }.ai-toggle { background: var(--primary); color: var(--text-on-primary); box-shadow: 0 4px 12px rgba(21,101,192,0.4); }/* ---- Navigation & toolbar ---- */.nav-btn.prev { background: var(--bg-soft); color: var(--text-secondary); }.nav-btn.prev:hover { background: var(--border-strong); }.nav-btn.next { background: var(--primary); color: var(--text-on-primary); }.nav-btn.next:hover { background: var(--primary-dark); }.nav-btn.complete-step { background: var(--success); color: var(--text-on-success); }.nav-btn.complete-step:hover { background: var(--success-dark); }.quick-toolbar { background: var(--bg-soft); border-bottom-color: var(--border); }.quick-toolbar button { border-color: var(--border-strong); background: var(--bg-card); color: var(--text); border-radius: 6px; }.quick-toolbar button:hover { background: var(--primary-soft); color: var(--primary); }.quick-toolbar button.active { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }.export-btn { background: var(--success) !important; color: #fff !important; }.reset-btn { background: var(--warning) !important; color: #fff !important; }/* ---- Panels: overview / pomodoro / badges / account ---- */.panel-back-btn { border-color: var(--primary); background: var(--bg-card); color: var(--primary); }.panel-back-btn:hover { background: var(--primary); color: #fff; }.overview-item { width: 120px; padding: 10px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); text-align: center; transition: border-color 0.2s, transform 0.2s; }.overview-item:hover { border-color: var(--primary); transform: translateY(-2px); }.ov-status { font-size: 20px; }.ov-title { margin-top: 4px; font-size: 11px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.ov-date { margin-top: 2px; font-size: 10px; color: var(--text-muted); }.overview-stats .stat { background: var(--primary-soft); }.overview-stats .stat .num { color: var(--primary); }.overview-stats .stat .lbl { color: var(--text-muted); }.badge-item { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); }.badge-item .badge-name { color: var(--text-muted); }.pomodoro-timer { color: var(--primary); }.pomodoro-btns button { border: none; border-radius: 6px; padding: 6px 16px; color: #fff; }.pomodoro-btns .pomo-start { background: var(--success); color: var(--text-on-success); }.pomodoro-btns .pomo-pause { background: var(--danger); color: var(--text-on-primary); }.pomodoro-btns .pomo-reset { background: var(--warning); color: var(--text-on-primary); }.account-card { background: var(--bg-card); border-color: var(--border-strong); border-radius: var(--radius); }.account-avatar { background: var(--primary-soft); }.account-name { color: var(--text); }.account-hint { color: var(--text-muted); }.account-card h4 { color: var(--text); }.account-action-btn.switch { background: var(--primary); color: #fff; }.account-action-btn.switch:hover { background: var(--primary-dark); }.account-action-btn.danger { background: var(--bg-card); color: var(--danger); border-color: var(--danger); }.account-action-btn.danger:hover { background: var(--danger-soft); }.login-field label { color: var(--text-secondary); }.login-field input { border-color: var(--border-strong); background: var(--bg-card); color: var(--text); }.login-field input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(21,101,192,0.15); }/* ---- Login screen ---- */.login-box { background: var(--bg-card); }.login-logo { background: var(--primary-soft); }.login-box h1 { color: var(--text); }.login-sub { color: var(--text-muted); }.login-tip { background: var(--bg-soft); color: var(--text-secondary); }.login-tip strong { color: var(--primary); }.login-btn { background: var(--primary); color: var(--text-on-primary); }.login-btn:hover { background: var(--primary-dark); }.register-btn { border-color: var(--primary); background: var(--bg-card); color: var(--primary); }.register-btn:hover { background: var(--primary-soft); }.login-msg { color: var(--danger); }/* ---- Sidebar user row ---- */.user-row { border-top-color: var(--border-strong); color: var(--text-secondary); }.logout-btn { border-color: var(--border-strong); color: var(--text-secondary); }.logout-btn:hover { background: var(--bg-sidebar-hover); color: #fff; }/* ---- Dark-mode re-assertions (beat earlier partial dark rules) ---- */body.dark-mode { background: var(--bg-page); color: var(--text); }body.dark-mode .sidebar { background: var(--bg-sidebar); }body.dark-mode .content-header { background: var(--bg-card); border-bottom-color: var(--border); }body.dark-mode .content-area { background: var(--bg-content); }body.dark-mode .step-tab { color: var(--text-muted); }body.dark-mode .step-tab.active { color: var(--primary); border-bottom-color: var(--primary); }body.dark-mode .sum-card, body.dark-mode .concept-card, body.dark-mode .coding-exercise { background: var(--bg-card); border-color: var(--border-strong); }body.dark-mode .code-block-wrapper { background: var(--code-bg); }body.dark-mode .code-header { background: var(--code-header); }body.dark-mode .quick-toolbar { background: var(--bg-soft); border-bottom-color: var(--border); }body.dark-mode .panel-back-btn { border-color: var(--primary); background: var(--bg-card); color: var(--primary); }body.dark-mode .panel-back-btn:hover { background: var(--primary); color: #fff; }body.dark-mode .account-card { background: var(--bg-card); border-color: var(--border-strong); }body.dark-mode .account-name, body.dark-mode .account-card h4 { color: var(--text); }body.dark-mode .account-hint { color: var(--text-muted); }body.dark-mode .account-action-btn.danger { background: var(--bg-card); color: var(--danger); border-color: var(--danger); }body.dark-mode .account-action-btn.danger:hover { background: var(--danger-soft); }body.dark-mode .account-avatar { background: var(--primary-soft); }body.dark-mode .login-screen { background: linear-gradient(160deg, #050608 0%, #0b0d10 55%, #101318 100%); }body.dark-mode .login-field input { background: var(--bg-inset); border-color: var(--border-strong); color: var(--text); }body.dark-mode .quiz, body.dark-mode .warmup-quiz, body.dark-mode .task-card, body.dark-mode .struct-item, body.dark-mode .badge-item { background: var(--bg-card); border-color: var(--border-strong); }body.dark-mode .quiz-actions button, body.dark-mode .warmup-quiz .q-item .q-options button { background: var(--bg-card); border-color: var(--border-strong); color: var(--text); }body.dark-mode .output-demo { background: var(--success-soft); border-color: var(--success); }body.dark-mode .content-area::-webkit-scrollbar-thumb { background: var(--border-strong); }/* ---- Dark mode: force inline-styled course content readable ---- */body.dark-mode .step-content [style*="color:#333"],body.dark-mode .step-content [style*="color:#444"],body.dark-mode .step-content [style*="color:#555"],body.dark-mode .step-content [style*="color:#666"],body.dark-mode .step-content [style*="color:#888"],body.dark-mode .step-content [style*="color:#999"],body.dark-mode .step-content [style*="color:#aaa"],body.dark-mode .step-content [style*="color:#1a1a2e"],body.dark-mode .step-content [style*="color:#1b5e20"],body.dark-mode .step-content [style*="color:#e65100"],body.dark-mode .step-content [style*="color:#b71c1c"],body.dark-mode .step-content [style*="color:#663c00"] { color: #d7e0ea !important;}body.dark-mode .step-content [style*="color:#1565c0"],body.dark-mode .step-content [style*="color:#0d47a1"],body.dark-mode .step-content [style*="color:#2e7d32"] { color: var(--primary) !important;}body.dark-mode .step-content [style*="color:#4caf50"] { color: var(--success) !important;}body.dark-mode .step-content [style*="color:#c62828"] { color: var(--danger) !important;}body.dark-mode .step-content [style*="background:#e3f2fd"],body.dark-mode .step-content [style*="background:#fff"],body.dark-mode .step-content [style*="background:#f5f5f5"],body.dark-mode .step-content [style*="background:#fafafa"],body.dark-mode .step-content [style*="background:#f7f8fa"],body.dark-mode .step-content [style*="background:#e8f5e9"],body.dark-mode .step-content [style*="background:#fff3e0"],body.dark-mode .step-content [style*="background:#ffebee"],body.dark-mode .step-content [style*="background:#f1f8e9"],body.dark-mode .step-content [style*="background:#fff8e1"] { background: var(--bg-card) !important;}body.dark-mode .step-content [style*="background:#e3f2fd"] { background: var(--primary-soft) !important;}body.dark-mode .step-content [style*="border:1px solid #ddd"],body.dark-mode .step-content [style*="border:2px solid #ddd"],body.dark-mode .step-content [style*="border:1px solid #e0e0e0"],body.dark-mode .step-content [style*="border:2px solid #e0e0e0"] { border-color: var(--border-strong) !important;}/* ==== Usage Guide ==== */.guide-overlay { position: fixed; inset: 0; z-index: 9998; display: none; align-items: center; justify-content: center; background: rgba(8,10,16,0.72); padding: 20px; }.guide-overlay.show { display: flex; }.guide-box { width: min(92vw, 580px); max-height: 88vh; overflow-y: auto; box-sizing: border-box; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 12px; box-shadow: var(--shadow); padding: 28px 28px 18px; text-align: center; }.guide-icon { font-size: 46px; margin-bottom: 8px; }.guide-box h2 { margin: 0 0 6px; font-size: 21px; color: var(--text); }.guide-sub { margin: 0 0 16px; font-size: 13px; color: var(--text-muted); }.guide-features { text-align: left; margin: 0 0 18px; padding: 0; list-style: none; }.guide-features li { position: relative; padding: 7px 0 7px 22px; font-size: 13px; line-height: 1.7; color: var(--text-secondary); }.guide-features li::before { content: "▸"; position: absolute; left: 2px; color: var(--primary); font-weight: 700; }.guide-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; }.guide-nav .g-btn { padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); transition: all 0.2s; }.guide-nav .g-btn:hover { border-color: var(--primary); color: var(--primary); }.guide-nav .g-btn.primary { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }.guide-nav .g-btn.primary:hover { background: var(--primary-dark); color: var(--text-on-primary); }.guide-dots { display: flex; gap: 6px; align-items: center; }.guide-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-strong); transition: background 0.2s; }.guide-dot.active { background: var(--primary); }.guide-skip { margin-top: 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; text-decoration: underline; }.guide-skip:hover { color: var(--primary); }/* ==== Notes & Data Panel ==== */.note-box { max-width: 680px; }.note-box label { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; color: var(--text-secondary); }.note-box textarea { width: 100%; box-sizing: border-box; min-height: 220px; padding: 12px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--bg-inset); color: var(--text); font-family: 'Segoe UI','Microsoft YaHei',sans-serif; font-size: 14px; line-height: 1.7; resize: vertical; outline: none; }.note-box textarea:focus { border-color: var(--primary); }.note-save-status { margin: 8px 0 0; font-size: 12px; color: var(--text-muted); }.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 10px 0 8px; }.stat-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px; text-align: center; }.stat-card .num { font-size: 20px; font-weight: 700; color: var(--primary); }.stat-card .lbl { margin-top: 2px; font-size: 11px; color: var(--text-muted); }.section-title { margin: 18px 0 8px; font-size: 15px; font-weight: 700; color: var(--text); }.checkin-btn { padding: 9px 18px; border: 0; border-radius: 6px; background: var(--primary); color: var(--text-on-primary); font-size: 13px; font-weight: 600; cursor: pointer; }.checkin-btn.done { background: var(--success); }.checkin-info { margin-top: 8px; font-size: 12px; color: var(--text-muted); }.calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 10px 0; max-width: 420px; }.calendar .cal-head { padding: 4px 0; font-size: 11px; color: var(--text-muted); text-align: center; }.calendar .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; border-radius: 6px; background: var(--bg-soft); color: var(--text-secondary); }.calendar .cal-day.checked { background: var(--success); color: var(--text-on-success); font-weight: 700; }.calendar .cal-day.today { outline: 2px solid var(--primary); }.wrong-list { list-style: none; padding: 0; margin: 0; }.wrong-item { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }.wrong-item .w-q { font-size: 13px; font-weight: 600; color: var(--text); }.wrong-item .w-meta { margin-top: 4px; font-size: 12px; color: var(--text-muted); }.wrong-item .w-expl { margin-top: 4px; font-size: 12px; color: var(--success-dark); }.wrong-del { margin-top: 6px; padding: 3px 10px; border: 1px solid var(--danger); border-radius: 5px; background: transparent; color: var(--danger); font-size: 11px; cursor: pointer; }.wrong-empty, .data-empty { padding: 8px 0; font-size: 13px; color: var(--text-muted); }.cal-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 4px; }.cal-nav-btn { padding: 5px 10px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--bg-card); color: var(--text-secondary); font-size: 12px; cursor: pointer; }.cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); }.cal-title { min-width: 92px; text-align: center; font-size: 14px; font-weight: 700; color: var(--text); }.data-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }.data-actions .checkin-btn { margin: 0; }.wrongbook-sub { margin: 0 0 10px; font-size: 12px; color: var(--text-muted); }.wb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }.wb-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }.wb-card:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 4px 14px rgba(21,101,192,.14); }.wb-card .wb-card-title { font-size: 13px; font-weight: 700; color: var(--text); }.wb-card .wb-card-count { margin-top: 4px; font-size: 12px; color: var(--text-muted); }.wb-back-btn { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 12px; padding: 7px 14px; border: 1px solid var(--primary); border-radius: 6px; background: var(--bg-card); color: var(--primary); font-size: 13px; font-weight: 600; cursor: pointer; }.wb-back-btn:hover { background: var(--primary); color: #fff; }.confirm-overlay { position: fixed; inset: 0; z-index: 2500; display: none; align-items: center; justify-content: center; background: rgba(8,10,16,.6); padding: 20px; }.confirm-overlay.show { display: flex; }.confirm-box { width: min(92vw, 420px); background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 10px; padding: 20px; box-shadow: var(--shadow); }.confirm-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }.confirm-msg { font-size: 13px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 16px; }.confirm-actions { display: flex; justify-content: flex-end; gap: 10px; }.confirm-actions .g-btn { padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); }.confirm-actions .g-btn.primary { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }/* ==== Exercise sections ==== */.exercise-section { margin: 14px 0; padding: 14px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--bg-soft); }.exercise-section h3 { margin: 0 0 6px; font-size: 15px; color: var(--text); }.exercise-note { margin: 0 0 10px; font-size: 12px; color: var(--text-muted); }/* ==== AI 工具 Guide ==== */.ai-guide { max-width: 640px; }.ai-guide p { font-size: 13px; line-height: 1.8; color: var(--text-secondary); }.ai-step { margin: 12px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px; font-size: 13px; line-height: 1.8; color: var(--text-secondary); }.ai-step a { color: var(--primary); }.ai-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }.ai-actions .g-btn { padding: 9px 18px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text); }.ai-actions .g-btn.primary { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }/* ==== Explain cards grid ==== */.explain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin: 14px 0; }.explain-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-left: 4px solid var(--primary); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; transition: transform 0.18s ease, border-color 0.18s ease; }.explain-card:hover { transform: translateY(-2px); border-color: var(--primary); }.explain-card.green { border-left-color: var(--success); }.explain-card.orange { border-left-color: var(--warning); }.explain-card summary { list-style: none; cursor: pointer; padding: 12px 14px; font-size: 14px; font-weight: 700; color: var(--text); }.explain-card summary::-webkit-details-marker { display: none; }.explain-card summary::after { content: '▾'; float: right; color: var(--text-muted); }.explain-card:not([open]) summary::after { content: '▸'; }.explain-body { padding: 0 14px 14px; }.explain-def { font-size: 13px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 8px; }.explain-code { font-family: Consolas, monospace; font-size: 12px; background: var(--bg-inset); border: 1px solid var(--border-strong); border-radius: 6px; padding: 8px 10px; color: var(--primary); margin-bottom: 8px; white-space: pre-wrap; word-break: break-all; }.explain-note { font-size: 12px; color: var(--warning-dark); } button { transition: transform .15s ease, box-shadow .2s ease, filter .2s ease; } button:hover { filter: brightness(1.06); } button:active { transform: scale(0.96); } .panel-back-btn, .g-btn, .nav-btn, .tool-btn, .lesson-item, .diff-btn, .code-block-wrapper, .concept-card, .tip-box, .warning-box, .sum-card, .explain-card, .overview-item { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background-color .2s ease; } .panel-back-btn:hover, .g-btn:hover, .nav-btn:hover, .tool-btn:hover, .diff-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.14); } .code-block-wrapper:hover, .concept-card:hover, .tip-box:hover, .warning-box:hover, .sum-card:hover, .explain-card:hover { border-color: var(--primary); box-shadow: 0 4px 14px rgba(21,101,192,.12); } .ai-toggle { animation: togglePulse 2.4s ease-in-out infinite; } @keyframes togglePulse { 0%,100% { box-shadow: 0 4px 12px rgba(21,101,192,.4); transform: scale(1); } 50% { box-shadow: 0 4px 22px rgba(21,101,192,.75); transform: scale(1.06); } } .toast { position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%) translateY(90px); background: var(--primary); color: var(--text-on-primary); padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; z-index: 3000; box-shadow: 0 6px 22px rgba(0,0,0,.28); transition: transform .25s ease, opacity .25s ease; } .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; } .toast.success { background: var(--success); color: var(--text-on-success); } .toast.warn { background: var(--warning); color: var(--text-on-primary); } body, .app, .sidebar, .main-content, .topbar, .login-box, .panel { transition: background-color .35s ease, border-color .35s ease, color .35s ease; } #overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #wrongBookPanel, #aiPanel { position: fixed; top: 0; right: 0; bottom: 0; left: 280px; z-index: 500; overflow-y: auto; box-sizing: border-box; background: var(--bg-content); color: var(--text); } @media (max-width: 768px) { #overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel, #notesPanel, #dataPanel, #wrongBookPanel, #aiPanel { left: 48px; } }/* ==== Theme normalization: unified colors ==== */.content-header, .content-footer, .step-tabs { background: var(--bg-card); }.content-area { background: var(--bg-content); }.sidebar { background: var(--bg-sidebar); }.badge-item, .stat-card, .wrong-item, .wb-card, .account-card, .confirm-box, .ai-step, .explain-card, .login-box { background: var(--bg-card); border-color: var(--border-strong); }.note-box textarea { background: var(--bg-inset); border-color: var(--border-strong); color: var(--text); }.pomodoro-timer { color: var(--primary); }.account-card h4, .account-name { color: var(--text); }.login-screen { background: linear-gradient(160deg, #0b2b52 0%, #123a6b 55%, #0d3b74 100%); }body.dark-mode .login-screen { background: linear-gradient(160deg, #06080b 0%, #0a0c10 55%, #12161c 100%); }body.dark-mode .badge-item, body.dark-mode .stat-card, body.dark-mode .wrong-item, body.dark-mode .wb-card, body.dark-mode .account-card, body.dark-mode .confirm-box, body.dark-mode .ai-step, body.dark-mode .explain-card, body.dark-mode .login-box { background: var(--bg-card); border-color: var(--border-strong); }body.dark-mode .note-box textarea { background: var(--bg-inset); border-color: var(--border-strong); color: var(--text); }body.dark-mode .sidebar-header .stats span { background: var(--bg-sidebar-hover); color: #c7d4e8; }.ai-toggle-label { position: fixed; right: 86px; bottom: 32px; z-index: 1001; background: var(--bg-card); border: 1px solid var(--border-strong); color: var(--text-secondary); font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 20px; cursor: pointer; box-shadow: var(--shadow); transition: background .2s ease, color .2s ease, border-color .2s ease; }.ai-toggle-label:hover { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }/* ===== Achievements + pet frog ===== */.py-toggle, .php-toggle, .ai-toggle { top: 74px !important; bottom: auto !important; right: 20px !important;}.py-toggle-label, .php-toggle-label, .ai-toggle-label { top: 82px !important; bottom: auto !important; right: 86px !important;}.frog-pet-bubble { position: fixed; top: 132px; right: 24px; z-index: 1002; max-width: 240px; padding: 10px 14px; background: #fff; border: 1px solid #1565c0; border-radius: 12px; box-shadow: 0 8px 24px rgba(21,101,192,.18); font-size: 13px; color: #1a1a2e; line-height: 1.6; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity .25s ease, transform .25s ease;}.frog-pet-bubble.show { opacity: 1; transform: translateY(0); }.badges-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)) !important; }.badge-item.unlocked { opacity: 1; }.badge-item.locked { opacity: .3; }.ach-summary { display: block; margin-bottom: 12px; padding: 10px 14px; background: var(--primary-soft, #e3f2fd); border-radius: 8px; font-size: 13px; color: #1565c0;}/* ===== Achievements V2 ===== */.badges-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important;}@media (max-width: 520px) { .badges-grid { grid-template-columns: repeat(2, 1fr) !important; }}.py-toggle, .php-toggle, .ai-toggle { width: 64px !important; height: 64px !important; top: 78px !important; right: 18px !important; background: linear-gradient(145deg, #2e9e4f, #1f7a3d) !important; color: #fff !important; border: 3px solid #fff !important; font-size: 30px !important; box-shadow: 0 8px 22px rgba(31,122,61,.45) !important;}.py-toggle-label, .php-toggle-label, .ai-toggle-label { top: 86px !important; right: 92px !important; font-weight: 700 !important; color: #1f7a3d !important; border-color: #2e9e4f !important;}@keyframes frogHop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); }}.py-toggle, .php-toggle, .ai-toggle { animation: frogHop 2.2s ease-in-out infinite !important; }/* ===== Achievements V3 ===== */.py-toggle, .php-toggle, .ai-toggle { top: 158px !important; right: 18px !important; width: 56px !important; height: 56px !important; background: #1565c0 !important; border: 0 !important; color: #fff !important; font-size: 24px !important; box-shadow: 0 4px 12px rgba(21,101,192,.4) !important; animation: none !important;}.py-toggle-label, .php-toggle-label, .ai-toggle-label { top: 164px !important; right: 86px !important; font-size: 12px !important; font-weight: 600 !important; color: #1565c0 !important; border-color: #1565c0 !important; white-space: nowrap !important;}.frog-pet { position: fixed; top: 78px; right: 18px; z-index: 1200; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(145deg, #2e9e4f, #1f7a3d); color: #fff; border: 3px solid #fff; font-size: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 22px rgba(31,122,61,.45); animation: frogHop 2.2s ease-in-out infinite;}@keyframes frogHop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); }}.frog-pet-bubble { top: 84px !important; right: 92px !important;}.badge-item { cursor: pointer; }.badge-desc { display: none; margin-top: 6px; padding: 6px 4px; border-top: 1px dashed rgba(136,153,187,.5); font-size: 10px; line-height: 1.5; color: #aabbdd; text-align: center;}.badge-item.open .badge-desc { display: block; }body.dark-mode .badge-desc { color: #8899bb; }/* ===== Achievements V4 ===== */.frog-pet { top: 14px !important; right: auto !important; left: 234px !important; width: 46px !important; height: 46px !important; font-size: 22px !important; border-width: 2px !important;}.frog-pet-bubble { top: 66px !important; right: auto !important; left: 18px !important; max-width: 220px !important;}.ach-group { margin-bottom: 18px; }.ach-group h4 { margin: 0 0 8px; padding: 6px 10px; font-size: 13px; color: #1565c0; background: var(--primary-soft, #e3f2fd); border-radius: 6px; display: inline-block;}body.dark-mode .ach-group h4 { color: #4fc3f7; }@media (max-width: 768px) { .frog-pet { left: auto !important; right: 12px !important; top: 12px !important; } .frog-pet-bubble { left: auto !important; right: 12px !important; top: 64px !important; }}/* ===== Achievements V5 ===== */.sidebar-header { position: relative; }.sidebar-header h1 { display: inline-block !important; vertical-align: middle; }.frog-pet { position: relative !important; top: auto !important; right: auto !important; left: auto !important; display: inline-flex !important; vertical-align: middle; width: 40px !important; height: 40px !important; font-size: 20px !important; margin: 0 0 2px 8px; border-width: 2px !important;}.frog-pet-bubble { top: 64px !important; left: 118px !important; right: auto !important; max-width: 210px !important;}@media (max-width: 768px) { .frog-pet { display: none !important; } .frog-pet-bubble { display: none !important; }}/* ===== Typography hierarchy ===== */:root {  --font-head: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;  --font-body: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;  --font-code: 'Cascadia Code', 'Consolas', 'Courier New', monospace;  --font-note: 'KaiTi', 'STKaiti', 'Microsoft YaHei', serif;}body {  font-family: var(--font-body);  letter-spacing: 0;}h1, h2, h3, h4,.login-box h1,.main h2,.course-card h3,.sidebar h1,.sidebar-header h1,.step-content h2, .step-content h3, .step-content h4,.card-header, .sum-header, .sol-header, .ex-title,.code-header, .output-header, .section-title,.ov-title, .cal-title, .wb-card-title, .confirm-title,.overview-title, .panel-title, .account-title, .login-title {  font-family: var(--font-head);}button, .nav-btn, .diff-btn, .enter-btn, .copy-btn, .g-btn,.panel-back-btn, .btn-start, .btn-reveal, .quick-toolbar button,.quiz-actions button, .ex-actions button, .login-btn, .register-btn,.logout-btn, .account-action-btn {  font-family: var(--font-head);}.step-content h2 { font-size: 22px; font-weight: 700; }.step-content h3 { font-size: 18px; font-weight: 700; }.step-content h4 { font-size: 15px; font-weight: 700; }.card-header { font-size: 15px; font-weight: 700; }.sum-header { font-size: 15px; font-weight: 700; }.sol-header { font-size: 14px; font-weight: 700; }.ex-title { font-size: 14px; font-weight: 700; }.section-title { font-size: 16px; font-weight: 700; }.cal-title { font-size: 14px; font-weight: 700; }.wb-card-title { font-size: 13px; font-weight: 700; }.confirm-title { font-size: 17px; font-weight: 700; }.output-header { font-size: 13px; font-weight: 700; }.code-header { font-size: 12px; font-weight: 700; }.content-header .breadcrumb { font-size: 14px; }.content-header .breadcrumb strong { font-size: 15px; font-weight: 700; }.lesson-item .info .title { font-size: 14px; font-weight: 600; }.lesson-item .info .meta { font-size: 11px; }.step-tab { font-size: 13px; font-weight: 500; }.diff-btn { font-size: 13px; font-weight: 700; }.diff-label { font-size: 12px; font-weight: 600; }.quick-toolbar button { font-size: 12px; font-weight: 600; }.tb-group-label { font-size: 11px; font-weight: 700; }.nav-btn { font-size: 14px; font-weight: 700; }.quiz-question { font-size: 15px; font-weight: 600; }.quiz-explanation { font-size: 13px; }.ex-desc { font-size: 14px; }.progress-label { font-size: 12px; font-weight: 700; }.code-block-wrapper code, .coding-exercise textarea,.coding-exercise .ex-solution code, .keyword-chip, kbd,.ex-timer, .pomodoro-timer, .overview-stats .stat .num {  font-family: var(--font-code);}.tip-box, .warning-box, .highlight-box, .explain-note,.exercise-note, .quiz-explanation, .sum-body, .ex-status {  font-family: var(--font-note);}.login-box h1 { font-size: 28px; font-weight: 700; }.main h2 { font-size: 26px; font-weight: 700; }.main .sub { font-size: 15px; }.sidebar h1 { font-size: 18px; font-weight: 700; }.sidebar p { font-size: 13px; }.course-card h3 { font-size: 22px; font-weight: 700; }.course-card .desc { font-size: 14px; }.course-card .meta { font-size: 12px; font-weight: 700; }.enter-btn { font-size: 14px; font-weight: 700; }.login-sub { font-size: 14px; }.sidebar-header h1 { font-size: 17px; font-weight: 800; }.sidebar-header p { font-size: 12px; }/* ===== Font scale ===== */.font-scale-bar { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; white-space: nowrap;}.font-scale-bar button { min-width: 30px; height: 30px; border: 1px solid #1565c0; background: #fff; color: #1565c0; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; line-height: 1;}.font-scale-bar button:hover { background: #e3f2fd; }.font-scale-bar .fs-label { min-width: 46px; text-align: center; font-size: 12px; font-weight: 700; color: #1565c0;}body[data-fs="1"] .step-content p,body[data-fs="1"] .step-content li,body[data-fs="1"] .concept-card .card-body,body[data-fs="1"] .quiz-question,body[data-fs="1"] .quiz-explanation,body[data-fs="1"] .sum-body li,body[data-fs="1"] .explain-def,body[data-fs="1"] .explain-note,body[data-fs="1"] .exercise-note,body[data-fs="1"] .ex-desc,body[data-fs="1"] .tip-box,body[data-fs="1"] .warning-box,body[data-fs="1"] .lesson-item .info .title,body[data-fs="1"] .lesson-item .info .meta,body[data-fs="1"] .step-tab,body[data-fs="1"] .content-header .breadcrumb,body[data-fs="1"] .wrong-item,body[data-fs="1"] .wb-card,body[data-fs="1"] .account-card,body[data-fs="1"] .login-tip,body[data-fs="1"] .badge-name,body[data-fs="1"] .badge-desc,body[data-fs="1"] .ach-summary,body[data-fs="1"] .course-card .desc,body[data-fs="1"] .course-card h3,body[data-fs="1"] .sidebar p,body[data-fs="1"] .sidebar h1 { font-size: 16px !important; }body[data-fs="1"] .code-block-wrapper code { font-size: 14.5px !important; }body[data-fs="2"] .step-content p,body[data-fs="2"] .step-content li,body[data-fs="2"] .concept-card .card-body,body[data-fs="2"] .quiz-question,body[data-fs="2"] .quiz-explanation,body[data-fs="2"] .sum-body li,body[data-fs="2"] .explain-def,body[data-fs="2"] .explain-note,body[data-fs="2"] .exercise-note,body[data-fs="2"] .ex-desc,body[data-fs="2"] .tip-box,body[data-fs="2"] .warning-box,body[data-fs="2"] .lesson-item .info .title,body[data-fs="2"] .lesson-item .info .meta,body[data-fs="2"] .step-tab,body[data-fs="2"] .content-header .breadcrumb,body[data-fs="2"] .wrong-item,body[data-fs="2"] .wb-card,body[data-fs="2"] .account-card,body[data-fs="2"] .login-tip,body[data-fs="2"] .badge-name,body[data-fs="2"] .badge-desc,body[data-fs="2"] .ach-summary,body[data-fs="2"] .course-card .desc,body[data-fs="2"] .course-card h3,body[data-fs="2"] .sidebar p,body[data-fs="2"] .sidebar h1 { font-size: 17px !important; }body[data-fs="2"] .code-block-wrapper code { font-size: 15px !important; }body[data-fs="3"] .step-content p,body[data-fs="3"] .step-content li,body[data-fs="3"] .concept-card .card-body,body[data-fs="3"] .quiz-question,body[data-fs="3"] .quiz-explanation,body[data-fs="3"] .sum-body li,body[data-fs="3"] .explain-def,body[data-fs="3"] .explain-note,body[data-fs="3"] .exercise-note,body[data-fs="3"] .ex-desc,body[data-fs="3"] .tip-box,body[data-fs="3"] .warning-box,body[data-fs="3"] .lesson-item .info .title,body[data-fs="3"] .lesson-item .info .meta,body[data-fs="3"] .step-tab,body[data-fs="3"] .content-header .breadcrumb,body[data-fs="3"] .wrong-item,body[data-fs="3"] .wb-card,body[data-fs="3"] .account-card,body[data-fs="3"] .login-tip,body[data-fs="3"] .badge-name,body[data-fs="3"] .badge-desc,body[data-fs="3"] .ach-summary,body[data-fs="3"] .course-card .desc,body[data-fs="3"] .course-card h3,body[data-fs="3"] .sidebar p,body[data-fs="3"] .sidebar h1 { font-size: 18px !important; }body[data-fs="3"] .code-block-wrapper code { font-size: 16px !important; }body[data-fs="4"] .step-content p,body[data-fs="4"] .step-content li,body[data-fs="4"] .concept-card .card-body,body[data-fs="4"] .quiz-question,body[data-fs="4"] .quiz-explanation,body[data-fs="4"] .sum-body li,body[data-fs="4"] .explain-def,body[data-fs="4"] .explain-note,body[data-fs="4"] .exercise-note,body[data-fs="4"] .ex-desc,body[data-fs="4"] .tip-box,body[data-fs="4"] .warning-box,body[data-fs="4"] .lesson-item .info .title,body[data-fs="4"] .lesson-item .info .meta,body[data-fs="4"] .step-tab,body[data-fs="4"] .content-header .breadcrumb,body[data-fs="4"] .wrong-item,body[data-fs="4"] .wb-card,body[data-fs="4"] .account-card,body[data-fs="4"] .login-tip,body[data-fs="4"] .badge-name,body[data-fs="4"] .badge-desc,body[data-fs="4"] .ach-summary,body[data-fs="4"] .course-card .desc,body[data-fs="4"] .course-card h3,body[data-fs="4"] .sidebar p,body[data-fs="4"] .sidebar h1 { font-size: 19px !important; }body[data-fs="4"] .code-block-wrapper code { font-size: 16.5px !important; }body[data-fs="5"] .step-content p,body[data-fs="5"] .step-content li,body[data-fs="5"] .concept-card .card-body,body[data-fs="5"] .quiz-question,body[data-fs="5"] .quiz-explanation,body[data-fs="5"] .sum-body li,body[data-fs="5"] .explain-def,body[data-fs="5"] .explain-note,body[data-fs="5"] .exercise-note,body[data-fs="5"] .ex-desc,body[data-fs="5"] .tip-box,body[data-fs="5"] .warning-box,body[data-fs="5"] .lesson-item .info .title,body[data-fs="5"] .lesson-item .info .meta,body[data-fs="5"] .step-tab,body[data-fs="5"] .content-header .breadcrumb,body[data-fs="5"] .wrong-item,body[data-fs="5"] .wb-card,body[data-fs="5"] .account-card,body[data-fs="5"] .login-tip,body[data-fs="5"] .badge-name,body[data-fs="5"] .badge-desc,body[data-fs="5"] .ach-summary,body[data-fs="5"] .course-card .desc,body[data-fs="5"] .course-card h3,body[data-fs="5"] .sidebar p,body[data-fs="5"] .sidebar h1 { font-size: 21px !important; }body[data-fs="5"] .code-block-wrapper code { font-size: 17.5px !important; }/* ===== Font UI V2 ===== */.font-scale-bar { display: inline-flex; align-items: center; background: #e3f2fd; border: 1.5px solid #1565c0; border-radius: 22px; padding: 3px 6px; gap: 0;}.font-scale-bar button { min-width: 34px; height: 30px; border: 0; background: transparent; color: #1565c0; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: 700; line-height: 1;}.font-scale-bar button:hover { background: #fff; }.font-scale-bar .fs-label { min-width: 72px; text-align: center; font-size: 13px; font-weight: 700; color: #1565c0; white-space: nowrap;}/* ===== Topbar V1 ===== */.quick-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px;}.quick-toolbar .export-btn { margin-left: auto; }/* ===== Topbar groups ===== */.quick-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px;}.quick-toolbar button { margin: 0; }.tb-group-label { font-size: 11px; font-weight: 700; color: #8899bb; margin-left: 6px; white-space: nowrap;}.tb-group-label:first-child { margin-left: 0; }.quick-toolbar .export-btn { margin-left: auto; }/* brighter locked badges */.badge-item.locked { opacity: 0.72 !important; }.badge-item.locked .badge-name { color: #9fb0c8 !important; }.badge-item.locked .badge-icon { opacity: 0.9 !important; }/* ===== Topbar groups V2 (boxed) ===== */.quick-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px;}.quick-toolbar button { margin: 0; }.tb-group { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #eef3fb; border: 1px solid #d7e3f5; border-radius: 8px; white-space: nowrap;}.tb-group.tools { margin-left: auto; }.tb-group-label { font-size: 11px; font-weight: 700; color: #1565c0; margin-right: 2px; white-space: nowrap;}body.dark-mode .tb-group { background: #1e2a3a; border-color: #2f4a6b;}body.dark-mode .tb-group-label { color: #4fc3f7; }@media (max-width: 820px) { .tb-group { padding: 3px 8px; } .tb-group.tools { margin-left: 0; }}.step-icon:empty, .guide-icon:empty, .big:empty { display: none !important; }/* ===== Single row toolbar ===== */.quick-toolbar {  flex-wrap: nowrap !important;  overflow-x: auto !important;  gap: 4px !important;  padding: 5px 8px !important;  -webkit-overflow-scrolling: touch;  scrollbar-width: thin;}.quick-toolbar button {  min-height: 28px !important;  padding: 3px 8px !important;  font-size: 11px !important;  border-radius: 6px !important;  white-space: nowrap !important;}.tb-group {  padding: 2px 6px !important;  gap: 3px !important;  border-radius: 6px !important;  flex: 0 0 auto;}.tb-group-label {  font-size: 10px !important;  margin: 0 2px 0 0 !important;}.font-scale-bar {  padding: 1px 3px !important;  border-radius: 12px !important;  gap: 1px !important;}.font-scale-bar button {  min-width: 22px !important;  height: 20px !important;  font-size: 12px !important;  padding: 0 !important;}.font-scale-bar .fs-label {  min-width: 34px !important;  font-size: 10px !important;  line-height: 1 !important;}/* ===== Section visual system ===== */.step-tabs {  gap: 4px;  padding: 8px 10px 0;  background: linear-gradient(180deg, #eef2f7, #f7f9fc);}.step-tab {  border-radius: 10px 10px 0 0;  padding: 10px 14px;}.step-tab::before {  content: "00";  display: inline-block;  min-width: 22px;  height: 22px;  line-height: 22px;  margin-right: 6px;  text-align: center;  border-radius: 50%;  background: #e8edf4;  color: #5a6b82;  font-family: var(--font-code);  font-size: 11px;  font-weight: 700;}.step-tab:nth-child(1)::before { content: "01"; }.step-tab:nth-child(2)::before { content: "02"; }.step-tab:nth-child(3)::before { content: "03"; }.step-tab:nth-child(4)::before { content: "04"; }.step-tab:nth-child(1).active { color: #1565c0; border-bottom-color: #1565c0; }.step-tab:nth-child(2).active { color: #00695c; border-bottom-color: #00695c; }.step-tab:nth-child(3).active { color: #ef6c00; border-bottom-color: #ef6c00; }.step-tab:nth-child(4).active { color: #2e7d32; border-bottom-color: #2e7d32; }.step-tab:nth-child(1).active::before { background: #1565c0; color: #fff; }.step-tab:nth-child(2).active::before { background: #00695c; color: #fff; }.step-tab:nth-child(3).active::before { background: #ef6c00; color: #fff; }.step-tab:nth-child(4).active::before { background: #2e7d32; color: #fff; }.concept-card {  border-left: 4px solid #1565c0;  box-shadow: 0 2px 10px rgba(21,101,192,.08);}.concept-card .card-header {  background: linear-gradient(90deg, #e3f2fd, #f5f9ff);  border-bottom: 1px solid #d7e6f8;  font-size: 15px;  font-weight: 700;  color: #0d47a1;}.objective-box {  border: 1px dashed #90caf9;  border-left: 4px solid #1565c0;  background: #f3f8ff;  border-radius: 10px;  padding: 12px 16px;  margin: 14px 0;}.objective-box h4 {  color: #0d47a1;  font-size: 15px;  font-weight: 700;  margin-bottom: 8px;  padding-left: 10px;  border-left: 3px solid #1565c0;}.quiz {  border: 1px solid #ffe0b2;  border-left: 4px solid #ef6c00;  background: #fffaf3;  box-shadow: 0 2px 10px rgba(239,108,0,.08);}.quiz .quiz-question {  background: #fff3e0;  border: 1px solid #ffe0b2;  border-radius: 8px;  color: #7a3c00;}.quiz .quiz-actions button { border-color: #ffcc80; }.quiz .quiz-actions button:hover { border-color: #ef6c00; background: #fff3e0; }.quiz .quiz-actions button.correct { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; }.quiz .quiz-actions button.wrong { border-color: #c62828; background: #ffebee; color: #b71c1c; }.quiz .quiz-explanation {  background: #fff8e1;  border-left: 3px solid #ef6c00;  border-radius: 6px;}.coding-exercise {  border: 2px solid #3949ab;  border-radius: 12px;  box-shadow: 0 4px 14px rgba(57,73,171,.16);}.coding-exercise .ex-header {  background: linear-gradient(135deg, #3949ab, #1a237e);}.coding-exercise .ex-header .ex-title { font-size: 15px; font-weight: 700; }.sum-card {  border: 1px solid #c8e6c9;  border-top: 4px solid #2e7d32;  border-radius: 10px;  box-shadow: 0 2px 10px rgba(46,125,50,.08);}.sum-card .sum-header {  background: linear-gradient(90deg, #e8f5e9, #f1f8e9);  color: #1b5e20;}.code-block-wrapper { box-shadow: 0 4px 14px rgba(15,23,42,.18); }.code-block-wrapper .code-header {  background: linear-gradient(90deg, #2a2a3e, #37374f);  letter-spacing: 1px;}.output-demo {  border: 1px solid #b2dfdb;  border-radius: 8px;  box-shadow: 0 2px 8px rgba(0,105,92,.08);}.output-demo .output-header { background: #00695c; }.tip-box { border-left: 4px solid #2e7d32; background: #f2fbf4; border-radius: 8px; }.warning-box { border-left: 4px solid #e65100; background: #fff6ee; border-radius: 8px; }.highlight-box { border-left: 4px solid #1565c0; background: #eef5ff; border-radius: 8px; }#overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel,#notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel {  background: linear-gradient(180deg, #ffffff, #f7f9fc);  border: 1px solid #e3e8f0;  border-radius: 14px;  margin: 10px;  box-shadow: 0 6px 20px rgba(15,23,42,.08);}#overviewPanel h3, #pomodoroPanel h3, #badgesPanel h3, #accountPanel h3,#notesPanel h3, #dataPanel h3, #wrongBookPanel h3, #thonnyPanel h3 {  padding: 10px 14px;  border-radius: 8px;  color: #fff;  font-size: 15px;  font-weight: 700;  margin: 0 0 14px;}#overviewPanel h3 { background: linear-gradient(90deg, #1565c0, #2196f3); }#pomodoroPanel h3 { background: linear-gradient(90deg, #d84315, #ef6c00); }#badgesPanel h3 { background: linear-gradient(90deg, #6a1b9a, #ab47bc); }#accountPanel h3 { background: linear-gradient(90deg, #37474f, #607d8b); }#notesPanel h3 { background: linear-gradient(90deg, #00695c, #26a69a); }#dataPanel h3 { background: linear-gradient(90deg, #2e7d32, #66bb6a); }#wrongBookPanel h3 { background: linear-gradient(90deg, #c62828, #ef5350); }#thonnyPanel h3 { background: linear-gradient(90deg, #1a237e, #5c6bc0); }.overview-item, .stat-card, .wb-card, .account-card {  border: 1px solid #e3e8f0;  border-radius: 10px;  box-shadow: 0 2px 8px rgba(15,23,42,.06);}.badge-item {  border: 1px solid #dde3ec;  border-radius: 12px;  background: #fff;  box-shadow: 0 2px 8px rgba(15,23,42,.06);}.badge-item.locked { background: #f4f6fa; border-style: dashed; }.ach-group h4 {  display: inline-block;  padding: 4px 12px;  border-radius: 12px;  background: #eef3fb;  color: #1565c0;  font-size: 13px;}.note-box {  border: 1px solid #b2dfdb;  border-radius: 10px;  background: #f7fdfc;  padding: 14px;}.note-box textarea { border-color: #80cbc4; border-radius: 8px; }.wb-grid { gap: 10px; }.cal-nav { background: #f1f5f9; border-radius: 10px; padding: 8px; }.cal-title { color: #0d47a1; }.checkin-btn { border-radius: 8px; font-weight: 700; }.toast { border-radius: 10px; box-shadow: 0 6px 18px rgba(15,23,42,.18); }.guide-box, .confirm-box {  border-radius: 14px;  box-shadow: 0 18px 50px rgba(15,23,42,.25);}.guide-nav .g-btn, .confirm-actions button { border-radius: 8px; font-weight: 700; }.course-card {  border-top: 4px solid #1565c0;  border-radius: 10px;  box-shadow: 0 4px 14px rgba(15,23,42,.08);}.course-card.python { border-top-color: #3572a5; }.course-card.php { border-top-color: #777bb4; }.course-card.ai { border-top-color: #7c4dff; }.course-card.web { border-top-color: #ef6c00; }.course-card .icon {  width: 58px;  height: 58px;  display: flex;  align-items: center;  justify-content: center;  border-radius: 14px;  background: #eef5ff;  font-size: 32px;}.course-card.python .icon { background: #eaf2f8; }.course-card.php .icon { background: #eef0fa; }.course-card.ai .icon { background: #f0ebff; }.course-card.web .icon { background: #fff3e0; }.course-card.python .enter-btn { background: #3572a5; }.course-card.php .enter-btn { background: #777bb4; }.course-card.ai .enter-btn { background: #7c4dff; }.course-card.web .enter-btn { background: #ef6c00; }body.dark-mode .step-tabs { background: #1a1a1a; }body.dark-mode .step-tab::before { background: #2a2a2a; color: #9aa7bd; }body.dark-mode .concept-card .card-header {  background: linear-gradient(90deg, #14283d, #1b2c42);  border-bottom-color: #2f4a6b;  color: #9fc9ff;}body.dark-mode .quiz { background: #221b14; border-color: #5a4025; border-left-color: #ef6c00; }body.dark-mode .quiz .quiz-question { background: #2a2118; border-color: #5a4025; color: #ffd9a8; }body.dark-mode .quiz .quiz-explanation { background: #2a2415; border-left-color: #ef6c00; }body.dark-mode .objective-box { background: #16202f; border-color: #2f4a6b; }body.dark-mode .sum-card { background: #16231a; border-color: #2e5a3a; }body.dark-mode .sum-card .sum-header { background: #1d3323; color: #a5d6a7; }body.dark-mode .tip-box { background: #16231a; }body.dark-mode .warning-box { background: #2a1e12; }body.dark-mode .highlight-box { background: #14283d; }body.dark-mode #overviewPanel, body.dark-mode #pomodoroPanel, body.dark-mode #badgesPanel,body.dark-mode #accountPanel, body.dark-mode #notesPanel, body.dark-mode #dataPanel,body.dark-mode #wrongBookPanel, body.dark-mode #thonnyPanel {  background: linear-gradient(180deg, #1a1f2a, #14181f);  border-color: #2c3442;}body.dark-mode .badge-item, body.dark-mode .overview-item, body.dark-mode .stat-card,body.dark-mode .wb-card, body.dark-mode .account-card {  background: #1e242e;  border-color: #2c3442;}body.dark-mode .badge-item.locked { background: #171b22; }body.dark-mode .note-box { background: #12211f; border-color: #2f4a46; }body.dark-mode .cal-nav { background: #1b2028; }/* ===== Title-content spacing ===== */.step-content h2 { margin-bottom: 18px; }.step-content h3 { margin: 24px 0 12px; }.step-content h4 { margin: 18px 0 10px; }.section-title { margin: 22px 0 12px; }.concept-card .card-header { padding: 12px 16px 13px; }.concept-card .card-body { padding-top: 14px !important; }.objective-box h4 { margin-bottom: 10px; }.objective-box ul, .objective-box ol { margin-top: 2px; }.sum-card .sum-header { padding: 12px 16px 13px; }.sum-card .sum-body { padding: 14px 16px 16px; }.coding-exercise .ex-header { padding: 13px 16px 14px; }.coding-exercise .ex-body { padding: 18px 16px 16px; }.coding-exercise .ex-solution .sol-header { padding: 10px 12px 12px; }.coding-exercise .ex-solution pre { padding-top: 14px; }.output-demo .output-header { padding: 9px 12px 11px; }.output-demo .output-content { padding-top: 14px; }.code-block-wrapper .code-header { padding: 10px 16px 12px; }.code-block-wrapper pre { padding-top: 18px; }.quiz .quiz-question { margin-bottom: 12px; }.quiz .quiz-actions { margin: 14px 0; }.quiz .quiz-explanation { margin-top: 12px; }#overviewPanel h3, #pomodoroPanel h3, #badgesPanel h3, #accountPanel h3,#notesPanel h3, #dataPanel h3, #wrongBookPanel h3, #thonnyPanel h3 {  margin: 0 0 16px !important;}.confirm-title { margin-bottom: 14px; }.guide-box h2 { margin-bottom: 12px; }.guide-box .guide-sub { margin-bottom: 16px; }.warmup-quiz h4 { margin-bottom: 14px; }.task-card h4 { margin-bottom: 12px; }.overview-title { padding: 8px 12px 10px; }.ach-group h4 { margin-bottom: 10px; }.badge-item .badge-name { margin-top: 6px; }.wb-card .wb-card-title { margin-bottom: 8px; }.note-box label { display: block; margin-bottom: 8px; }.note-box textarea { margin-top: 4px; }/* ===== Rounded panels & motion ===== */.concept-card, .sum-card, .quiz, .coding-exercise, .task-card,.warmup-quiz, .note-box, .wb-card, .account-card, .guide-box, .confirm-box,#overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel,#notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel {  border-radius: 16px;}.code-block-wrapper, .output-demo, .explain-card, .badge-item,.overview-item, .stat-card, .course-card, .calendar, .toast {  border-radius: 12px;}.concept-card, .sum-card, .quiz, .coding-exercise, .task-card,.warmup-quiz, .note-box, .wb-card, .account-card, .explain-card,.overview-item, .stat-card, .badge-item, .course-card, .guide-box, .confirm-box {  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease;}.concept-card:hover, .sum-card:hover, .quiz:hover, .coding-exercise:hover,.task-card:hover, .warmup-quiz:hover, .note-box:hover, .wb-card:hover,.account-card:hover, .explain-card:hover, .overview-item:hover, .stat-card:hover,.course-card:hover {  transform: translateY(-3px);  box-shadow: 0 12px 26px rgba(15,23,42,.14);}.badge-item:hover { transform: translateY(-3px) scale(1.03); }.quick-toolbar button, .diff-btn, .nav-btn, .enter-btn, .g-btn, .panel-back-btn,.checkin-btn, .quiz-actions button, .ex-actions button, .copy-btn, .cal-nav-btn,.pomodoro-btns button, .logout-btn, .login-btn, .register-btn {  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;}.quick-toolbar button:hover, .diff-btn:hover, .nav-btn:hover, .enter-btn:hover,.g-btn:hover, .panel-back-btn:hover, .checkin-btn:hover, .quiz-actions button:hover,.ex-actions button:hover, .copy-btn:hover, .cal-nav-btn:hover, .pomodoro-btns button:hover,.logout-btn:hover, .login-btn:hover, .register-btn:hover {  transform: translateY(-2px);}button:active { transform: translateY(1px) scale(.98); }.step-tab { transition: color .2s ease, border-color .2s ease, background-color .2s ease; }.step-tab:hover { background: #f0f5ff; }#overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel,#notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel {  animation: panelIn .3s ease;}@keyframes panelIn {  from { opacity: 0; transform: translateY(8px) scale(.99); }  to { opacity: 1; transform: translateY(0) scale(1); }}.objective-box ul { list-style: none; padding-left: 0; margin-left: 0; }.objective-box ul li { position: relative; padding-left: 24px; margin-bottom: 8px; }.objective-box ul li::before {  content: "";  position: absolute;  left: 2px; top: 5px;  width: 14px; height: 14px;  border: 2px solid #1565c0;  border-radius: 50%;  background: #fff;}.objective-box ul li::after {  content: "";  position: absolute;  left: 6px; top: 9px;  width: 6px; height: 4px;  border-left: 2px solid #1565c0;  border-bottom: 2px solid #1565c0;  transform: rotate(-45deg);}.sum-card .sum-body ul { list-style: none; padding-left: 0; }.sum-card .sum-body li { position: relative; padding-left: 26px; margin-bottom: 8px; }.sum-card .sum-body li::before {  content: "";  position: absolute;  left: 0; top: 5px;  width: 16px; height: 16px;  border-radius: 4px;  background: #e8f5e9;  border: 2px solid #2e7d32;}.sum-card .sum-body li::after {  content: "";  position: absolute;  left: 4px; top: 9px;  width: 8px; height: 5px;  border-left: 2px solid #2e7d32;  border-bottom: 2px solid #2e7d32;  transform: rotate(-45deg);}.quiz-explanation::before {  content: "解析";  display: inline-block;  margin-right: 8px;  padding: 2px 8px;  border-radius: 8px;  background: #fff3e0;  border: 1px solid #ffcc80;  color: #ef6c00;  font-size: 11px;  font-weight: 700;  vertical-align: 1px;}.concept-card .card-body, .step-content p, .step-content li { line-height: 1.9; }.quiz .quiz-question { line-height: 1.7; }.content-area { background: linear-gradient(180deg, #f7f8fa, #f0f4f9); }body.dark-mode .content-area { background: linear-gradient(180deg, #121212, #0f141a); }body.dark-mode .objective-box ul li::before { border-color: #4fc3f7; background: #16202f; }body.dark-mode .objective-box ul li::after { border-color: #4fc3f7; }body.dark-mode .sum-card .sum-body li::before { background: #1d3323; border-color: #66bb6a; }body.dark-mode .sum-card .sum-body li::after { border-color: #66bb6a; }body.dark-mode .quiz-explanation::before { background: #2a2415; border-color: #5a4025; color: #ffd9a8; }body.dark-mode .step-tab:hover { background: #1e242e; }/* ===== Rectangular clean layout ===== */.concept-card, .sum-card, .quiz, .coding-exercise, .task-card,.warmup-quiz, .note-box, .wb-card, .account-card, .guide-box, .confirm-box,#overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel,#notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel,.code-block-wrapper, .output-demo, .explain-card, .badge-item,.overview-item, .stat-card, .course-card, .calendar, .toast,.ach-group h4, #overviewPanel h3, #pomodoroPanel h3, #badgesPanel h3,#accountPanel h3, #notesPanel h3, #dataPanel h3, #wrongBookPanel h3, #thonnyPanel h3 {  border-radius: 0 !important;}.concept-card, .sum-card, .quiz, .coding-exercise, .task-card,.warmup-quiz, .note-box, .wb-card, .account-card, .guide-box, .confirm-box,#overviewPanel, #pomodoroPanel, #badgesPanel, #accountPanel,#notesPanel, #dataPanel, #wrongBookPanel, #thonnyPanel,.code-block-wrapper, .output-demo, .explain-card, .badge-item,.overview-item, .stat-card, .course-card, .calendar, .toast {  box-shadow: none !important;}.concept-card { border-left: none !important; }.objective-box { border-left: none !important; }.quiz { border-left: none !important; }.tip-box, .warning-box, .highlight-box, .explain-card { border-left: none !important; }.sum-card { border-top: none !important; }.course-card { border-top: none !important; }.objective-box h4 { border-left: none !important; padding-left: 0 !important; }.concept-card .card-header, .sum-card .sum-header, .sol-header,.output-header, .code-header, .ex-header,#overviewPanel h3, #pomodoroPanel h3, #badgesPanel h3, #accountPanel h3,#notesPanel h3, #dataPanel h3, #wrongBookPanel h3, #thonnyPanel h3 {  border-bottom: none !important;}.concept-card:hover, .sum-card:hover, .quiz:hover, .coding-exercise:hover,.task-card:hover, .warmup-quiz:hover, .note-box:hover, .wb-card:hover,.account-card:hover, .explain-card:hover, .overview-item:hover, .stat-card:hover,.course-card:hover, .badge-item:hover {  transform: translateY(-2px);}.concept-card:hover, .sum-card:hover, .course-card:hover, .badge-item:hover { border-color: #1565c0; }.quiz:hover { border-color: #ef6c00; }.coding-exercise:hover { border-color: #3949ab; }/* ===== New word table font scale ===== */body[data-fs="1"] .concept-card table, body[data-fs="1"] .card-body table,body[data-fs="1"] .concept-card td, body[data-fs="1"] .card-body td { font-size: 16px !important; }body[data-fs="2"] .concept-card table, body[data-fs="2"] .card-body table,body[data-fs="2"] .concept-card td, body[data-fs="2"] .card-body td { font-size: 17px !important; }body[data-fs="3"] .concept-card table, body[data-fs="3"] .card-body table,body[data-fs="3"] .concept-card td, body[data-fs="3"] .card-body td { font-size: 18px !important; }body[data-fs="4"] .concept-card table, body[data-fs="4"] .card-body table,body[data-fs="4"] .concept-card td, body[data-fs="4"] .card-body td { font-size: 19px !important; }body[data-fs="5"] .concept-card table, body[data-fs="5"] .card-body table,body[data-fs="5"] .concept-card td, body[data-fs="5"] .card-body td { font-size: 20px !important; }/* ===== Panda-style motion ===== */.step-content.active > * { animation: frogFadeUp .5s cubic-bezier(.16,1,.3,1) backwards; }.step-content.active > *:nth-child(2) { animation-delay: .05s; }.step-content.active > *:nth-child(3) { animation-delay: .1s; }.step-content.active > *:nth-child(4) { animation-delay: .15s; }.step-content.active > *:nth-child(5) { animation-delay: .2s; }.step-content.active > *:nth-child(6) { animation-delay: .25s; }.step-content.active > *:nth-child(7) { animation-delay: .3s; }.step-content.active > *:nth-child(8) { animation-delay: .35s; }@keyframes frogFadeUp {  from { opacity: 0; transform: translateY(24px); }  to { opacity: 1; transform: translateY(0); }}.course-card { animation: frogFadeUp .6s cubic-bezier(.16,1,.3,1) backwards; }.course-card:nth-child(2) { animation-delay: .08s; }.course-card:nth-child(3) { animation-delay: .16s; }.course-card:nth-child(4) { animation-delay: .24s; }.course-card:nth-child(5) { animation-delay: .32s; }.course-card:nth-child(6) { animation-delay: .4s; }.nav-btn, .enter-btn, .g-btn, .checkin-btn, .btn-start, .login-btn,.diff-btn, .quick-toolbar button {  position: relative;  overflow: hidden;}.nav-btn::after, .enter-btn::after, .g-btn::after, .checkin-btn::after,.btn-start::after, .login-btn::after, .diff-btn::after, .quick-toolbar button::after {  content: "";  position: absolute;  top: 0; left: -80%;  width: 45%; height: 100%;  background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);  transform: skewX(-20deg);  opacity: 0;  pointer-events: none;}.nav-btn:hover::after, .enter-btn:hover::after, .g-btn:hover::after,.checkin-btn:hover::after, .btn-start:hover::after, .login-btn:hover::after,.diff-btn:hover::after, .quick-toolbar button:hover::after {  opacity: 1;  animation: shineSweep .65s ease;}@keyframes shineSweep { from { left: -80%; } to { left: 130%; } }.progress-fill {  background-image: linear-gradient(90deg, rgba(255,255,255,.22) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.22) 50%, rgba(255,255,255,.22) 75%, transparent 75%, transparent);  background-size: 22px 100%;  animation: progressMove 1.1s linear infinite;}@keyframes progressMove { from { background-position: 0 0; } to { background-position: 22px 0; } }.lesson-item .status-dot.in-progress { animation: dotPulse 1.5s ease-in-out infinite; }@keyframes dotPulse {  0%, 100% { transform: scale(1); opacity: .75; }  50% { transform: scale(1.4); opacity: 1; }}.lesson-complete-msg { animation: completePop .55s cubic-bezier(.16,1,.3,1); }@keyframes completePop {  from { opacity: 0; transform: scale(.92) translateY(12px); }  to { opacity: 1; transform: scale(1) translateY(0); }}.badges-grid .badge-item { animation: badgePop .45s cubic-bezier(.16,1,.3,1) backwards; }.badges-grid .badge-item:nth-child(2n) { animation-delay: .05s; }.badges-grid .badge-item:nth-child(3n) { animation-delay: .1s; }.badges-grid .badge-item:nth-child(4n) { animation-delay: .15s; }@keyframes badgePop {  from { opacity: 0; transform: translateY(14px) scale(.95); }  to { opacity: 1; transform: translateY(0) scale(1); }}.course-grid { perspective: 900px; }.course-card { transform-style: preserve-3d; will-change: transform; }/* ===== Mobile toolbar fix ===== */@media (max-width: 768px) {  .quick-toolbar {    flex-wrap: wrap !important;    overflow: visible !important;    gap: 4px !important;    justify-content: flex-start !important;  }  .quick-toolbar > button {    flex: 0 1 auto !important;    white-space: nowrap;    font-size: 11px !important;    margin-left: 0 !important;    max-width: 100%;  }  .tb-group, .tb-group.tools {    flex: 1 1 100% !important;    flex-wrap: wrap !important;    white-space: normal !important;    margin-left: 0 !important;    max-width: 100%;    box-sizing: border-box;  }  .tb-group button, .tb-group .tb-group-label {    white-space: nowrap;  }  .font-scale-bar { display: none !important; }}/* ===== 蛙课堂 × CodeLens 玻璃拟态主题（浅色毛玻璃）===== */html { background: linear-gradient(150deg, #eef3ff 0%, #e9eefe 45%, #f3edff 100%); }body { background: transparent !important; }body::before, body::after { content: ""; position: fixed; z-index: -1; pointer-events: none; border-radius: 50%; filter: blur(80px); }body::before { width: 55vw; height: 55vw; left: -16vw; top: -18vw; background: radial-gradient(circle, rgba(122,167,255,.34), transparent 62%); }body::after { width: 48vw; height: 48vw; right: -15vw; bottom: -18vw; background: radial-gradient(circle, rgba(167,139,250,.30), transparent 62%); }/* 玻璃卡片 */.sidebar, .login-box, .course-card, .content-header, .step-tabs,.concept-card, .sum-card, .overview-item, .stat-card, .guide-box,.confirm-box, .toast, .badge-item, .calendar, .quick-toolbar,.panel-box, .achievement-box, .pomodoro-box, .notes-box, .data-box, .wrongbook-box {  background: rgba(255,255,255,.62) !important;  -webkit-backdrop-filter: blur(20px) saturate(1.5);  backdrop-filter: blur(20px) saturate(1.5);  border: 1px solid rgba(255,255,255,.75);  box-shadow: 0 8px 32px rgba(80,110,200,.16), inset 0 1px 0 rgba(255,255,255,.6);}.content-area { background: transparent !important; }.content-header, .step-tabs { border-bottom-color: rgba(255,255,255,.65) !important; }.sidebar { border-right-color: rgba(255,255,255,.65) !important; }/* 侧边栏：原深色侧栏浅色玻璃化，文字改深 */.sidebar-header h1, .sidebar-header p, .lesson-item .info .title,.lesson-item .info .meta, .user-row, .user-name { color: #223355 !important; }.sidebar-header { border-bottom-color: rgba(255,255,255,.62) !important; }.sidebar-header .stats span { background: rgba(255,255,255,.5) !important; color: #42548a !important; }.lesson-item:hover, .lesson-item.active { background: rgba(255,255,255,.62) !important; }.lesson-item.active { border-left-color: #7aa7ff !important; }.logout-btn { background: rgba(255,255,255,.45) !important; color: #3a5288 !important; }/* 登录界面 */.login-screen { background: linear-gradient(150deg, #eef3ff 0%, #e9eefe 50%, #f3edff 100%) !important; }.login-logo { background: linear-gradient(135deg, #dbe7ff, #e6ddff) !important; color: #3f5fa8 !important; }/* 内容文字 */.step-content h2, .step-content h3, .step-content h4, .step-content p,.step-content li, .card-body, .card-header { color: #26365e !important; }.card-header { border-bottom-color: rgba(255,255,255,.6) !important; }/* 主按钮渐变 */.enter-btn, .g-btn, .btn-start, .checkin-btn, .login-btn, .nav-btn.prev, .nav-btn.next {  background: linear-gradient(135deg, #7aa7ff, #a78bfa) !important;  color: #fff !important;  border: none !important;  box-shadow: 0 6px 18px rgba(122,167,255,.35);}.enter-btn:hover, .g-btn:hover, .btn-start:hover, .login-btn:hover,.nav-btn.prev:hover, .nav-btn.next:hover { filter: brightness(1.08); }.register-btn, .diff-btn { background: rgba(255,255,255,.75) !important; color: #45599c !important; border: 1px solid rgba(255,255,255,.85) !important; }.diff-btn.active { background: linear-gradient(135deg, #7aa7ff, #a78bfa) !important; color: #fff !important; border-color: transparent !important; }/* 代码块：保持深色但加玻璃感 */.code-block-wrapper { background: rgba(20,24,40,.88) !important; border-color: rgba(255,255,255,.25) !important; }.code-header { background: rgba(255,255,255,.08) !important; color: #9fb0c8 !important; }/* CodeLens 入口按钮 */.codelens-link {  display: inline-flex; align-items: center; gap: 6px;  padding: 7px 16px; border-radius: 999px;  background: linear-gradient(135deg, #7aa7ff, #a78bfa);  color: #fff !important; font-size: 13px; font-weight: 700;  text-decoration: none; white-space: nowrap;  box-shadow: 0 6px 18px rgba(122,167,255,.4);  transition: transform .15s ease, box-shadow .2s ease;}.codelens-link:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(122,167,255,.55); }.code-run-btn {  display: inline-block; margin: 0 6px 12px 0; padding: 4px 14px;  background: linear-gradient(135deg, #7aa7ff, #a78bfa); color: #fff;  border: none; border-radius: 4px; cursor: pointer; font-size: 12px;  transition: filter .15s ease;}.code-run-btn:hover { filter: brightness(1.12); }/* 首页横幅 */.codelens-banner {  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;  background: linear-gradient(135deg, rgba(122,167,255,.16), rgba(167,139,250,.16));  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);  border: 1px solid rgba(255,255,255,.75);  border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; max-width: 900px;  box-shadow: 0 8px 32px rgba(70,100,180,.14), inset 0 1px 0 rgba(255,255,255,.6);  text-decoration: none !important;}.codelens-banner .cb-icon { font-size: 30px; }.codelens-banner .cb-text { flex: 1; min-width: 200px; }.codelens-banner .cb-text b { font-size: 15px; color: #26365e; display: block; }.codelens-banner .cb-text p { font-size: 12.5px; color: #5b6d99; margin-top: 4px; line-height: 1.6; }.codelens-banner .cb-btn {  padding: 8px 18px; border-radius: 999px;  background: linear-gradient(135deg, #7aa7ff, #a78bfa); color: #fff;  font-size: 13px; font-weight: 700;  box-shadow: 0 6px 18px rgba(122,167,255,.4);}.sidebar .codelens-link { margin: 10px 0 4px; justify-content: center; }/* 暗色模式玻璃适配 */body.dark-mode { background: linear-gradient(150deg, #0a0e20, #0e1430 50%, #13102c) !important; }body.dark-mode .sidebar, body.dark-mode .content-header, body.dark-mode .step-tabs,body.dark-mode .concept-card, body.dark-mode .sum-card, body.dark-mode .overview-item,body.dark-mode .stat-card, body.dark-mode .guide-box, body.dark-mode .toast,body.dark-mode .badge-item, body.dark-mode .quick-toolbar {  background: rgba(19,25,46,.6) !important;  border-color: rgba(255,255,255,.12) !important;}body.dark-mode .content-area { background: transparent !important; }body.dark-mode .sidebar-header h1, body.dark-mode .lesson-item .info .title,body.dark-mode .user-name { color: #e8ecf8 !important; }body.dark-mode .lesson-item .info .meta { color: #8899bb !important; }body.dark-mode .lesson-item:hover, body.dark-mode .lesson-item.active { background: rgba(255,255,255,.08) !important; }body.dark-mode .logout-btn { background: rgba(255,255,255,.1) !important; color: #c7d4e8 !important; }body.dark-mode .codelens-banner { background: rgba(20,26,48,.5) !important; border-color: rgba(255,255,255,.14) !important; }body.dark-mode .codelens-banner .cb-text b { color: #e8ecf8 !important; }body.dark-mode .codelens-banner .cb-text p { color: #9aa4c4 !important; }body.dark-mode .code-block-wrapper { background: rgba(9,12,24,.92) !important; }@media (max-width: 900px) { .codelens-link { font-size: 12px; padding: 6px 12px; } }/* ===== 蛙课堂 暗色模式可读性修复 v1（2026-09-13）=====
    根因：玻璃皮肤追加的基础样式把正文字色硬编码成深色并带 !important
         （.step-content h2/h3/h4/p/li、.card-body、.card-header → #26365e；
@@ -238,7 +238,7 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .content-area { padding: 12px; }
   pre, table { max-width: 100%; overflow-x: auto; }
 
-  /* 7) 悬浮 🐸 按钮：原来钉在 top:158px，正好压住正文开头 —— 挪到右下、避开底栏 */
+  /* 7) 悬浮 按钮：原来钉在 top:158px，正好压住正文开头 —— 挪到右下、避开底栏 */
   .py-toggle, .php-toggle,  .py-toggle-label, .php-toggle-label,}
 </style>
 <style id="frog-mobile-patch3">
@@ -269,14 +269,14 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
   .course-card .desc { font-size: 12.5px; line-height: 1.55; }
   .course-card .enter-btn { display: block; width: 100%; box-sizing: border-box;
                             text-align: center; margin-top: 12px; padding: 10px 0; font-size: 13px; }
-  /* 4) 课程页 48px 图标栏：竖排「蛙课堂」→ 🐸 */
+  /* 4) 课程页 48px 图标栏：竖排「蛙课堂」→ */
   .sidebar .sidebar-header { padding: 8px 2px 6px !important;
                              border-bottom: 1px solid rgba(21,101,192,.10) !important; }
   .sidebar .user-row { width: 100% !important; }
   .sidebar .user-actions { width: 100% !important; }
   .sidebar .sidebar-header h1 { font-size: 0 !important; text-align: center !important;
                                 display: block !important; margin: 0 !important; }
-  .sidebar .sidebar-header h1::before { content: "🐸" !important; display: block !important;
+  .sidebar .sidebar-header h1::before { content: "" !important; display: block !important; width: 18px; height: 18px;
                                 font-size: 20px !important; line-height: 1.1 !important; }
   .sidebar .sidebar-header h1::after { font-size: 11px !important; color: #1565c0 !important;
                                 display: block !important; line-height: 1.4 !important; }
@@ -406,8 +406,8 @@ body.dark-mode .course-card .meta { color: #9fc9ff !important; }
 /* ===== 底部空隙修复（2026-09-17）：整页 zoom 后布局只剩视口的 80%/85%，
        底部留出一条空白带（横屏 844x390 时 78px、竖屏 390x844 时 127px），
        课程页尤其明显。这里把「外壳」高度按 1/zoom 补回来，flex 拉伸会把侧栏/正文铺满。
-       ⚠️ 改 zoom 倍数时，下面 calc(100vh / 0.8) / calc(100vh / 0.85) 必须同步改。
-       ⚠️ 不要给 .sidebar 加 min-height：首页(竖屏)的 .sidebar 是顶部横条，加了会撑成一整屏。 ===== */
+       ⚠ 改 zoom 倍数时，下面 calc(100vh / 0.8) / calc(100vh / 0.85) 必须同步改。
+       ⚠ 不要给 .sidebar 加 min-height：首页(竖屏)的 .sidebar 是顶部横条，加了会撑成一整屏。 ===== */
 @media only screen and (orientation: landscape) and (max-height: 560px) {
   body, #app, .app, .main { min-height: calc(100vh / 0.8) !important; }
   /* 原来 max-height:100vh 把侧栏封在 390px(布局) = 312px(渲染)，底部 78px 露白，且长页面滚动时左栏留空 */
@@ -587,7 +587,7 @@ body.dark-mode .w-due.ok { background: #17301f; border-color: #2c5c3c; color: #a
 /* ============================================================
    教学指引悬浮按钮让位
    ------------------------------------------------------------
-   页面里那对「🐸 + JavaScript 学习指引」是 position:fixed 挂在右上角
+   页面里那对「 + JavaScript 学习指引」是 position:fixed 挂在右上角
    （top:158px / right:18px）的，**不属于任何面板**，所以打开总览/错题本/
    复习卡时它照样浮在最上层，直接压住右侧内容。截图里实测被压掉的有：
      · 错题本顶部的「开始今日复习（N）」按钮
@@ -1143,6 +1143,22 @@ window.__FROG_EDITOR_LANG = "javascript";
       types: new Set(["Number", "String", "Boolean", "Array", "Object", "Function", "Promise", "Date", "RegExp", "Map", "Set", "null", "undefined", "NaN", "Infinity"]),
       builtins: new Set(("console Math JSON document window alert prompt parseFloat parseInt isNaN isFinite Number String Boolean Array Object Date RegExp log info warn error").split(" ")),
     },
+    /* ---------- SQL / MySQL ----------
+       ⚠ caseInsensitive: true 是必须的。
+       SQL 关键字惯例大写（SELECT / FROM / WHERE），但写法不强制，
+       students 会写成 select / Select；而标识符（表名、字段名）也常是大写。
+       所以这里做**大小写不敏感**匹配，跟其它语言（区分大小写的编程语言）不同。
+       （tokenizeLine 里靠 cfg.caseInsensitive 判断，见下面的查找逻辑。） */
+    sql: {
+      caseInsensitive: true,
+      lineComments: ["--", "#"],
+      blockComment: ["/*", "*/"],
+      strings: ['"', "'", "`"],
+      sigil: null,
+      keywords: new Set(("select from where insert into values update set delete create drop alter table database index view trigger procedure function begin end if else elseif then case when and or not null is in like between exists order by group having limit offset join inner left right outer full cross on as union all distinct asc desc primary key foreign references unique default auto_increment unsigned int varchar char text date datetime timestamp decimal float double boolean blob enum add column modify change rename to truncate show describe explain use grant revoke commit rollback transaction start cascade restrict engine charset collate").split(" ")),
+      types: new Set(["int", "integer", "tinyint", "smallint", "mediumint", "bigint", "varchar", "char", "text", "longtext", "date", "datetime", "timestamp", "time", "year", "decimal", "numeric", "float", "double", "boolean", "bool", "blob", "enum", "set", "json"]),
+      builtins: new Set(("count sum avg min max abs round ceil floor concat length substring trim upper lower now curdate curtime date_format ifnull coalesce cast convert group_concat rand uuid md5 last_insert_id database user version").split(" ")),
+    },
   };
 
   /* ---------- 通用逐行扫描器 ---------- */
@@ -1242,9 +1258,12 @@ window.__FROG_EDITOR_LANG = "javascript";
         const word = m[0];
         const next = line.slice(i + word.length).replace(/^\s*/, "")[0];
         let type = "var";
-        if (cfg.keywords.has(word)) type = "kw";
-        else if (cfg.types.has(word)) type = "type";
-        else if (cfg.builtins.has(word)) type = "builtin";
+        /* SQL 要大小写不敏感：SELECT / select / Select 都算关键字。
+           其它语言保持原样（Python 的 print 和 Print 是两回事）。 */
+        const probe = cfg.caseInsensitive ? word.toLowerCase() : word;
+        if (cfg.keywords.has(probe)) type = "kw";
+        else if (cfg.types.has(probe)) type = "type";
+        else if (cfg.builtins.has(probe)) type = "builtin";
         else if (next === "(") type = "fn";
         tokens.push({ type, text: word });
         i += word.length;
@@ -1403,20 +1422,37 @@ window.__FROG_EDITOR_LANG = "javascript";
   }
 
   /* ---------- 对外接口 ---------- */
+
+  /* 语言名归一化。
+     课程页里的代码块标注五花八门：mysql / sql / SQL / mariadb 都可能出现，
+     而 CFG 里只定义了一个 sql。这里统一映射过去，
+     免得某个写法找不到词典、**静默退回 python 高亮**（SQL 被当成 Python 染色）。 */
+  const LANG_ALIAS = {
+    mysql: "sql", mariadb: "sql", sqlite: "sql", postgres: "sql", postgresql: "sql",
+    js: "javascript", ts: "javascript", typescript: "javascript",
+    py: "python", python3: "python",
+    html5: "html",
+  };
+  function normLang(lang) {
+    const l = String(lang || "").toLowerCase().trim();
+    return LANG_ALIAS[l] || l;
+  }
+
   window.HL = {
     langs: CFG,
 
     /** 对整段代码分词，返回 { lines: [{no, text, tokens}] } */
     render: function (code, lang) {
-      const rawLines = code.split("\n");
+      const L = normLang(lang);
+      const rawLines = String(code).split("\n");
       const state = { inBlock: false };
       const out = [];
       for (let n = 0; n < rawLines.length; n++) {
         const text = rawLines[n];
         let tokens;
-        if (lang === "html") tokens = tokenizeHtml(text);
-        else if (lang === "css") tokens = tokenizeCssLine(text, state);
-        else tokens = tokenizeLine(text, CFG[lang] || CFG.python, state);
+        if (L === "html") tokens = tokenizeHtml(text);
+        else if (L === "css") tokens = tokenizeCssLine(text, state);
+        else tokens = tokenizeLine(text, CFG[L] || CFG.python, state);
         out.push({ no: n + 1, text, tokens });
       }
       return { lines: out };
@@ -1455,6 +1491,9 @@ window.__FROG_EDITOR_LANG = "javascript";
   const LANG_NAMES = {
     python: "Python", php: "PHP", html: "HTML", css: "CSS", c: "C 语言", cpp: "C++",
     javascript: "JavaScript",
+    sql: "SQL（MySQL）",
+    // 课程页里代码块可能标成 mysql / SQL / mariadb，统一显示成 SQL
+    mysql: "SQL（MySQL）", mariadb: "SQL（MySQL）",
   };
 
   const KIND_LABEL = {
@@ -1497,6 +1536,41 @@ window.__FROG_EDITOR_LANG = "javascript";
     { keys: ["null", "none", "nil"], name: "空值", meaning: "表示“什么都没有 / 还没赋值”。None / null / nil 都是不同语言里的空值写法。" },
     { keys: ["number", "int", "float", "integer"], name: "数字", meaning: "程序里常见的数字数据，分为整数（int）和小数（float）。计算、计数、统计都离不开它。" },
     { keys: ["dictionary", "dict", "map"], name: "字典 / 映射", meaning: "用“钥匙”取“值”的容器，比如 {“姓名”: “小明”}，按名字找内容，不用数位置。" },
+
+    /* ---------- SQL 术语 ----------
+       SQL 有自己一套概念（表、主键、外键、索引…），
+       跟编程语言的"变量/函数/循环"完全不同，必须单独给。 */
+    { keys: ["table"], name: "表 table", meaning: "数据库里存数据的地方，就像一张 Excel 表格：列是字段（属性），行是一条条记录。一个库可以有好多张表。" },
+    { keys: ["database"], name: "数据库 database", meaning: "装表的“柜子”。一个项目通常用建一个库，里面放这个项目相关的所有表。" },
+    { keys: ["column", "field"], name: "字段 / 列 column", meaning: "表里的一个属性，比如 name、score。建表时要给每个字段指定类型（存文字还是数字）。" },
+    { keys: ["row", "record"], name: "记录 / 行 row", meaning: "表里的一条完整数据。比如 students 表里的一行就是“一个学生的全部信息”。" },
+    { keys: ["primarykey", "pk"], name: "主键 primary key", meaning: "能唯一认出每一行的字段，值不能重复也不能空。常配 AUTO_INCREMENT 自动编号（1、2、3…）。" },
+    { keys: ["foreignkey", "fk"], name: "外键 foreign key", meaning: "这一列的值必须存在于另一张表里，用来保证两张表的数据对得上。比如成绩表里的 student_id 必须是学生表里真实存在的 id。" },
+    { keys: ["select"], name: "查询 SELECT", meaning: "从表里取数据。SELECT 后面写要哪些列，FROM 写从哪张表，WHERE 写筛选条件。" },
+    { keys: ["where"], name: "筛选 WHERE", meaning: "只保留满足条件的行。它在分组之前生效——先筛掉不要的，再统计。" },
+    { keys: ["groupby"], name: "分组 GROUP BY", meaning: "把行按某个字段归类，通常配合 COUNT/SUM/AVG 做统计。比如“按班级统计人数”。" },
+    { keys: ["having"], name: "分组后筛选 HAVING", meaning: "WHERE 筛的是分组前的原始行，HAVING 筛的是分组后的统计结果。两者作用时机不同，别混淆。" },
+    { keys: ["orderby"], name: "排序 ORDER BY", meaning: "把结果按某字段排列。DESC 从大到小，ASC 从小到大（默认）。" },
+    { keys: ["limit"], name: "限制条数 LIMIT", meaning: "只取前 N 条。常配合 ORDER BY 用，比如“取成绩最高的前 10 名”。" },
+    { keys: ["join"], name: "连接 JOIN", meaning: "把两张表按关联字段拼到一起查。INNER JOIN 只留两边都匹配的；LEFT JOIN 保留左表全部，右表没有的补空。" },
+    { keys: ["insert"], name: "插入 INSERT", meaning: "往表里新增一行数据。括号里按字段顺序给出值，字段和值要一一对应。" },
+    { keys: ["update"], name: "更新 UPDATE", meaning: "修改表里已有的行。⚠ 忘了写 WHERE 会改动整张表，这是新手最常犯的危险错误。" },
+    { keys: ["delete"], name: "删除 DELETE", meaning: "删掉表里满足条件的行（表结构还在）。⚠ 同样别忘了 WHERE。" },
+    { keys: ["alter"], name: "改表 ALTER TABLE", meaning: "修改已经建好的表结构——加字段、删字段、改类型、加索引。" },
+    { keys: ["drop"], name: "删除对象 DROP", meaning: "把表/库/索引连结构带数据一起删掉，**不可逆**。执行前一定要确认。" },
+    { keys: ["truncate"], name: "清空 TRUNCATE", meaning: "一次性删掉表里所有数据，但保留表结构。比逐行 DELETE 快，同样不可逆。" },
+    /* ⚠ 这里只写 "sqlindex"，不写 "index"。
+       因为上面已有一条 keys 含 "index" 的（列表索引，Python 用），
+       而 dict() 是用 find 取**第一个**匹配项 —— 再写一遍 "index"
+       会被前面那条吃掉，SQL 场景永远拿不到这条。 */
+    { keys: ["sqlindex"], name: "索引 index", meaning: "给字段建的“目录”，能让按这个字段查找快很多。代价是写入稍慢、占额外空间。" },
+    { keys: ["transaction"], name: "事务 transaction", meaning: "把多个操作绑成一组：要么全部成功、要么全部撤销。转账是最典型的例子（扣钱和加钱必须同时成立）。" },
+    { keys: ["sqlnull"], name: "空值 NULL", meaning: "表示“这个字段还没有值”。注意 NULL 不等于 0 也不等于空字符串，判断它要用 IS NULL 而不是 = NULL。" },
+    { keys: ["aggregate", "count", "sum", "avg"], name: "聚合函数", meaning: "把多行数据汇总成一个结果：COUNT 数个数、SUM 求和、AVG 求平均、MAX/MIN 取最大最小。常配合 GROUP BY 使用。" },
+    { keys: ["datatype", "varchar"], name: "字段类型", meaning: "规定这一列能存什么：INT 整数、VARCHAR 变长文字、DECIMAL 精确小数（存钱用它）、DATETIME 日期时间。" },
+    { keys: ["constraint"], name: "约束 constraint", meaning: "给字段加的规则，比如 NOT NULL（不能为空）、UNIQUE（不能重复）、DEFAULT（默认值）、CHECK（取值范围）。" },
+    { keys: ["view"], name: "视图 view", meaning: "把一段查询存起来当成“虚拟表”。它不存数据，每次查它都重新执行那段查询。" },
+    { keys: ["query", "sql"], name: "SQL 语句", meaning: "操作数据库的语言。它和 Python 这类语言不同——你只描述“要什么结果”，数据库自己决定“怎么取”，这叫声明式。" },
   ];
 
   /* ---------- HTML 标签速查 ---------- */
@@ -1614,6 +1688,36 @@ window.__FROG_EDITOR_LANG = "javascript";
     gap: "网格/弹性布局中元素之间的间距",
   };
 
+  /* ---------- SQL 字段类型释义 ----------
+     建表时每个字段都要指定类型，这是初学者最容易记混的地方，
+     所以逐个给出"这个类型适合存什么"。 */
+  const SQL_TYPES = {
+    INT: "存整数（如 1、100、-5）。",
+    INTEGER: "存整数（如 1、100、-5）。",
+    TINYINT: "存很小的整数（-128~127），常用来当开关（0/1）。",
+    SMALLINT: "存较小的整数（约 ±3 万）。",
+    MEDIUMINT: "存中等大小的整数（约 ±800 万）。",
+    BIGINT: "存很大的整数（如时间戳毫秒、超大编号）。",
+    VARCHAR: "存变长文字（如姓名、邮箱）。括号里是最大字符数，按需给，别一律 255。",
+    CHAR: "存定长文字（如性别 M/F、国家代码）。长度固定，不够会补空格。",
+    TEXT: "存长文本（如文章正文、备注）。不能设默认值。",
+    LONGTEXT: "存超长文本（如整篇文档）。",
+    DATE: "存日期（年月日，如 2026-09-23）。",
+    DATETIME: "存日期+时间（如 2026-09-23 14:30:00）。",
+    TIMESTAMP: "存时间戳，会自动记录/更新时间，常用于 created_at。",
+    TIME: "存时间（时分秒）。",
+    YEAR: "存年份。",
+    DECIMAL: "存精确小数（如金额、成绩）。括号里是(总位数, 小数位数)。**钱一定用它，不要用 FLOAT**。",
+    NUMERIC: "同 DECIMAL，存精确小数。",
+    FLOAT: "存单精度浮点数（近似值，可能有微小误差）。",
+    DOUBLE: "存双精度浮点数（近似值）。",
+    BOOLEAN: "存真/假（数据库里实际用 0/1 表示）。",
+    BOOL: "存真/假（数据库里实际用 0/1 表示）。",
+    BLOB: "存二进制数据（如图片、文件）。",
+    JSON: "存 JSON 结构的数据（MySQL 5.7+ 支持）。",
+    ENUM: "存枚举值——只能从你列出的几个选项里选一个。",
+  };
+
   /* ---------- 语言配置 ---------- */
   const LANGS = {
     python: {
@@ -1650,6 +1754,14 @@ window.__FROG_EDITOR_LANG = "javascript";
       name: "JavaScript",
       file: "main.js",
       intro: "JavaScript 是浏览器的“行为”语言，能让网页响应点击、处理数据、做计算，也常用来写小工具。",
+    },
+    /* ---------- SQL / MySQL ----------
+       和别的语言不一样：SQL 是**声明式**的 —— 你描述"要什么结果"，
+       数据库自己去决定怎么取。逐行讲解要把这个区别讲出来。 */
+    sql: {
+      name: "SQL（MySQL）",
+      file: "query.sql",
+      intro: "SQL 是操作数据库的语言：建库建表、增删改查都靠它。它和 Python 这类语言不同——你只描述“要什么”，数据库自己决定“怎么取”。",
     },
   };
 
@@ -1795,6 +1907,69 @@ window.__FROG_EDITOR_LANG = "javascript";
       return { kind: "other", text: t };
     }
 
+    if (lang === "sql") {
+      if (starts(/^--/) || starts(/^#/) || starts(/^\/\*/)) return { kind: "comment", text: t };
+      // 大小写不敏感：SQL 关键字大写小写都合法
+      const U = t.toUpperCase();
+
+      // 建库
+      let m = /^CREATE\s+DATABASE\s+(?:IF\s+NOT\s+EXISTS\s+)?[`"']?([\w$]+)/i.exec(t);
+      if (m) return { kind: "createdb", name: m[1] };
+      // 建表
+      m = /^CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?[`"']?([\w$]+)/i.exec(t);
+      if (m) return { kind: "createtable", name: m[1] };
+      // CREATE 的其它形态（索引 / 视图 / 触发器 / 存储过程 / 函数）
+      m = /^CREATE\s+(INDEX|UNIQUE|VIEW|TRIGGER|PROCEDURE|FUNCTION)/i.exec(t);
+      if (m) return { kind: "createother", text: t, what: m[1].toUpperCase() };
+      // 删除
+      if (/^DROP\s+/i.test(t)) return { kind: "drop", text: t };
+      if (/^TRUNCATE\s+/i.test(t)) return { kind: "truncate", text: t };
+      // 改表结构
+      if (/^ALTER\s+TABLE/i.test(t)) return { kind: "alter", text: t };
+      // 使用/查看
+      if (/^USE\s+/i.test(t)) return { kind: "use", text: t };
+      if (/^SHOW\s+/i.test(t)) return { kind: "show", text: t };
+      if (/^DESC(RIBE)?\s+/i.test(t)) return { kind: "describe", text: t };
+      if (/^EXPLAIN\s+/i.test(t)) return { kind: "explain", text: t };
+
+      // 增删改
+      m = /^INSERT\s+INTO\s+[`"']?([\w$]+)/i.exec(t);
+      if (m) return { kind: "insert", name: m[1] };
+      m = /^UPDATE\s+[`"']?([\w$]+)/i.exec(t);
+      if (m) return { kind: "update", name: m[1] };
+      m = /^DELETE\s+FROM\s+[`"']?([\w$]+)/i.exec(t);
+      if (m) return { kind: "delete", name: m[1] };
+
+      // 查询
+      if (/^SELECT\b/i.test(t)) return { kind: "select", text: t };
+      // 查询的子句
+      if (/^FROM\b/i.test(t)) return { kind: "from", text: t };
+      if (/^(INNER\s+|LEFT\s+|RIGHT\s+|FULL\s+|CROSS\s+)?JOIN\b/i.test(t)) return { kind: "join", text: t };
+      if (/^WHERE\b/i.test(t)) return { kind: "where", text: t };
+      if (/^GROUP\s+BY\b/i.test(t)) return { kind: "groupby", text: t };
+      if (/^HAVING\b/i.test(t)) return { kind: "having", text: t };
+      if (/^ORDER\s+BY\b/i.test(t)) return { kind: "orderby", text: t };
+      if (/^LIMIT\b/i.test(t)) return { kind: "limit", text: t };
+      if (/^(ON|USING)\b/i.test(t)) return { kind: "on", text: t };
+
+      // 事务
+      if (/^(START\s+TRANSACTION|BEGIN)\b/i.test(t)) return { kind: "begin", text: t };
+      if (/^COMMIT\b/i.test(t)) return { kind: "commit", text: t };
+      if (/^ROLLBACK\b/i.test(t)) return { kind: "rollback", text: t };
+
+      // 约束 / 字段定义（建表语句内部的行）
+      if (/^PRIMARY\s+KEY/i.test(t)) return { kind: "pk", text: t };
+      if (/^FOREIGN\s+KEY/i.test(t)) return { kind: "fk", text: t };
+      if (/^(UNIQUE|INDEX|KEY|CONSTRAINT|CHECK)\b/i.test(t)) return { kind: "constraint", text: t };
+      // 形如  `name VARCHAR(20) NOT NULL,` —— 字段定义
+      m = /^[`"']?([\w$]+)[`"']?\s+(INT|INTEGER|TINYINT|SMALLINT|MEDIUMINT|BIGINT|VARCHAR|CHAR|TEXT|LONGTEXT|DATE|DATETIME|TIMESTAMP|TIME|YEAR|DECIMAL|NUMERIC|FLOAT|DOUBLE|BOOLEAN|BOOL|BLOB|JSON|ENUM)\b/i.exec(t);
+      if (m) return { kind: "column", name: m[1], dbtype: m[2].toUpperCase() };
+
+      // 结构符号
+      if (starts(/^\)/) || starts(/^;/)) return { kind: "endstmt", text: t };
+      return { kind: "other", text: t };
+    }
+
     return { kind: "other", text: t };
   }
 
@@ -1880,6 +2055,87 @@ window.__FROG_EDITOR_LANG = "javascript";
       }
       case "media":
         return "媒体查询：根据屏幕条件（如宽度）应用不同样式，是实现“手机/电脑自适应”的关键。";
+
+      /* ---------- SQL 逐行讲解 ----------
+         SQL 是声明式的：不写"怎么做"，只写"要什么"。
+         讲解要把这个特点说清楚，学生才不会拿编程语言的思路去理解它。 */
+      case "createdb":
+        return "建库：创建一个名为 " + info.name + " 的数据库。数据库是“放表的柜子”，一张表存一类数据（比如 students 存学生）。";
+      case "createtable":
+        return "建表：创建一张名为 " + info.name + " 的表。表就像一张 Excel 表格——每一列是一个字段（属性），每一行是一条记录。";
+      case "createother": {
+        // ⚠ 这里原来写成了一串用逗号连接的表达式（JS 的逗号运算符），
+        //   结果只有最后一个分支的值会生效、前面几个是死代码。
+        //   必须用 if/else 链，别用逗号"串"。
+        const w = info.what;
+        let desc;
+        if (w === "INDEX" || w === "UNIQUE") desc = "索引对象，用来加快查询速度（相当于给书加目录）。";
+        else if (w === "VIEW") desc = "视图对象——把一段查询存起来当成“虚拟表”，以后直接用名字查它。";
+        else if (w === "TRIGGER") desc = "触发器——满足条件时自动执行的代码，不用人手动调用。";
+        else if (w === "PROCEDURE") desc = "存储过程——把一段 SQL 打包存在数据库里，以后可以反复调用。";
+        else desc = "函数——把一段逻辑打包存进数据库，可以在查询里直接调用。";
+        return "创建 " + w + "：" + desc;
+      }
+      case "drop":
+        return "删除对象：把整个表/库/索引**连同它的结构和数据一起**删掉。⚠ 这操作不可逆，删之前一定要想清楚。";
+      case "truncate":
+        return "清空表：把表里的**所有数据**一次性删掉，但表结构（字段定义）还留着。比逐行 DELETE 快，但同样不可逆。";
+      case "alter":
+        return "改表结构：修改已经建好的表——加字段、删字段、改类型、加索引都靠它。表里已有的数据一般不受影响。";
+      case "use":
+        return "选择数据库：切换到这个库里干活，后面的表名都默认在这个库中找。相当于“打开这个柜子”。";
+      case "show":
+        return "查看：列出数据库里有什么（有哪些库、哪些表、表的结构等）。是了解现状最常用的命令。";
+      case "describe":
+        return "查看表结构：列出这张表有哪些字段、各是什么类型、是否允许为空、有没有默认值。";
+      case "explain":
+        return "执行计划：不真正执行查询，而是让数据库告诉你“它打算怎么查”。用来发现慢查询——比如有没有走索引。";
+      case "insert":
+        return "插入数据：往 " + info.name + " 表里**新增一行**记录。括号里按字段顺序给出值，字段和值要一一对应。";
+      case "update":
+        return "更新数据：修改 " + info.name + " 表里**已有的行**。" + (/WHERE/i.test(info.text) ? "" : "⚠ 这行没写 WHERE，会改动表里**所有行**——通常不是你想要的。");
+      case "delete":
+        return "删除数据：删掉 " + info.name + " 表里满足条件的**行**（表结构还在）。" + (/WHERE/i.test(info.text) ? "" : "⚠ 这行没写 WHERE，会删掉**所有行**——非常危险。");
+      case "select":
+        return "查询：选择要取哪些列。" + (/^\s*SELECT\s+\*/i.test(info.text) ? "* 表示“所有列”。" : "") + " SQL 是声明式的——你只说“要什么”，数据库自己决定怎么取。";
+      case "from":
+        return "数据来源：指出从哪张表取数据。可以给表起个别名（如 students s），后面用别名更省字。";
+      case "join":
+        return "连接：把两张表按关联字段拼到一起查。INNER JOIN 只保留两边都匹配的行；LEFT JOIN 保留左表全部，右表没有的补空。";
+      case "on":
+        return "连接条件：指明两张表按哪个字段对应起来（比如 s.id = c.student_id）。写错了会拼出错误的组合。";
+      case "where":
+        return "筛选条件：只保留满足条件的行。" + (/LIKE/i.test(info.text) ? " LIKE 做模糊匹配，% 代表任意字符。" : "") + " 它在分组之前生效。";
+      case "groupby":
+        return "分组：把行按某个字段归类，通常配合 COUNT/SUM/AVG 这类聚合函数做统计。比如“按班级统计人数”。";
+      case "having":
+        return "分组后筛选：和 WHERE 类似，但 WHERE 管的是**分组前**的原始行，HAVING 管的是**分组后**的统计结果。";
+      case "orderby":
+        return "排序：按指定字段排列结果。DESC 是降序（从大到小），ASC 是升序（默认）。";
+      case "limit":
+        return "限制条数：只取前 N 条。常配合 ORDER BY 使用，比如“取成绩最高的 10 个人”。";
+      case "begin":
+        return "开启事务：从这里开始的一组操作要么全部成功、要么全部撤销，不会做一半。转账就是典型场景。";
+      case "commit":
+        return "提交事务：确认这一组操作全部生效，数据真正写进库里。";
+      case "rollback":
+        return "回滚事务：撤销这一组操作，回到开启事务之前的状态。出错时用它兜底。";
+      case "pk":
+        return "主键：这一列（或几列）的值必须唯一、不能为空，用来唯一标识每一行。常配 AUTO_INCREMENT 自动编号。";
+      case "fk":
+        return "外键：这一列的值必须存在于另一张表的主键里，用来保证两张表的数据对得上（引用完整性）。";
+      case "constraint":
+        return "约束/索引：对字段加规则或加速查询。" +
+          (/UNIQUE/i.test(info.text) ? " UNIQUE 表示这一列的值不能重复。" :
+           /CHECK/i.test(info.text) ? " CHECK 限定取值范围。" :
+           " INDEX/KEY 建立索引，加快按这一列查找的速度。");
+      case "column":
+        return "定义字段：" + info.name + "，类型 " + info.dbtype + "。" + SQL_TYPES[info.dbtype] +
+          (/NOT\s+NULL/i.test(info.text) ? " NOT NULL 表示这一列不能为空。" : "") +
+          (/DEFAULT/i.test(info.text) ? " DEFAULT 指定不填时的默认值。" : "") +
+          (/AUTO_INCREMENT/i.test(info.text) ? " AUTO_INCREMENT 表示自动递增，常用于 id。" : "");
+      case "endstmt":
+        return "结束：) 收尾建表的字段列表，; 表示这条 SQL 语句到此结束。";
       case "other":
         if (info.htmlText) return "纯文本：这行文字会直接显示在网页上（不在标签里）。";
         return "普通语句：这行代码在执行时会被处理，具体作用需要结合上下文理解。";
@@ -1918,6 +2174,37 @@ window.__FROG_EDITOR_LANG = "javascript";
       if (/\[/.test(code)) push(dict("array"));
       if (/\{\s*["']?[A-Za-z_$][\w$]*["']?\s*:/.test(code)) push(dict("dictionary"));
       if (/\blet\b|\bconst\b/.test(code)) push(dict("variable"));
+    }
+    /* ---------- SQL 的术语提取 ----------
+       SQL 没有函数/循环/变量这些概念，照搬上面的规则一条都提不出来。
+       这里按"代码里出现了哪些 SQL 关键字"来决定给哪些术语。 */
+    if (lang === "sql") {
+      const hasKind = has; // 语义化别名
+      if (hasKind("createtable") || hasKind("createdb")) { push(dict("table")); push(dict("database")); }
+      if (hasKind("column")) { push(dict("column")); push(dict("datatype")); }
+      if (hasKind("pk")) push(dict("primarykey"));
+      if (hasKind("fk")) push(dict("foreignkey"));
+      if (hasKind("constraint")) { push(dict("constraint")); push(dict("sqlindex")); }
+      if (hasKind("select") || hasKind("from")) push(dict("select"));
+      if (hasKind("where")) push(dict("where"));
+      if (hasKind("groupby")) push(dict("groupby"));
+      if (hasKind("having")) push(dict("having"));
+      if (hasKind("orderby")) push(dict("orderby"));
+      if (hasKind("limit")) push(dict("limit"));
+      if (hasKind("join") || hasKind("on")) push(dict("join"));
+      if (hasKind("insert")) push(dict("insert"));
+      if (hasKind("update")) push(dict("update"));
+      if (hasKind("delete")) push(dict("delete"));
+      if (hasKind("alter")) push(dict("alter"));
+      if (hasKind("drop")) { push(dict("drop")); push(dict("table")); }
+      if (hasKind("truncate")) push(dict("truncate"));
+      if (hasKind("begin") || hasKind("commit") || hasKind("rollback")) push(dict("transaction"));
+      if (hasKind("createother")) push(dict(/\bVIEW\b/i.test(code) ? "view" : "sqlindex"));
+      // 文本层面：聚合函数、NULL、类型
+      if (/\b(COUNT|SUM|AVG|MAX|MIN)\s*\(/i.test(code)) push(dict("aggregate"));
+      if (/\bIS\s+(NOT\s+)?NULL\b/i.test(code)) push(dict("sqlnull"));
+      if (/\b(VARCHAR|DECIMAL|DATETIME|BIGINT)\b/i.test(code)) push(dict("datatype"));
+      push(dict("query"));
     }
     // 由代码文本推断
     if (/["']/.test(code)) push(dict("string"));
@@ -2000,6 +2287,41 @@ window.__FROG_EDITOR_LANG = "javascript";
     } else if (lang === "php") {
       title = "一个 PHP 网页后端脚本";
       summary = "这是一段 PHP 代码，运行在服务器上。它可以处理表单数据、读取数据库，并把结果以 HTML 形式输出给浏览器。";
+    } else if (lang === "sql") {
+      /* SQL 的总览要按"这段 SQL 想干什么"来分，
+         不能沿用编程语言那套（函数/循环/判断）——
+         SQL 里根本没有这些概念，照搬会得出空话。 */
+      const nCreate = count("createdb") + count("createtable") + count("createother");
+      const nQuery = count("select");
+      const nWrite = count("insert") + count("update") + count("delete");
+      const nModify = count("alter") + count("drop") + count("truncate");
+      const nTx = count("begin") + count("commit") + count("rollback");
+
+      if (nCreate && !nQuery && !nWrite) {
+        title = "建库建表语句";
+        summary = "这段 SQL 用来**搭建数据结构**——定义数据库、表、以及每个字段的类型和约束。" +
+          "表建好之后才能往里面存数据。这是设计阶段做的事。";
+      } else if (nQuery && !nWrite && !nCreate) {
+        title = "一条查询语句";
+        summary = "这段 SQL 用来**取数据**：说明要哪些列、从哪张表取、按什么条件筛、怎么排序。" +
+          "注意 SQL 是声明式的——你只说“要什么”，数据库自己去决定“怎么取”。";
+      } else if (nWrite && !nQuery) {
+        title = "数据写入语句";
+        summary = "这段 SQL 用来**改变数据**（新增、修改、删除）。" +
+          (count("update") || count("delete") ? "⚠ 执行前务必确认 WHERE 条件写对了，否则可能影响整张表。" : "");
+      } else if (nModify) {
+        title = "改结构 / 删对象的语句";
+        summary = "这段 SQL 用来**修改已有结构或删除对象**（ALTER / DROP / TRUNCATE）。" +
+          "DROP 和 TRUNCATE 不可逆，执行前一定要确认清楚。";
+      } else if (nTx) {
+        title = "一段事务操作";
+        summary = "这段 SQL 用**事务**把多个操作绑成一组：要么全部成功、要么全部撤销，不会只做一半。转账是最典型的例子。";
+      } else {
+        title = "一段 SQL 语句";
+        summary = "这段 SQL 包含若干语句，共 " + stats.lines + " 行。" +
+          (nCreate ? "有建表/建库。" : "") + (nQuery ? "有查询。" : "") +
+          (nWrite ? "有数据写入。" : "") + "按从上到下的顺序执行。";
+      }
     } else if (lang === "javascript") {
       if (has("classes")) {
         title = "一段用类组织的 JavaScript 代码";
@@ -2039,8 +2361,29 @@ window.__FROG_EDITOR_LANG = "javascript";
   }
 
   /* ---------- 主入口 ---------- */
+  /* ---------- 语言名归一化 ----------
+     课程页的代码块标注五花八门，统一映射到 LANGS 里的键。
+     放在这里（模块级）而不是 explain 内部：高亮那边也用同一套别名。 */
+  const LANG_ALIAS = {
+    mysql: "sql", mariadb: "sql", sqlite: "sql", postgres: "sql", postgresql: "sql",
+    js: "javascript", ts: "javascript", typescript: "javascript",
+    py: "python", python3: "python",
+    html5: "html",
+  };
+  function normLang(lang) {
+    const l = String(lang || "").toLowerCase().trim();
+    return LANG_ALIAS[l] || l;
+  }
+
   window.ENGINE = {
     explain: function (code, lang) {
+      /* 语言名归一化。
+         课程页里的代码块标注不统一：mysql / SQL / mariadb 都可能出现，
+         而 LANGS 里只定义了一个 sql。
+         ⚠ 不做这层映射的后果很隐蔽：查不到词典就**静默退回 python**，
+         SQL 代码被按 Python 的规则讲解（"这行是赋值语句…"），全是错的，
+         但页面上不会报任何错。所以映射表是必须的。 */
+      lang = normLang(lang);
       if (!LANGS[lang]) lang = "python";
       const rawLines = code.split("\n");
       const infos = rawLines.map((raw, idx) => {
@@ -2102,20 +2445,42 @@ window.__FROG_EDITOR_LANG = "javascript";
   'use strict';
 
   /* 语言由 build-pages 按课程注入（window.__FROG_EDITOR_LANG）：
-     Python 课给 python、PHP 课给 php、Web 课给 html、JavaScript 课给 javascript。
+     Python 课给 python、PHP 课给 php、Web 课给 html、JavaScript 课给 javascript、
+     MySQL 课给 sql（2026-09-23 起 SQL 有专门的高亮和讲解）。
      取不到就退化成 javascript。 */
   function lang() {
     var l = window.__FROG_EDITOR_LANG;
+    /* 顺带做一次归一化：万一别处传进来 mysql / mariadb，
+       高亮和讲解那边认的都是 sql。 */
+    if (l === 'mysql' || l === 'mariadb') return 'sql';
     return (l && typeof l === 'string') ? l : 'javascript';
   }
   /* 编辑区标题栏的文件名，按语言给个像样的后缀（原来是写死的 main.js） */
   var FILE_OF = { javascript: 'main.js', python: 'main.py', php: 'index.php',
-                  html: 'index.html', css: 'style.css', c: 'main.c', cpp: 'main.cpp' };
+                  html: 'index.html', css: 'style.css', c: 'main.c', cpp: 'main.cpp',
+                  sql: 'query.sql' };
   function fileName() { return FILE_OF[lang()] || 'main.js'; }
 
+  /* HTML 转义 + 轻量强调。
+     ⚠ 顺序很重要：**先转义、再转换**。
+     反过来的话，讲解文案里如果出现尖括号标签就会被当成真标签插进页面（XSS）。
+     这里只支持一个标记：两个星号包起来的文字 → 加粗。
+     讲解文案里用它强调关键词（如 **不可逆**、**先筛后统计**），
+     而面板是 innerHTML 渲染的 —— 不转换的话页面上会原样显示星号。
+
+     ⚠⚠ 这个注释里**绝对不能写出带尖括号的 HTML 标签字面量**。
+     本文件会被内联进页面的 script 块里，而 HTML 解析器遇到结束标签
+     （哪怕是写在 JS 注释里的）就当成 script 块结束 ——
+     后果是整个内联脚本被截断、后面所有代码变成页面文本，
+     而且页码错位、报错指向别处，极难定位。
+     我在这里写过一次「**文字** → 带尖括号的 strong 标签」，
+     结果 src/templates/*.tpl.html 的 script 块数量从 13 变成 14，
+     test-jsblock 读的第 3 块错位成 COURSE_DATA，直接报"切不出 EXPLAIN"。
+     要提标签就写「strong 标签」这样的文字描述，别写尖括号。 */
   function esc(s) {
     return String(s == null ? '' : s)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
   }
 
   /* ---------------- 编辑区骨架 ---------------- */
@@ -2437,7 +2802,7 @@ window.__FROG_EDITOR_LANG = "javascript";
 
    覆盖范围（每个功能都过一遍）：
      侧边栏课时列表 → 进度 → 三档难度 → 四步学习流程 → 掌握度 →
-     代码块「⚡ 在线运行 → CodeLens」→ 练习题 → 应用题编辑区 →
+     代码块「▸在线运行 → CodeLens」→ 练习题 → 应用题编辑区 →
      错题本与间隔复习 → 学习总览（薄弱知识点）→
      工具区（笔记/数据/专注/成就/导出）→ 上一步 / 下一步
      （共 12 步。原来还有一步讲右下角那个悬浮青蛙，青蛙已按需求去掉。）
@@ -2515,7 +2880,7 @@ window.__FROG_EDITOR_LANG = "javascript";
     },
     {
       /* ⚠ 这一步的目标**按课程分两种**（2026-09-21 实测）：
-         · JavaScript / Python 课的代码块有「⚡ 在线运行」按钮（`.code-run-btn`）
+         · JavaScript / Python 课的代码块有「▸在线运行」按钮（`.code-run-btn`）
            → 直接框那个按钮。
          · MySQL / PHP / AI / Web 四门课的代码块**只有「复制」**，
            整门课 0 个 `.code-run-btn`（正文里数过：JS 64 个、Python 60 个、
@@ -2537,14 +2902,14 @@ window.__FROG_EDITOR_LANG = "javascript";
       waitExtra: 400,
       title: function () {
         return document.querySelector('.code-run-btn')
-          ? '第 6 步 · ⚡ 在线运行 = 打开 CodeLens'
+          ? '第 6 步 · ▸在线运行 = 打开 CodeLens'
           : '第 6 步 · 代码块 = CodeLens 的入口';
       },
       text: function () {
         if (document.querySelector('.code-run-btn')) {
-          return '讲解里的每段代码右上角都有「⚡ 在线运行」，点了就把这段代码送进 CodeLens（译码）—— 它会真实跑一遍，并逐行解释给你听。';
+          return '讲解里的每段代码右上角都有「▸在线运行」，点了就把这段代码送进 CodeLens（译码）—— 它会真实跑一遍，并逐行解释给你听。';
         }
-        return '这门课的代码块右上角是「复制」。想边跑边看解释：复制代码，点顶部「⚡ 在线写代码」打开 CodeLens，粘贴进去就能逐行讲解；应用题编辑区里的「看讲解」是本课自带的同类功能。';
+        return '这门课的代码块右上角是「复制」。想边跑边看解释：复制代码，点顶部「▸ 在线写代码」打开 CodeLens，粘贴进去就能逐行讲解；应用题编辑区里的「看讲解」是本课自带的同类功能。';
       },
       tip: function () {
         return document.querySelector('.code-run-btn')
@@ -2557,7 +2922,13 @@ window.__FROG_EDITOR_LANG = "javascript";
       enter: function () { if (typeof selectStep === 'function') selectStep(2); },
       title: '第 7 步 · 练习题',
       text: '点第三个标签进入练习。选择题答错会自动进错题本，并解锁答案解析。',
-      tip: '旁边还有「应用题」：写完代码点「▶ 运行验证」，程序会真的跑并判分。',
+      /* SQL 课的应用题点了不会真跑（浏览器里没有 MySQL），而是按要点
+         「检查代码」—— 这一步的提示得跟着说法走，别让学员去找一个不存在的按钮。 */
+      tip: function () {
+        return (window.__FROG_EDITOR_LANG === 'sql')
+          ? '旁边还有「应用题」：写完 SQL 点「✅ 检查代码」，它会逐条核对你写对没有，差在哪会直接指出来。'
+          : '旁边还有「应用题」：写完代码点「▶ 运行验证」，程序会真的跑并判分。';
+      },
     },
     {
       target: function () { return document.querySelector('.cle-root'); },
@@ -2946,7 +3317,7 @@ window.__FROG_EDITOR_LANG = "javascript";
   /* ============================================================
      修一个从没生效过的 bug：三个「环境指引」按钮点了没反应
 
-     症状：点 🐸 /「打开 Thonny 写代码」/「PHP 运行说明」什么都不发生，
+     症状：点 /「打开 Thonny 写代码」/「PHP 运行说明」什么都不发生，
            控制台报 `openThonnyGuide is not defined`。
 
      根因：页面里 openThonnyGuide / openPhpGuide / openAiGuide 只有
@@ -2998,7 +3369,7 @@ window.__FROG_EDITOR_LANG = "javascript";
 <!-- Login Screen -->
 <div class="login-screen" id="loginScreen">
  <div class="login-box">
- <div class="login-logo">🐸</div>
+ <div class="login-logo"> </div>
  <h1>蛙课堂</h1>
  <p class="login-sub">交互式编程教学 · 登录后开始学习</p>
  <div class="login-field">
@@ -3039,7 +3410,7 @@ window.__FROG_EDITOR_LANG = "javascript";
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
  <div class="sidebar-header">
- <h1>🐸 蛙课堂</h1>
+ <h1>蛙课堂</h1>
  
  <p>交互式编程教学</p>
  <div class="stats">
@@ -3077,7 +3448,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  <button onclick="toggleBadges()" id="btnBadges">徽章</button>
 </div>
 <div class="content-header">
- <a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/?lang=python" target="_blank">⚡ 在线写代码</a> <div class="breadcrumb" id="breadcrumb">AI 课程 / <strong>选择课程开始</strong></div>
+ <a class="codelens-link" href="https://yanghaoting0120.github.io/codelens/?lang=python" target="_blank">▸ 在线写代码</a> <div class="breadcrumb" id="breadcrumb">AI 课程 / <strong>选择课程开始</strong></div>
  <div class="difficulty-selector">
  <span class="diff-label">难度：</span>
  <button class="diff-btn active" data-level="basic" onclick="setDifficulty('basic')">基础</button>
@@ -3101,7 +3472,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI 与 AI Agent 简介",
  "date": "2026 暑假",
  "time": "第 1 课",
- "icon": "🤖",
+ "icon": "",
  "warmup": "认识 AI、大语言模型和 AI Agent，理解它们能做什么。",
  "steps": [
  {
@@ -3147,7 +3518,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "大语言模型与 Token",
  "date": "2026 暑假",
  "time": "第 2 课",
- "icon": "🧠",
+ "icon": "",
  "warmup": "了解模型怎么读文字、Token 是什么、模型有哪些限制。",
  "steps": [
  {
@@ -3193,7 +3564,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "提示词工程",
  "date": "2026 暑假",
  "time": "第 3 课",
- "icon": "💬",
+ "icon": "",
  "warmup": "学会写清楚、有用的提示词，让 AI 按你的要求干活。",
  "steps": [
  {
@@ -3239,7 +3610,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI Agent 工作原理",
  "date": "2026 暑假",
  "time": "第 4 课",
- "icon": "⚙️",
+ "icon": "",
  "warmup": "看懂 Agent 怎么思考、调用工具并完成任务。",
  "steps": [
  {
@@ -3285,7 +3656,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "RAG 与知识检索",
  "date": "2026 暑假",
  "time": "第 5 课",
- "icon": "📚",
+ "icon": "",
  "warmup": "让 AI 结合自己的知识库回答，减少幻觉。",
  "steps": [
  {
@@ -3331,7 +3702,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI 编程工具与 Vibe Coding",
  "date": "2026 暑假",
  "time": "第 6 课",
- "icon": "🛠️",
+ "icon": "",
  "warmup": "学会用自然语言让 AI 写代码、改代码、查代码。",
  "steps": [
  {
@@ -3377,7 +3748,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI 工作流与自动化",
  "date": "2026 暑假",
  "time": "第 7 课",
- "icon": "🔗",
+ "icon": "",
  "warmup": "把多个 AI 步骤连成一条自动执行的工作流。",
  "steps": [
  {
@@ -3423,7 +3794,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "Agent 开发框架",
  "date": "2026 暑假",
  "time": "第 8 课",
- "icon": "🧩",
+ "icon": "",
  "warmup": "了解 LangChain、CrewAI 等框架怎么帮我们搭建 Agent。",
  "steps": [
  {
@@ -3469,7 +3840,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI 安全与使用规范",
  "date": "2026 暑假",
  "time": "第 9 课",
- "icon": "🛡️",
+ "icon": "",
  "warmup": "安全地使用 AI：核对事实、保护隐私、防范攻击。",
  "steps": [
  {
@@ -3515,7 +3886,7 @@ window.__FROG_EDITOR_LANG = "javascript";
  "title": "AI 综合实战：我的 AI 助手",
  "date": "2026 暑假",
  "time": "第 10 课",
- "icon": "🚀",
+ "icon": "",
  "warmup": "把提示词、Agent、RAG、工作流的知识组合起来，设计自己的 AI 助手。",
  "steps": [
  {
@@ -4920,7 +5291,9 @@ function init() {
  }
  if (rest.trim() || codes.length > 0) {
  out += '<div class="exercise-section"><h3>应用题</h3>' +
- '<p class="exercise-note">先自己写，再点「运行」验证；卡住了按提示一步一步来。</p>' +
+ '<p class="exercise-note">' + (isSqlCourse()
+ ? '先自己写，再点「✅ 检查代码」看写法对不对；卡住了按提示一步一步来。'
+ : '先自己写，再点「运行」验证；卡住了按提示一步一步来。') + '</p>' +
  rest + codes.map(function(c){ return decorateExerciseHTML(c); }).join('') + '</div>';
  }
  return out || html;
@@ -4935,6 +5308,7 @@ function init() {
  function decorateExerciseHTML(ex) {
  var checkCode = ex.getAttribute('data-assert') || '';
  var setupCode = ex.getAttribute('data-setup') || '';
+ var checkSpec = ex.getAttribute('data-check') || '';
  var hintList = [];
  var rawHints = ex.getAttribute('data-hints');
  if (rawHints) { try { hintList = JSON.parse(rawHints) || []; } catch (e) { hintList = []; } }
@@ -4951,7 +5325,7 @@ function init() {
 
  var extra = '';
  extra += '<div class="ex-run-row">' +
- '<button class="btn-run" onclick="runExercise(this)">▶ 运行验证</button>' +
+ '<button class="btn-run" onclick="runExercise(this)">' + (checkSpec ? '✅ 检查代码' : '▶ 运行验证') + '</button>' +
  (hintList.length ? '<button class="btn-hint" onclick="showHint(this)">看提示（0/' + hintList.length + '）</button>' : '') +
  '<button class="btn-clear" onclick="resetDraft(this)">清空重写</button>' +
  '</div>';
@@ -4969,7 +5343,7 @@ function init() {
  return text ? '<div class="' + cls + '" style="display:none">' + String(text)
  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' : '';
  }
- var hiddenTags = hiddenEl('ex-assert-src', checkCode) + hiddenEl('ex-setup-src', setupCode);
+ var hiddenTags = hiddenEl('ex-assert-src', checkCode) + hiddenEl('ex-setup-src', setupCode) + hiddenEl('ex-check-src', checkSpec);
 
  var before = ex.outerHTML;
  var out = before.replace('</div>\n<div class="ex-status">', extra + hiddenTags + '</div>\n<div class="ex-status">');
@@ -5072,7 +5446,7 @@ function init() {
  var miss = [];
  if (!r.answeredOk) miss.push('至少做完 ' + MASTERY_MIN_ANSWERED + ' 道选择题（现在 ' + r.mastery.answered + ' 道）');
  else if (r.mastery.rate < MASTERY_RATE) miss.push('选择题答对率要到 ' + MASTERY_RATE + '%（现在 ' + r.mastery.rate + '%）');
- if (!r.exOk) miss.push('至少通过 1 道应用题（点「▶ 运行验证」出现 ✅ 通过）');
+ if (!r.exOk) miss.push('至少通过 1 道应用题（点「' + runBtnWord() + '」出现 ✅ 通过）');
  showConfirm('还差一点点就能完成本节：\n\n· ' + miss.join('\n· ') + '\n\n先去「练习题」这一步把它们补上吧。',
  function(){ selectStep(2); }, '还没达到掌握标准');
  return;
@@ -5427,6 +5801,49 @@ function init() {
  return m[lang] || '把代码放到对应的环境里运行；';
  }
 
+ /* ---------- SQL「检查代码」 ----------
+    本课写的是 SQL：浏览器里没有 MySQL，跑不了，所以改成按要点检查写法。
+    判定口径：大小写、换行、缩进、分号前的空格都不影响 —— 只比「内容」。 */
+ function isSqlCourse() { return (window.__FROG_EDITOR_LANG || '') === 'sql'; }
+ function runBtnWord() { return isSqlCourse() ? '✅ 检查代码' : '▶ 运行验证'; }
+
+ /* 去注释 → 全角转半角 → 转小写 → 去掉所有空白 */
+ function sqlNorm(src) {
+ var t = String(src == null ? '' : src);
+ t = t.replace(/\/\*[\s\S]*?\*\//g, ' ');
+ t = t.replace(/--[^\n]*/g, ' ');
+ t = t.replace(/#[^\n]*/g, ' ');
+ t = t.replace(/[\uFF01-\uFF5E]/g, function (ch) { return String.fromCharCode(ch.charCodeAt(0) - 0xFEE0); });
+ t = t.replace(/\u3000/g, ' ');
+ return t.toLowerCase().replace(/\s+/g, '');
+ }
+
+ /* 逐条核对要点，返回 { pass, hits, total, miss } */
+ function checkSqlDraft(code, spec) {
+ var got = sqlNorm(code);
+ var hits = 0, total = 0, miss = [];
+ function has(pattern) { var t = sqlNorm(pattern); return !!t && got.indexOf(t) !== -1; }
+ function times(pattern) {
+ var t = sqlNorm(pattern), n = 0, i = 0;
+ if (!t) return 0;
+ while ((i = got.indexOf(t, i)) !== -1) { n++; i += t.length; }
+ return n;
+ }
+ function anyOf(r) { for (var i = 0; i < r.any.length; i++) { if (has(r.any[i])) return true; } return false; }
+ function tally(ok, why) { total++; if (ok) { hits++; } else { miss.push(why); } }
+
+ (spec.need || []).forEach(function (r) { tally(anyOf(r), r.why || ('要出现 ' + r.any[0])); });
+ (spec.min || []).forEach(function (r) { tally(times(r.any[0]) >= (r.n || 2), r.why || ('要出现至少 ' + (r.n || 2) + ' 次：' + r.any[0])); });
+ (spec.once || []).forEach(function (r) { tally(times(r.any[0]) === 1, r.why || ('只能出现一次：' + r.any[0])); });
+ (spec.none || []).forEach(function (r) { tally(!anyOf(r), r.why || ('不该出现：' + r.any[0])); });
+ if (spec.semis) {
+ var sc = (got.match(/;/g) || []).length;
+ tally(sc >= spec.semis, '这题要写 ' + spec.semis + ' 条语句、每条以分号结尾（现在只数到 ' + sc + ' 个分号）');
+ }
+ if (spec.tail) tally(/;$/.test(got), '最后一条语句也要用分号收尾');
+ return { pass: miss.length === 0, hits: hits, total: total, miss: miss };
+ }
+
  /* ---------- 运行按钮 ---------- */
  function runExercise(btn) {
  var ex = btn.closest('.coding-exercise');
@@ -5434,12 +5851,32 @@ function init() {
  var out = ex.querySelector('.ex-run-output');
  if (!ta || !out) return;
  var code = ta.value;
- if (!code.trim()) { out.textContent = '先写点代码再运行吧。'; out.className = 'ex-run-output warn'; return; }
+ if (!code.trim()) { out.textContent = isSqlCourse() ? '先写点 SQL 再检查吧。' : '先写点代码再运行吧。'; out.className = 'ex-run-output warn'; return; }
  if (ex.id) saveDraft(ex.id, code);
  var checkEl = ex.querySelector('.ex-assert-src') || ex.querySelector('.ex-assert');
  var checkCode = checkEl ? checkEl.textContent : '';
  var setupEl = ex.querySelector('.ex-setup-src') || ex.querySelector('.ex-setup');
  var setupCode = setupEl ? setupEl.textContent : '';
+
+ /* 这道题带「检查要点」→ 按要点检查写法（本课没有 MySQL 可跑） */
+ var specEl = ex.querySelector('.ex-check-src');
+ var checkSpec = null;
+ if (specEl) { try { checkSpec = JSON.parse(specEl.textContent || ''); } catch (e) { checkSpec = null; } }
+ if (checkSpec) {
+ var r = checkSqlDraft(code, checkSpec);
+ out.className = 'ex-run-output ' + (r.pass ? 'pass' : 'fail');
+ if (r.pass) {
+ out.textContent = '✅ 通过！这一题的 ' + r.total + ' 个要点都写到了。\n' +
+ '　（这是代码检查：SQL 没有真的连数据库跑，写法对了就算过；想真跑一遍可以粘到 phpMyAdmin 里。）';
+ markExercisePassed(ex);
+ showToast('这道题通过了！', 'success');
+ } else {
+ out.textContent = '❌ 还没通过（写到 ' + r.hits + '/' + r.total + ' 个要点）\n\n还差这些：\n' +
+ r.miss.map(function (m) { return '　· ' + m; }).join('\n') +
+ '\n\n改完再点一次「✅ 检查代码」就行。';
+ }
+ return;
+ }
 
  /* 语言守卫：只有 JavaScript 能在浏览器沙箱里直接跑。
     其它语言的题（本课没有自检脚本时）不要硬塞进 JS 沙箱 —— 否则
@@ -5509,7 +5946,7 @@ function init() {
  function f(s){var m=Math.floor(s/60);var sc=s%60;return m+':'+(sc<10?'0':'')+sc;}
  function u(){
  var r=t-Math.floor((Date.now()-st)/1000);
- if(r<=0){ timer.textContent='00:00'; if(status) status.textContent='时间到 —— 可以看提示，或直接运行验证'; return; }
+ if(r<=0){ timer.textContent='00:00'; if(status) status.textContent= isSqlCourse() ? '时间到 —— 可以看提示，或直接检查代码' : '时间到 —— 可以看提示，或直接运行验证'; return; }
  timer.textContent=f(r); timer.className='ex-timer'+(r<30?' warning':'');
  requestAnimationFrame(u);
  }
@@ -5673,11 +6110,11 @@ function init() {
  var done = 0;
  COURSE_DATA.forEach(function(l){ if(getProgress(l.id).done) done++; });
  var badges = [
- {icon:'🎓', name:'开始学习', unlocked: done >= 1},
- {icon:'📚', name:'完成3节', unlocked: done >= 3},
- {icon:'🏆', name:'完成5节', unlocked: done >= 5},
- {icon:'☆', name:'完成8节', unlocked: done >= 8},
- {icon:'🌟', name:'学霸', unlocked: done >= 18}
+ {icon:'', name:'开始学习', unlocked: done >= 1},
+ {icon:'', name:'完成3节', unlocked: done >= 3},
+ {icon:'', name:'完成5节', unlocked: done >= 5},
+ {icon:'', name:'完成8节', unlocked: done >= 8},
+ {icon:'', name:'学霸', unlocked: done >= 18}
  ];
  var html = '';
  badges.forEach(function(b){
@@ -5906,14 +6343,14 @@ function init() {
 
  // ===== Usage Guide =====
  var GUIDE_STEPS = [
- { icon: '👋', title: '欢迎使用 蛙课堂', sub: '先花一分钟认识每个栏目，再开始学习', feats: ['左侧是 10 节课的课程列表', '中间是每节课的学习内容', '右下角 🐸 是打开 AI 学习指引的入口'] },
- { icon: '📚', title: '课程与进度', sub: '侧边栏就是你的课程地图', feats: ['点击课程即可进入学习', '绿色圆点：已完成', '橙色圆点：正在学', '灰色圆点：还没开始'] },
+ { icon:'', title: '欢迎使用 蛙课堂', sub: '先花一分钟认识每个栏目，再开始学习', feats: ['左侧是 10 节课的课程列表', '中间是每节课的学习内容', '右下角 是打开 AI 学习指引的入口'] },
+ { icon:'', title: '课程与进度', sub: '侧边栏就是你的课程地图', feats: ['点击课程即可进入学习', '绿色圆点：已完成', '橙色圆点：正在学', '灰色圆点：还没开始'] },
  { icon: '', title: '难度选择', sub: '每节课都有三档难度', feats: ['基础：概念 + 入门示例', '进阶：更多讲解和示例', '挑战：原理、易错点和综合练习', '切换难度后，学习内容会自动变化'] },
- { icon: '📖', title: '一节课怎么学', sub: '每节课分四个步骤，用顶部标签切换', feats: ['本节主题：新词预习和目标', '核心内容：定义、代码和逐行解析', '练习题：限时编程练习', '小结：本节知识总结'] },
+ { icon:'', title: '一节课怎么学', sub: '每节课分四个步骤，用顶部标签切换', feats: ['本节主题：新词预习和目标', '核心内容：定义、代码和逐行解析', '练习题：限时编程练习', '小结：本节知识总结'] },
  { icon: '', title: '顶部工具栏', sub: '学习时的常用工具都在这里', feats: ['总览：查看 10 节课完成情况', '番茄钟：25 分钟专注学习', '徽章：完成课程获得成就', '导出：把学习记录导出成 Word', '重置进度：清空所有进度', '暗色：切换深浅色界面'] },
- { icon: '🐸', title: '写代码的方式', sub: '推荐用 AI 工具 + 浏览器练习', feats: ['点右下角 🐸：打开学习指引', 'AI 工具：登录 ChatGPT/Codex 等即可使用', 'Web 工具：安装 VS Code 写代码', '准备好工具后即可动手实践'] },
- { icon: '📕', title: '错题本与打卡', sub: '学习数据按月份查看，错题单独复习', feats: ['数据：打卡可按月、按年切换查看', '错题本：按课程分类整理错题', '点开某一课即可复习那课的错题', '数据备份：可导出和导入学习数据'] },
- { icon: '👤', title: '账号与数据', sub: '你的学习数据存在本机浏览器里', feats: ['左侧 设置：退出、切换账号、改密码', '学习进度会自动保存，下次继续', '换了电脑或浏览器，数据不会同步'] }
+ { icon: '', title: '写代码的方式', sub: '推荐用 AI 工具 + 浏览器练习', feats: ['点右下角 ：打开学习指引', 'AI 工具：登录 ChatGPT/Codex 等即可使用', 'Web 工具：安装 VS Code 写代码', '准备好工具后即可动手实践'] },
+ { icon:'', title: '错题本与打卡', sub: '学习数据按月份查看，错题单独复习', feats: ['数据：打卡可按月、按年切换查看', '错题本：按课程分类整理错题', '点开某一课即可复习那课的错题', '数据备份：可导出和导入学习数据'] },
+ { icon:'', title: '账号与数据', sub: '你的学习数据存在本机浏览器里', feats: ['左侧 设置：退出、切换账号、改密码', '学习进度会自动保存，下次继续', '换了电脑或浏览器，数据不会同步'] }
  ];
  var guideIndex = 0;
  function getCurrentUserName() {
@@ -6189,7 +6626,7 @@ function init() {
  if (!content) return;
  if (reviewPos >= reviewQueue.length) {
  var rest = dueCount();
- var done = '<div class="review-done"><div class="rd-title">本轮复习完成 🎉</div>' +
+ var done = '<div class="review-done"><div class="rd-title">本轮复习完成 </div>' +
  '<div class="rd-line">答对 <b>' + reviewRight + '</b> 题，答错 <b>' + reviewWrong + '</b> 题，共 ' + reviewQueue.length + ' 题。</div>' +
  '<div class="rd-note">答对的题已经排进下一个复习间隔（' + SR_INTERVALS.join(' / ') + ' 天）；答错的回到第 1 档，明天再来。</div>' +
  '<div class="review-actions"><button class="btn-run" onclick="startReview()">继续复习</button>' +
@@ -6677,56 +7114,56 @@ function init() {
  var checkins = allCheckins();
  var st = streak(checkins);
  var badges = [
- {icon:'🎒', name:'初来乍到', ok: done >= 1},
- {icon:'📖', name:'渐入佳境', ok: done >= 5},
- {icon:'📚', name:'小有所成', ok: done >= 10},
- {icon:'🏆', name:'学富五车', ok: done >= 15},
- {icon:'🎓', name:'满腹经纶', ok: done >= 20},
- {icon:'🌟', name:'博学多才', ok: done >= 30},
- {icon:'🚀', name:'学海无涯', ok: done >= 40},
- {icon:'👑', name:'全科状元', ok: done >= 68},
+ {icon:'', name:'初来乍到', ok: done >= 1},
+ {icon:'', name:'渐入佳境', ok: done >= 5},
+ {icon:'', name:'小有所成', ok: done >= 10},
+ {icon:'', name:'学富五车', ok: done >= 15},
+ {icon:'', name:'满腹经纶', ok: done >= 20},
+ {icon:'', name:'博学多才', ok: done >= 30},
+ {icon:'', name:'学海无涯', ok: done >= 40},
+ {icon:'', name:'全科状元', ok: done >= 68},
 {icon:'⏰', name:'持之以恒', ok: (function(){var n=0;PREFIXES.forEach(function(p){var s=getJson(p+'stats_'+user());n+=(s.studyCount||0);});return n>=50;})()},
- {icon:'✏️', name:'小试牛刀', ok: (a.correct||0) >= 10},
- {icon:'🎯', name:'百发百中', ok: (a.bestStreak||0) >= 10},
- {icon:'📝', name:'题库达人', ok: (a.correct||0) >= 50},
- {icon:'⚡', name:'刷题狂魔', ok: (a.correct||0) >= 100},
- {icon:'💯', name:'一题不错', ok: (a.perfectLessons||0) >= 1},
- {icon:'🧗', name:'挑战者', ok: (a.advancedLessons||0) >= 1},
- {icon:'🧗‍♂️', name:'极限挑战', ok: (a.advancedLessons||0) >= 10},
- {icon:'🧹', name:'错题克星', ok: (a.wrongCleared||0) >= 1},
- {icon:'🧽', name:'错题全消', ok: (a.wrongCleared||0) >= 3},
-{icon:'🛡️', name:'坚韧不拔', ok: (a.wrongTotal||0) >= 20},
- {icon:'🌱', name:'第一天', ok: checkins.length >= 1},
- {icon:'🔥', name:'三日之约', ok: st >= 3},
- {icon:'📅', name:'一周坚持', ok: st >= 7},
+ {icon:'', name:'小试牛刀', ok: (a.correct||0) >= 10},
+ {icon:'', name:'百发百中', ok: (a.bestStreak||0) >= 10},
+ {icon:'', name:'题库达人', ok: (a.correct||0) >= 50},
+ {icon:'', name:'刷题狂魔', ok: (a.correct||0) >= 100},
+ {icon:'', name:'一题不错', ok: (a.perfectLessons||0) >= 1},
+ {icon:'', name:'挑战者', ok: (a.advancedLessons||0) >= 1},
+ {icon:'', name:'极限挑战', ok: (a.advancedLessons||0) >= 10},
+ {icon:'', name:'错题克星', ok: (a.wrongCleared||0) >= 1},
+ {icon:'', name:'错题全消', ok: (a.wrongCleared||0) >= 3},
+{icon:'', name:'坚韧不拔', ok: (a.wrongTotal||0) >= 20},
+ {icon:'', name:'第一天', ok: checkins.length >= 1},
+ {icon:'', name:'三日之约', ok: st >= 3},
+ {icon:'', name:'一周坚持', ok: st >= 7},
  {icon:'⏳', name:'半月之勤', ok: st >= 15},
- {icon:'🗓️', name:'月度达人', ok: st >= 30},
- {icon:'💪', name:'百炼成钢', ok: checkins.length >= 100},
- {icon:'🌙', name:'夜猫子', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
- {icon:'☀️', name:'早起鸟', ok: (a.studyHours||[]).some(function(h){ return h < 8; })},
- {icon:'🍅', name:'初尝专注', ok: (a.pomo||0) >= 1},
- {icon:'⏱️', name:'专注入门', ok: (a.pomo||0) >= 5},
- {icon:'🧘', name:'心无旁骛', ok: (a.pomo||0) >= 20},
- {icon:'🕐', name:'时间管理大师', ok: (a.pomo||0) >= 50},
- {icon:'🕰️', name:'深度玩家', ok: (a.pomoByDate||{})[today()] >= 8},
- {icon:'🐍', name:'Python 入门者', ok: courseDone('python_course_') >= 1},
- {icon:'🐍', name:'Python 高手', ok: courseDone('python_course_') >= 18},
- {icon:'🐘', name:'PHP 入门者', ok: courseDone('php_course_') >= 1},
- {icon:'🐘', name:'PHP 高手', ok: courseDone('php_course_') >= 10},
- {icon:'🤖', name:'AI 探索者', ok: courseDone('ai_course_') >= 1},
- {icon:'🤖', name:'AI 大师', ok: courseDone('ai_course_') >= 10},
- {icon:'🌐', name:'网页新手', ok: courseDone('web_course_') >= 1},
- {icon:'🌐', name:'网页工程师', ok: courseDone('web_course_') >= 10},
-  {icon:'💛', name:'JS 新手', ok: courseDone('javascript_course_') >= 1},
-  {icon:'💛', name:'JS 高手', ok: courseDone('javascript_course_') >= 10},
-  {icon:'🐬', name:'MySQL 新手', ok: courseDone('mysql_course_') >= 1},
-  {icon:'🐬', name:'MySQL 高手', ok: courseDone('mysql_course_') >= 10},
- {icon:'🧠', name:'全能学习者', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
- {icon:'📒', name:'笔记达人', ok: notesCount() >= 10},
- {icon:'💾', name:'数据管家', ok: !!a.exported},
- {icon:'🔦', name:'夜读学者', ok: !!a.dark},
- {icon:'🗓️', name:'一周七日', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
- {icon:'🔁', name:'回头客', ok: hasConsecutive(a.wrongReviewDates, 3)},
+ {icon:'', name:'月度达人', ok: st >= 30},
+ {icon:'', name:'百炼成钢', ok: checkins.length >= 100},
+ {icon:'', name:'夜猫子', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
+ {icon:'', name:'早起鸟', ok: (a.studyHours||[]).some(function(h){ return h < 8; })},
+ {icon:'', name:'初尝专注', ok: (a.pomo||0) >= 1},
+ {icon:'⏱', name:'专注入门', ok: (a.pomo||0) >= 5},
+ {icon:'', name:'心无旁骛', ok: (a.pomo||0) >= 20},
+ {icon:'', name:'时间管理大师', ok: (a.pomo||0) >= 50},
+ {icon:'', name:'深度玩家', ok: (a.pomoByDate||{})[today()] >= 8},
+ {icon:'', name:'Python 入门者', ok: courseDone('python_course_') >= 1},
+ {icon:'', name:'Python 高手', ok: courseDone('python_course_') >= 18},
+ {icon:'', name:'PHP 入门者', ok: courseDone('php_course_') >= 1},
+ {icon:'', name:'PHP 高手', ok: courseDone('php_course_') >= 10},
+ {icon:'', name:'AI 探索者', ok: courseDone('ai_course_') >= 1},
+ {icon:'', name:'AI 大师', ok: courseDone('ai_course_') >= 10},
+ {icon:'', name:'网页新手', ok: courseDone('web_course_') >= 1},
+ {icon:'', name:'网页工程师', ok: courseDone('web_course_') >= 10},
+  {icon:'', name:'JS 新手', ok: courseDone('javascript_course_') >= 1},
+  {icon:'', name:'JS 高手', ok: courseDone('javascript_course_') >= 10},
+  {icon:'', name:'MySQL 新手', ok: courseDone('mysql_course_') >= 1},
+  {icon:'', name:'MySQL 高手', ok: courseDone('mysql_course_') >= 10},
+ {icon:'', name:'全能学习者', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
+ {icon:'', name:'笔记达人', ok: notesCount() >= 10},
+ {icon:'', name:'数据管家', ok: !!a.exported},
+ {icon:'', name:'夜读学者', ok: !!a.dark},
+ {icon:'', name:'一周七日', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
+ {icon:'', name:'回头客', ok: hasConsecutive(a.wrongReviewDates, 3)},
  ];
  var unlocked = badges.filter(function(b){ return b.ok; }).length;
  var html = '<span class="ach-summary">已解锁 ' + unlocked + ' / ' + badges.length + ' 个成就</span>';
@@ -6783,56 +7220,56 @@ function init() {
  var checkins = allCheckins();
  var st = streak(checkins);
  var badges = [
- {icon:'🎒', name:'初来乍到', desc:'完成任意 1 节课', ok: done >= 1},
- {icon:'📖', name:'渐入佳境', desc:'累计完成 5 节课', ok: done >= 5},
- {icon:'📚', name:'小有所成', desc:'累计完成 10 节课', ok: done >= 10},
- {icon:'🏆', name:'学富五车', desc:'累计完成 15 节课', ok: done >= 15},
- {icon:'🎓', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
- {icon:'🌟', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
- {icon:'🚀', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
- {icon:'👑', name:'全科状元', desc:'六门课程全部完成（68 节）', ok: done >= 68},
+ {icon:'', name:'初来乍到', desc:'完成任意 1 节课', ok: done >= 1},
+ {icon:'', name:'渐入佳境', desc:'累计完成 5 节课', ok: done >= 5},
+ {icon:'', name:'小有所成', desc:'累计完成 10 节课', ok: done >= 10},
+ {icon:'', name:'学富五车', desc:'累计完成 15 节课', ok: done >= 15},
+ {icon:'', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
+ {icon:'', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
+ {icon:'', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
+ {icon:'', name:'全科状元', desc:'六门课程全部完成（68 节）', ok: done >= 68},
  {icon:'⏰', name:'持之以恒', desc:'累计学习 50 次', ok: (function(){var n=0;PREFIXES.forEach(function(p){var s=getJson(p+'stats_'+user());n+=(s.studyCount||0);});return n>=50;})()},
- {icon:'✏️', name:'小试牛刀', desc:'累计答对 10 题', ok: (a.correct||0) >= 10},
- {icon:'🎯', name:'百发百中', desc:'连续答对 10 题', ok: (a.bestStreak||0) >= 10},
- {icon:'📝', name:'题库达人', desc:'累计答对 50 题', ok: (a.correct||0) >= 50},
- {icon:'⚡', name:'刷题狂魔', desc:'累计答对 100 题', ok: (a.correct||0) >= 100},
- {icon:'💯', name:'一题不错', desc:'无错题完成 1 节课', ok: (a.perfectLessons||0) >= 1},
- {icon:'🧗', name:'挑战者', desc:'完成 1 节挑战难度', ok: (a.advancedLessons||0) >= 1},
- {icon:'🧗‍♂️', name:'极限挑战', desc:'完成 10 节挑战难度', ok: (a.advancedLessons||0) >= 10},
- {icon:'🧹', name:'错题克星', desc:'错题本清零 1 次', ok: (a.wrongCleared||0) >= 1},
- {icon:'🧽', name:'错题全消', desc:'错题本清零 3 次', ok: (a.wrongCleared||0) >= 3},
- {icon:'🛡️', name:'坚韧不拔', desc:'累计答错 20 题后仍继续学习', ok: (a.wrongTotal||0) >= 20},
- {icon:'🌱', name:'第一天', desc:'完成首次打卡', ok: checkins.length >= 1},
- {icon:'🔥', name:'三日之约', desc:'连续打卡 3 天', ok: st >= 3},
- {icon:'📅', name:'一周坚持', desc:'连续打卡 7 天', ok: st >= 7},
+ {icon:'', name:'小试牛刀', desc:'累计答对 10 题', ok: (a.correct||0) >= 10},
+ {icon:'', name:'百发百中', desc:'连续答对 10 题', ok: (a.bestStreak||0) >= 10},
+ {icon:'', name:'题库达人', desc:'累计答对 50 题', ok: (a.correct||0) >= 50},
+ {icon:'', name:'刷题狂魔', desc:'累计答对 100 题', ok: (a.correct||0) >= 100},
+ {icon:'', name:'一题不错', desc:'无错题完成 1 节课', ok: (a.perfectLessons||0) >= 1},
+ {icon:'', name:'挑战者', desc:'完成 1 节挑战难度', ok: (a.advancedLessons||0) >= 1},
+ {icon:'', name:'极限挑战', desc:'完成 10 节挑战难度', ok: (a.advancedLessons||0) >= 10},
+ {icon:'', name:'错题克星', desc:'错题本清零 1 次', ok: (a.wrongCleared||0) >= 1},
+ {icon:'', name:'错题全消', desc:'错题本清零 3 次', ok: (a.wrongCleared||0) >= 3},
+ {icon:'', name:'坚韧不拔', desc:'累计答错 20 题后仍继续学习', ok: (a.wrongTotal||0) >= 20},
+ {icon:'', name:'第一天', desc:'完成首次打卡', ok: checkins.length >= 1},
+ {icon:'', name:'三日之约', desc:'连续打卡 3 天', ok: st >= 3},
+ {icon:'', name:'一周坚持', desc:'连续打卡 7 天', ok: st >= 7},
  {icon:'⏳', name:'半月之勤', desc:'连续打卡 15 天', ok: st >= 15},
- {icon:'🗓️', name:'月度达人', desc:'连续打卡 30 天', ok: st >= 30},
- {icon:'💪', name:'百炼成钢', desc:'累计打卡 100 天', ok: checkins.length >= 100},
- {icon:'🌙', name:'夜猫子', desc:'在晚上 22 点后学习打卡', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
- {icon:'☀️', name:'早起鸟', desc:'在早上 8 点前学习打卡', ok: (a.studyHours||[]).some(function(h){ return h < 8; })},
- {icon:'🍅', name:'初尝专注', desc:'完成 1 个番茄钟', ok: (a.pomo||0) >= 1},
- {icon:'⏱️', name:'专注入门', desc:'完成 5 个番茄钟', ok: (a.pomo||0) >= 5},
- {icon:'🧘', name:'心无旁骛', desc:'完成 20 个番茄钟', ok: (a.pomo||0) >= 20},
- {icon:'🕐', name:'时间管理大师', desc:'完成 50 个番茄钟', ok: (a.pomo||0) >= 50},
- {icon:'🕰️', name:'深度玩家', desc:'单日完成 8 个番茄钟', ok: (a.pomoByDate||{})[today()] >= 8},
- {icon:'🐍', name:'Python 入门者', desc:'完成 Python 第 1 节', ok: courseDone('python_course_') >= 1},
- {icon:'🐍', name:'Python 高手', desc:'完成全部 18 节 Python', ok: courseDone('python_course_') >= 18},
- {icon:'🐘', name:'PHP 入门者', desc:'完成 PHP 第 1 节', ok: courseDone('php_course_') >= 1},
- {icon:'🐘', name:'PHP 高手', desc:'完成全部 10 节 PHP', ok: courseDone('php_course_') >= 10},
- {icon:'🤖', name:'AI 探索者', desc:'完成 AI 课程第 1 节', ok: courseDone('ai_course_') >= 1},
- {icon:'🤖', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
- {icon:'🌐', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
- {icon:'🌐', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
-  {icon:'💛', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
-  {icon:'💛', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
-  {icon:'🐬', name:'MySQL 新手', desc:'完成 MySQL 第 1 节', ok: courseDone('mysql_course_') >= 1},
-  {icon:'🐬', name:'MySQL 高手', desc:'完成全部 10 节 MySQL', ok: courseDone('mysql_course_') >= 10},
- {icon:'🧠', name:'全能学习者', desc:'六门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
- {icon:'📒', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
- {icon:'💾', name:'数据管家', desc:'成功导出学习数据', ok: !!a.exported},
- {icon:'🔦', name:'夜读学者', desc:'暗色模式下完成学习', ok: !!a.dark},
- {icon:'🗓️', name:'一周七日', desc:'连续 7 天每天都打卡', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
- {icon:'🔁', name:'回头客', desc:'连续 3 天复习错题', ok: hasConsecutive(a.wrongReviewDates, 3)},
+ {icon:'', name:'月度达人', desc:'连续打卡 30 天', ok: st >= 30},
+ {icon:'', name:'百炼成钢', desc:'累计打卡 100 天', ok: checkins.length >= 100},
+ {icon:'', name:'夜猫子', desc:'在晚上 22 点后学习打卡', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
+ {icon:'', name:'早起鸟', desc:'在早上 8 点前学习打卡', ok: (a.studyHours||[]).some(function(h){ return h < 8; })},
+ {icon:'', name:'初尝专注', desc:'完成 1 个番茄钟', ok: (a.pomo||0) >= 1},
+ {icon:'⏱', name:'专注入门', desc:'完成 5 个番茄钟', ok: (a.pomo||0) >= 5},
+ {icon:'', name:'心无旁骛', desc:'完成 20 个番茄钟', ok: (a.pomo||0) >= 20},
+ {icon:'', name:'时间管理大师', desc:'完成 50 个番茄钟', ok: (a.pomo||0) >= 50},
+ {icon:'', name:'深度玩家', desc:'单日完成 8 个番茄钟', ok: (a.pomoByDate||{})[today()] >= 8},
+ {icon:'', name:'Python 入门者', desc:'完成 Python 第 1 节', ok: courseDone('python_course_') >= 1},
+ {icon:'', name:'Python 高手', desc:'完成全部 18 节 Python', ok: courseDone('python_course_') >= 18},
+ {icon:'', name:'PHP 入门者', desc:'完成 PHP 第 1 节', ok: courseDone('php_course_') >= 1},
+ {icon:'', name:'PHP 高手', desc:'完成全部 10 节 PHP', ok: courseDone('php_course_') >= 10},
+ {icon:'', name:'AI 探索者', desc:'完成 AI 课程第 1 节', ok: courseDone('ai_course_') >= 1},
+ {icon:'', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
+ {icon:'', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
+ {icon:'', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
+  {icon:'', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
+  {icon:'', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
+  {icon:'', name:'MySQL 新手', desc:'完成 MySQL 第 1 节', ok: courseDone('mysql_course_') >= 1},
+  {icon:'', name:'MySQL 高手', desc:'完成全部 10 节 MySQL', ok: courseDone('mysql_course_') >= 10},
+ {icon:'', name:'全能学习者', desc:'六门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })},
+ {icon:'', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
+ {icon:'', name:'数据管家', desc:'成功导出学习数据', ok: !!a.exported},
+ {icon:'', name:'夜读学者', desc:'暗色模式下完成学习', ok: !!a.dark},
+ {icon:'', name:'一周七日', desc:'连续 7 天每天都打卡', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
+ {icon:'', name:'回头客', desc:'连续 3 天复习错题', ok: hasConsecutive(a.wrongReviewDates, 3)},
  ];
  var unlocked = badges.filter(function(b){ return b.ok; }).length;
  var html = '<span class="ach-summary">已解锁 ' + unlocked + ' / ' + badges.length + ' 个成就（点击卡片查看要求）</span>';
@@ -6883,66 +7320,66 @@ function init() {
 
  var groups = [
  { title: '进度成就', items: [
- {icon:'🎒', name:'初来乍到', desc:'完成任意 1 节课', ok: done >= 1},
- {icon:'📖', name:'渐入佳境', desc:'累计完成 5 节课', ok: done >= 5},
- {icon:'📚', name:'小有所成', desc:'累计完成 10 节课', ok: done >= 10},
- {icon:'🏆', name:'学富五车', desc:'累计完成 15 节课', ok: done >= 15},
- {icon:'🎓', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
- {icon:'🌟', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
- {icon:'🚀', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
- {icon:'👑', name:'全科状元', desc:'六门课程全部完成（68 节）', ok: done >= 68},
+ {icon:'', name:'初来乍到', desc:'完成任意 1 节课', ok: done >= 1},
+ {icon:'', name:'渐入佳境', desc:'累计完成 5 节课', ok: done >= 5},
+ {icon:'', name:'小有所成', desc:'累计完成 10 节课', ok: done >= 10},
+ {icon:'', name:'学富五车', desc:'累计完成 15 节课', ok: done >= 15},
+ {icon:'', name:'满腹经纶', desc:'累计完成 20 节课', ok: done >= 20},
+ {icon:'', name:'博学多才', desc:'累计完成 30 节课', ok: done >= 30},
+ {icon:'', name:'学海无涯', desc:'累计完成 40 节课', ok: done >= 40},
+ {icon:'', name:'全科状元', desc:'六门课程全部完成（68 节）', ok: done >= 68},
  {icon:'⏰', name:'持之以恒', desc:'累计学习 50 次', ok: studyCount >= 50}
  ]},
  { title: '练习成就', items: [
- {icon:'✏️', name:'小试牛刀', desc:'累计答对 10 题', ok: (a.correct||0) >= 10},
- {icon:'🎯', name:'百发百中', desc:'连续答对 10 题', ok: (a.bestStreak||0) >= 10},
- {icon:'📝', name:'题库达人', desc:'累计答对 50 题', ok: (a.correct||0) >= 50},
- {icon:'⚡', name:'刷题狂魔', desc:'累计答对 100 题', ok: (a.correct||0) >= 100},
- {icon:'💯', name:'一题不错', desc:'无错题完成 1 节课', ok: (a.perfectLessons||0) >= 1},
- {icon:'🧗', name:'挑战者', desc:'完成 1 节挑战难度', ok: (a.advancedLessons||0) >= 1},
- {icon:'🧗‍♂️', name:'极限挑战', desc:'完成 10 节挑战难度', ok: (a.advancedLessons||0) >= 10},
- {icon:'🧹', name:'错题克星', desc:'错题本清零 1 次', ok: (a.wrongCleared||0) >= 1},
- {icon:'🧽', name:'错题全消', desc:'错题本清零 3 次', ok: (a.wrongCleared||0) >= 3},
- {icon:'🛡️', name:'坚韧不拔', desc:'累计答错 20 题后仍继续学习', ok: (a.wrongTotal||0) >= 20}
+ {icon:'', name:'小试牛刀', desc:'累计答对 10 题', ok: (a.correct||0) >= 10},
+ {icon:'', name:'百发百中', desc:'连续答对 10 题', ok: (a.bestStreak||0) >= 10},
+ {icon:'', name:'题库达人', desc:'累计答对 50 题', ok: (a.correct||0) >= 50},
+ {icon:'', name:'刷题狂魔', desc:'累计答对 100 题', ok: (a.correct||0) >= 100},
+ {icon:'', name:'一题不错', desc:'无错题完成 1 节课', ok: (a.perfectLessons||0) >= 1},
+ {icon:'', name:'挑战者', desc:'完成 1 节挑战难度', ok: (a.advancedLessons||0) >= 1},
+ {icon:'', name:'极限挑战', desc:'完成 10 节挑战难度', ok: (a.advancedLessons||0) >= 10},
+ {icon:'', name:'错题克星', desc:'错题本清零 1 次', ok: (a.wrongCleared||0) >= 1},
+ {icon:'', name:'错题全消', desc:'错题本清零 3 次', ok: (a.wrongCleared||0) >= 3},
+ {icon:'', name:'坚韧不拔', desc:'累计答错 20 题后仍继续学习', ok: (a.wrongTotal||0) >= 20}
  ]},
  { title: '打卡成就', items: [
- {icon:'🌱', name:'第一天', desc:'完成首次打卡', ok: checkins.length >= 1},
- {icon:'🔥', name:'三日之约', desc:'连续打卡 3 天', ok: st >= 3},
- {icon:'📅', name:'一周坚持', desc:'连续打卡 7 天', ok: st >= 7},
+ {icon:'', name:'第一天', desc:'完成首次打卡', ok: checkins.length >= 1},
+ {icon:'', name:'三日之约', desc:'连续打卡 3 天', ok: st >= 3},
+ {icon:'', name:'一周坚持', desc:'连续打卡 7 天', ok: st >= 7},
  {icon:'⏳', name:'半月之勤', desc:'连续打卡 15 天', ok: st >= 15},
- {icon:'🗓️', name:'月度达人', desc:'连续打卡 30 天', ok: st >= 30},
- {icon:'💪', name:'百炼成钢', desc:'累计打卡 100 天', ok: checkins.length >= 100},
- {icon:'🌙', name:'夜猫子', desc:'在晚上 22 点后学习打卡', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
- {icon:'☀️', name:'早起鸟', desc:'在早上 8 点前学习打卡', ok: (a.studyHours||[]).some(function(h){ return h < 8; })}
+ {icon:'', name:'月度达人', desc:'连续打卡 30 天', ok: st >= 30},
+ {icon:'', name:'百炼成钢', desc:'累计打卡 100 天', ok: checkins.length >= 100},
+ {icon:'', name:'夜猫子', desc:'在晚上 22 点后学习打卡', ok: (a.studyHours||[]).some(function(h){ return h >= 22; })},
+ {icon:'', name:'早起鸟', desc:'在早上 8 点前学习打卡', ok: (a.studyHours||[]).some(function(h){ return h < 8; })}
  ]},
  { title: '专注成就', items: [
- {icon:'🍅', name:'初尝专注', desc:'完成 1 个番茄钟', ok: (a.pomo||0) >= 1},
- {icon:'⏱️', name:'专注入门', desc:'完成 5 个番茄钟', ok: (a.pomo||0) >= 5},
- {icon:'🧘', name:'心无旁骛', desc:'完成 20 个番茄钟', ok: (a.pomo||0) >= 20},
- {icon:'🕐', name:'时间管理大师', desc:'完成 50 个番茄钟', ok: (a.pomo||0) >= 50},
- {icon:'🕰️', name:'深度玩家', desc:'单日完成 8 个番茄钟', ok: (a.pomoByDate||{})[today()] >= 8}
+ {icon:'', name:'初尝专注', desc:'完成 1 个番茄钟', ok: (a.pomo||0) >= 1},
+ {icon:'⏱', name:'专注入门', desc:'完成 5 个番茄钟', ok: (a.pomo||0) >= 5},
+ {icon:'', name:'心无旁骛', desc:'完成 20 个番茄钟', ok: (a.pomo||0) >= 20},
+ {icon:'', name:'时间管理大师', desc:'完成 50 个番茄钟', ok: (a.pomo||0) >= 50},
+ {icon:'', name:'深度玩家', desc:'单日完成 8 个番茄钟', ok: (a.pomoByDate||{})[today()] >= 8}
  ]},
  { title: '课程专属成就', items: [
- {icon:'🐍', name:'Python 入门者', desc:'完成 Python 第 1 节', ok: courseDone('python_course_') >= 1},
- {icon:'🐍', name:'Python 高手', desc:'完成全部 18 节 Python', ok: courseDone('python_course_') >= 18},
- {icon:'🐘', name:'PHP 入门者', desc:'完成 PHP 第 1 节', ok: courseDone('php_course_') >= 1},
- {icon:'🐘', name:'PHP 高手', desc:'完成全部 10 节 PHP', ok: courseDone('php_course_') >= 10},
- {icon:'🤖', name:'AI 探索者', desc:'完成 AI 课程第 1 节', ok: courseDone('ai_course_') >= 1},
- {icon:'🤖', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
- {icon:'🌐', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
- {icon:'🌐', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
-  {icon:'💛', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
-  {icon:'💛', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
-  {icon:'🐬', name:'MySQL 新手', desc:'完成 MySQL 第 1 节', ok: courseDone('mysql_course_') >= 1},
-  {icon:'🐬', name:'MySQL 高手', desc:'完成全部 10 节 MySQL', ok: courseDone('mysql_course_') >= 10},
- {icon:'🧠', name:'全能学习者', desc:'六门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })}
+ {icon:'', name:'Python 入门者', desc:'完成 Python 第 1 节', ok: courseDone('python_course_') >= 1},
+ {icon:'', name:'Python 高手', desc:'完成全部 18 节 Python', ok: courseDone('python_course_') >= 18},
+ {icon:'', name:'PHP 入门者', desc:'完成 PHP 第 1 节', ok: courseDone('php_course_') >= 1},
+ {icon:'', name:'PHP 高手', desc:'完成全部 10 节 PHP', ok: courseDone('php_course_') >= 10},
+ {icon:'', name:'AI 探索者', desc:'完成 AI 课程第 1 节', ok: courseDone('ai_course_') >= 1},
+ {icon:'', name:'AI 大师', desc:'完成全部 10 节 AI', ok: courseDone('ai_course_') >= 10},
+ {icon:'', name:'网页新手', desc:'完成 Web 课程第 1 节', ok: courseDone('web_course_') >= 1},
+ {icon:'', name:'网页工程师', desc:'完成全部 10 节 Web', ok: courseDone('web_course_') >= 10},
+  {icon:'', name:'JS 新手', desc:'完成 JavaScript 第 1 节', ok: courseDone('javascript_course_') >= 1},
+  {icon:'', name:'JS 高手', desc:'完成全部 10 节 JavaScript', ok: courseDone('javascript_course_') >= 10},
+  {icon:'', name:'MySQL 新手', desc:'完成 MySQL 第 1 节', ok: courseDone('mysql_course_') >= 1},
+  {icon:'', name:'MySQL 高手', desc:'完成全部 10 节 MySQL', ok: courseDone('mysql_course_') >= 10},
+ {icon:'', name:'全能学习者', desc:'六门课都完成一半以上', ok: PREFIXES.every(function(p){ return courseDone(p) >= (TOTALS[p]/2); })}
  ]},
  { title: '趣味与隐藏成就', items: [
- {icon:'📒', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
- {icon:'💾', name:'数据管家', desc:'成功导出学习数据', ok: !!a.exported},
- {icon:'🔦', name:'夜读学者', desc:'暗色模式下完成学习', ok: !!a.dark},
- {icon:'🗓️', name:'一周七日', desc:'连续 7 天每天都打卡', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
- {icon:'🔁', name:'回头客', desc:'连续 3 天复习错题', ok: hasConsecutive(a.wrongReviewDates, 3)},
+ {icon:'', name:'笔记达人', desc:'累计写下 10 条笔记', ok: notesCount() >= 10},
+ {icon:'', name:'数据管家', desc:'成功导出学习数据', ok: !!a.exported},
+ {icon:'', name:'夜读学者', desc:'暗色模式下完成学习', ok: !!a.dark},
+ {icon:'', name:'一周七日', desc:'连续 7 天每天都打卡', ok: (function(){ var s={}; checkins.forEach(function(d){s[d]=1;}); var ok=true; for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!s[ds]){ok=false;break;}} return ok; })()},
+ {icon:'', name:'回头客', desc:'连续 3 天复习错题', ok: hasConsecutive(a.wrongReviewDates, 3)},
  ]}
  ];
 
